@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161104085656) do
+ActiveRecord::Schema.define(version: 20161104094141) do
 
   create_table "objs", force: :cascade do |t|
     t.datetime "created_at",  null: false
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20161104085656) do
     t.string   "snumber2"
     t.text     "description"
     t.string   "user"
+    t.boolean  "ispublic"
   end
 
 end
