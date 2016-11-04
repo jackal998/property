@@ -1,2 +1,0 @@
-class Obj < ApplicationRecord
-end
