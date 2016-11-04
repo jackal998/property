@@ -13,3 +13,11 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.pagination a, .pagination span.current, .pagination span.gap{
+	font-size: 5rem;
+	color: #000;
+}
+.pagination .last a {
+	color: red;
+} 
