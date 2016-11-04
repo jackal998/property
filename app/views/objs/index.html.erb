@@ -1,0 +1,33 @@
+<h1>Property List</h1>
+<br>
+<h3>This is <%= Time.now %> now!</h3>
+<br>
+
+<table class="table table-hover">
+	<tr>
+		<th>Property (description)</th>
+		<th>Show Details</th>
+		<th>Edit</th>
+	</tr>
+	<% @objs.each do |obj| %>
+		<tr>
+			<td><%= obj.name %> ( <%= obj.description %> )</td>
+			<td><%= link_to "Show", obj_path(obj), :class => "btn btn-default" %></td>
+			<!-- <td><%= obj.name %> ( <%= obj.description %> )</td> -->
+		</tr>
+	<% end %>
+</table>
+<!-- 
+  	add_column :objs, :name, :string
+  	add_column :objs, :serial, :string
+  	add_column :objs, :datebought, :date
+  	add_column :objs, :dateretire, :date
+  	add_column :objs, :value, :integer
+  	add_column :objs, :snumber1, :string
+  	add_column :objs, :snumber2, :string
+  	add_column :objs, :description, :text
+  	add_column :objs, :user, :string
+ -->
+<%= link_to "New Object", new_obj_path , :class => "btn btn-success" %>
+
+<%= paginate @objs %>

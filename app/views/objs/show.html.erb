@@ -1,0 +1,19 @@
+<h1>Object NO.<%= @obj.id %></h1>
+<table class="table table-bordered table-striped">
+	<tr><th></th>									<th>內容</th></tr>
+	<% @obj.attributes.each do |k,v| %>
+	<tr><td class="text-capitalize align-right"><%= k %> :</td><td><%= v %></td></tr>
+	<% end %>
+</table>
+
+<!-- 
+  	add_column :objs, :name, :string
+  	add_column :objs, :serial, :string
+  	add_column :objs, :datebought, :date
+  	add_column :objs, :dateretire, :date
+  	add_column :objs, :value, :integer
+  	add_column :objs, :snumber1, :string
+  	add_column :objs, :snumber2, :string
+  	add_column :objs, :description, :text
+  	add_column :objs, :user, :string
+ -->
