@@ -12,17 +12,27 @@ before_action :find_id, :only => [:show, :edit, :update, :destroy]
 	def show
 	end
 	def create
-		Obj.create(obj_params)
-		redirect_to objs_path
+		@obj = Obj.new(obj_params)
+		if @obj.save
+			flash[:notice] ="新增成功"
+			redirect_to objs_path
+		else
+			render :new
+		end
 	end
 	def edit
 	end
 	def update
-		@obj.update(obj_params)
-		redirect_to obj_path(@obj)
+		if @obj.update(obj_params)
+			flash[:notice] ="更新成功"
+			redirect_to obj_path(@obj)
+		else
+			render :edit
+		end
 	end
 	def destroy
 		@obj.destroy
+		flash[:alert] = "刪除成功"
 		redirect_to (objs_path+"?page=#{@@pgv}")
 	end
 
