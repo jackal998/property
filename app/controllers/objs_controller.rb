@@ -22,9 +22,7 @@ class ObjsController < ApplicationController
 	end
 	def destroy
 		@obj = Obj.find(params[:id])
-		
 		@obj.destroy
-
 		redirect_to (objs_path+"?page=#{@@pgv}")
 	end
 
