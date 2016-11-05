@@ -8,8 +8,9 @@
     <% end %>
   </div>
   <div class="panel-body">
-    <h4 class="pull-left">This is <%= Time.now %> now!</h4><br><br>
+    <h4 class="pull-left">This is <%= Time.now %> now!</h4>
     <%= link_to "Index" , objs_path , :class => "btn btn-default pull-right" %>
+    <br><br>
     <% if @obj.errors.any? %>
       <dl>
       <% @obj.errors.full_messages.each do |msg| %>
