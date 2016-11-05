@@ -18,7 +18,7 @@
 .pagination a, .pagination span.current, .pagination span.gap {
     float: left;
     padding: 0 14px;
-    line-height: 35px;
+    line-height: 34px;
     text-decoration: none;
     background-color: white;
     border: 1px solid #DDD;
@@ -26,7 +26,7 @@
 }
 
 .pagination {
-	margin: 0,auto;
+	margin: 0 0 0 3rem;
     border-left: 1px solid #ddd;
     .first{
         padding : 0;
