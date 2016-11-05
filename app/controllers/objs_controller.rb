@@ -1,6 +1,6 @@
 class ObjsController < ApplicationController
 
-
+before_action :find_id, :only => [:show, :edit, :update, :destroy]
 
 	def index
 		@objs = Obj.page(params[:page]).per(10)
@@ -10,23 +10,26 @@ class ObjsController < ApplicationController
 		@obj = Obj.new
 	end
 	def show
-		@obj = Obj.find(params[:id])
+	end
+	def create
+		Obj.create(obj_params)
+		redirect_to objs_path
 	end
 	def edit
-		@obj = Obj.find(params[:id])
 	end
 	def update
-		@obj = Obj.find(params[:id])
 		@obj.update(obj_params)
 		redirect_to obj_path(@obj)
 	end
 	def destroy
-		@obj = Obj.find(params[:id])
 		@obj.destroy
 		redirect_to (objs_path+"?page=#{@@pgv}")
 	end
 
 	private
+	def find_id
+		@obj = Obj.find(params[:id])
+	end
 
 	def obj_params
 		params.require(:obj).permit(
