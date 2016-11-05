@@ -1,22 +1,30 @@
-<h1>Property List</h1>
-<br>
-<h3>This is <%= Time.now %> now!</h3>
-<br>
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+  	<h1>Property List</h1>
+  </div>
+  <div class="panel-body">
+    <p>This is <%= Time.now %> now!</p>
+  </div>
 
-<table class="table table-hover">
-	<tr>
-		<th>Property (description)</th>
-		<th>Show Details</th>
-		<th>Edit</th>
-	</tr>
-	<% @objs.each do |obj| %>
+  <!-- Table -->
+  <table class="table table-hover">
 		<tr>
-			<td><%= obj.name %> ( <%= obj.description %> )</td>
-			<td><%= link_to "Show", obj_path(obj), :class => "btn btn-default" %></td>
-			<td><%= link_to "Edit", edit_obj_path(obj), :class => "btn btn-default" %></td>
+			<th><h3>Property (description)</h3></th>
+			<th><h3>Show Details</h3></th>
+			<th><h3>Edit</h3></th>
 		</tr>
-	<% end %>
-</table>
+		<% @objs.each do |obj| %>
+			<tr>
+				<td><%= obj.name %> ( <%= obj.description %> )</td>
+				<td><%= link_to "Show", obj_path(obj), :class => "btn btn-default" %></td>
+				<td><%= link_to "Edit", edit_obj_path(obj), :class => "btn btn-default" %></td>
+			</tr>
+		<% end %>
+	</table>
+</div>
+
+
 <!-- 
   	add_column :objs, :name, :string
   	add_column :objs, :serial, :string
@@ -29,6 +37,5 @@
   	add_column :objs, :user, :string
  -->
 <%= link_to "New Object", new_obj_path , :class => "btn btn-success" %>
-<p>1
+
 <%= paginate @objs %>
-<p>2
