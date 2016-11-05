@@ -38,6 +38,6 @@
   	add_column :objs, :description, :text
   	add_column :objs, :user, :string
  -->
-<%= link_to "New Object", new_obj_path , :class => "btn btn-success" %>
+<%= link_to "New Object", new_obj_path , :class => "pull-left btn btn-success" %>
 
-<%= paginate @objs %>
+<%= paginate @objs :window => 2, :outer_window => 2%>
