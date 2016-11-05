@@ -13,12 +13,14 @@
 			<th><h3>Property (description)</h3></th>
 			<th><h3>Show Details</h3></th>
 			<th><h3>Edit</h3></th>
+			<th><h3>Delete</h3></th>
 		</tr>
 		<% @objs.each do |obj| %>
 			<tr>
 				<td><%= obj.name %> ( <%= obj.description %> )</td>
 				<td><%= link_to "Show", obj_path(obj), :class => "btn btn-default" %></td>
 				<td><%= link_to "Edit", edit_obj_path(obj), :class => "btn btn-default" %></td>
+				<td><%= link_to "Delete", obj_path(obj),:method => :delete, :class => "btn btn-danger"%></td>
 			</tr>
 		<% end %>
 	</table>

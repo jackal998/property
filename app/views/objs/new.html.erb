@@ -1,0 +1,7 @@
+<%= render :partial =>"preForm" %>
+		<%= form_for @obj, :url => objs_path do |o| %>
+<%= render :partial =>"subForm" , :locals => {:o => o} %>			
+		<% end %>
+	</table>
+</div>
+

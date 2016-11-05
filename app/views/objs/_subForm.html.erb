@@ -1,0 +1,28 @@
+<% @obj.attributes.each do |k,v| %>
+	<% case "#{k}" %>
+	<%when "id","created_at","updated_at" %>
+	<%else%>
+	<tr>
+		<td class="text-right">
+			<h4 class="text-capitalize">
+				<%= o.label "#{k}", "#{k}：" %>
+			</h4>
+		</td>
+		<td>
+			<% case "#{k}" %>
+			<% when "name","serial","value","snumber1","snumber2","user"  %>
+				<%= o.text_field k  %>
+			<% when "datebought","dateretire"  %>
+				<%= select_date Date.today, prefix: k %>
+			<% when "description" %>
+				<%= o.text_area k %>
+			<% when "ispublic" %>
+				<%= o.check_box k %>
+			<% end %>
+		</td>
+	</tr>
+	<% end %>
+<% end %>
+<tr>
+<td></td><td><%= o.submit :class => "btn btn-success"%></td>
+</tr>
