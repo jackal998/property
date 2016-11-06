@@ -18,7 +18,6 @@
 		</tr>
 		<%= form_for @obj, :url => u , :method => m do |o| %>
 			<% @obj.attributes.each do |k,v| %>
-				<% ekc = 0 %>
 				<%case "#{k}" %>
 				<%when "id","created_at","updated_at" %>
 				<%else%>
@@ -30,14 +29,13 @@
 						</td>
 						<td>
 							<% if @obj.errors.any? %>
-								<% @obj.errors.keys.each do |ek|%>
-									<% if "#{ek}" == "#{k}" %>
-										<p class="label label-danger col-md-7">
+								<% for ekc in 0..@obj.errors.keys.length-1 %>
+									<% if "#{@obj.errors.keys[ekc]}" == "#{k}" %>
+																			<p class="label label-danger col-md-7">
 										<%= @obj.errors.full_messages[ekc] %>
 										</p>
 									<% else %>
 									<% end %>
-									<% ekc += 1 %>
 								<% end %>
 							<% end %>
 							

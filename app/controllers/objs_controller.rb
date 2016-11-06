@@ -45,6 +45,7 @@ before_action :find_id, :only => [:show, :edit, :update, :destroy]
 	def destroy
 		@obj.destroy
 		flash[:alert] = "刪除成功"
+		redirect_to (objs_path+"?page=#{@@pgv}")
 	end
 
 	private
