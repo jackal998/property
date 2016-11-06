@@ -17,7 +17,9 @@ before_action :find_id, :only => [:show, :edit, :update, :destroy]
 	def show
 	end
 	def create
+		byebug
 		@obj = Obj.new(obj_params)
+		
 		if @obj.save
 			flash[:notice] ="新增成功"
 			redirect_to objs_path
@@ -32,6 +34,7 @@ before_action :find_id, :only => [:show, :edit, :update, :destroy]
 		redirect_to (objs_path+"?page=#{@@pgv}")
 	end
 	def update
+
 		if @obj.update(obj_params)
 			flash[:notice] ="更新成功"
 			redirect_to (objs_path+"?page=#{@@pgv}")
@@ -53,13 +56,24 @@ before_action :find_id, :only => [:show, :edit, :update, :destroy]
 	def obj_params
 		params.require(:obj).permit(
 			:name, 
-			:serial, 
+			:serial,
+  			:datebought,
+  			:dateretire,
 			:value, 
 			:snumber1, 
 			:snumber2, 
 			:string,
 			:description, 
 			:text,
-			:user)
+			:user,
+			:ispublic)
+		params.require(:datebought).permit(
+			:year,
+			:month,
+			:day)
+		params.require(:dateretire).permit(
+			:year,
+			:month,
+			:day)
 	end
 end
