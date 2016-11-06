@@ -1,7 +1,58 @@
-<%= render :partial =>"preForm" %>
+<div class="panel panel-default">
+<!-- Default panel contents -->
+	<div class="panel-heading">
+		<% if @obj.id %>
+			<h1>Object NO.<%= @obj.id %></h1>
+		<% else %>
+			<h1>New Object</h1>
+		<% end %>
+	</div>
+	<div class="panel-body">
+		<h4 class="pull-left">This is <%= Time.now %> now!</h4>
+		<%= link_to "Index" , objs_path , :class => "btn btn-default pull-right" %>
+		<br><br>
+			<% if @obj.errors.any? %>
+			<dl>
+			<% @obj.errors.full_messages.each do |msg| %>
+				<dd> <p class="label label-danger col-md-7"><%= msg %></p></dd>
+			<% end %>
+		</dl>
+		<% end %>
+	</div>
+<!-- Table -->
+	<table class="table table-hover">
+		<tr>
+		<th></th><th><h3>Informations</h3></th>
+		</tr>
 		<%= form_for @obj, :url => u , :method => m do |o| %>
-<%= render :partial =>"subForm" , :locals => {:o => o} %>			
+			<% @obj.attributes.each do |k,v| %>
+				<%case "#{k}" %>
+				<%when "id","created_at","updated_at" %>
+				<%else%>
+				<tr>
+				<td class="text-right">
+				<h4 class="text-capitalize">
+				<%= o.label "#{k}", "#{k}：" %>
+				</h4>
+				</td>
+				<td>
+					<% case "#{k}" %>
+					<% when "name","serial","value","snumber1","snumber2","user"  %>
+					<%= o.text_field k  ,:class => "form-control", :placeholder=>"#{k}"%>
+					<% when "datebought","dateretire"  %>
+					<%= select_date Date.today, prefix: k %>
+					<% when "description" %>
+					<%= o.text_area k ,:class => "form-control"%>
+					<% when "ispublic" %>
+					<%= o.check_box k %>
+					<% end %>
+				</td>
+				</tr>
+				<% end %>
+			<% end %>
+			<tr>
+			<td></td><td><%= o.submit :class => "btn btn-success"%></td>
+			</tr>
 		<% end %>
 	</table>
 </div>
-

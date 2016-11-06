@@ -38,16 +38,15 @@
  -->
 
 <!-- <%= link_to "New Object", new_obj_path , :class => "pull-left btn btn-success" %> -->
-
   <% if @obj != 0 %>
     <% if @obj.id %>    
       <%= render :partial =>"edit" ,:locals => {:u => obj_path(@obj), :m => "patch"}  %>
     <% else %>
-      <%= render :partial =>"new" ,:locals => {:u => objs_path} %>
+      <%= render :partial =>"edit" ,:locals => {:u => objs_path, :m => "post"} %>
     <% end %>
   <% else %>
   <% @obj = Obj.new %> 
-  <%= render :partial =>"new" ,:locals => {:u => objs_path } %>
+  <%= render :partial =>"edit" ,:locals => {:u => objs_path, :m => "post" } %>
   <% end %>
 <!-- <br> 
 <div id="new_obj_form" style="display:none;">

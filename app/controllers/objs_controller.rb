@@ -3,10 +3,12 @@ class ObjsController < ApplicationController
 before_action :find_id, :only => [:show, :edit, :update, :destroy]
 
 @@obj=0
+@@pgv=1
 
 	def index
 		@objs = Obj.page(params[:page]).per(10)
 		@obj = @@obj
+		@@obj = 0
 		@@pgv = params[:page]
 	end
 	def new
@@ -27,12 +29,12 @@ before_action :find_id, :only => [:show, :edit, :update, :destroy]
 	end
 	def edit
 		@@obj = @obj
-		redirect_to objs_path
+		redirect_to (objs_path+"?page=#{@@pgv}")
 	end
 	def update
 		if @obj.update(obj_params)
 			flash[:notice] ="更新成功"
-			redirect_to obj_path(@obj)
+			redirect_to (objs_path+"?page=#{@@pgv}")
 		else
 			render :edit
 		end
@@ -40,7 +42,7 @@ before_action :find_id, :only => [:show, :edit, :update, :destroy]
 	def destroy
 		@obj.destroy
 		flash[:alert] = "刪除成功"
-		redirect_to (objs_path+"?page=#{@@pgv}")
+		
 	end
 
 	private
