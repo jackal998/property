@@ -28,17 +28,12 @@
 						</h4>
 						</td>
 						<td>
-							<% if @obj.errors.any? %>
-								<% for ekc in 0..@obj.errors.keys.length-1 %>
-									<% if "#{@obj.errors.keys[ekc]}" == "#{k}" %>
-																			<p class="label label-danger col-md-7">
-										<%= @obj.errors.full_messages[ekc] %>
-										</p>
-									<% else %>
-									<% end %>
-								<% end %>
+							<% if @obj.errors[k].empty? %>
+							<% else %>
+									<p class="label label-danger col-md-7">
+								<%= @obj.errors[k][0] %>
+								</p>
 							<% end %>
-							
 							<% case "#{k}" %>
 							<% when "name","serial","value","snumber1","snumber2","user"  %>
 							<%= o.text_field k  ,:class => "form-control", :placeholder=>"#{k}"%>
