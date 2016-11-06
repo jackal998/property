@@ -19,7 +19,7 @@
 			<tr>
 				<td><%= obj.name %> ( <%= obj.description %> )</td>
 				<td><%= link_to "Show", obj_path(obj), :class => "btn btn-default" %></td>
-				<td><%= link_to "Edit", objs_path, :class => "btn btn-default" %></td>
+				<td><%= link_to "Edit", edit_obj_path(obj), :class => "btn btn-default" %></td>
 				<td><%= link_to "Delete", obj_path(obj),:method => :delete, :class => "btn btn-danger"%></td>
 			</tr>
 		<% end %>
@@ -38,8 +38,9 @@
  -->
 
 <!-- <%= link_to "New Object", new_obj_path , :class => "pull-left btn btn-success" %> -->
-  <% if @obj %>
-    <% if @obj.id %>
+
+  <% if @obj != 0 %>
+    <% if @obj.id %>    
       <%= render :partial =>"edit" ,:locals => {:u => obj_path(@obj), :m => "patch"}  %>
     <% else %>
       <%= render :partial =>"new" ,:locals => {:u => objs_path} %>

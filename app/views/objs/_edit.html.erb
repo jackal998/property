@@ -1,5 +1,5 @@
 <%= render :partial =>"preForm" %>
-		<%= form_for @obj, "#{:u}" do |o| %>
+		<%= form_for @obj, :url => u , :method => m do |o| %>
 <%= render :partial =>"subForm" , :locals => {:o => o} %>			
 		<% end %>
 	</table>

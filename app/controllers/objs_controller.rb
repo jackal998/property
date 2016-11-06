@@ -2,8 +2,11 @@ class ObjsController < ApplicationController
 
 before_action :find_id, :only => [:show, :edit, :update, :destroy]
 
+@@obj=0
+
 	def index
 		@objs = Obj.page(params[:page]).per(10)
+		@obj = @@obj
 		@@pgv = params[:page]
 	end
 	def new
@@ -23,6 +26,8 @@ before_action :find_id, :only => [:show, :edit, :update, :destroy]
 		end
 	end
 	def edit
+		@@obj = @obj
+		redirect_to objs_path
 	end
 	def update
 		if @obj.update(obj_params)
