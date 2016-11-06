@@ -17,7 +17,9 @@ before_action :find_id, :only => [:show, :edit, :update, :destroy]
 			flash[:notice] ="新增成功"
 			redirect_to objs_path
 		else
-			render :new
+			@objs = Obj.page(params[:page]).per(10)
+			@@pgv = params[:page]
+			render :index
 		end
 	end
 	def edit
