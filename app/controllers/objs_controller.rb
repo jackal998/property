@@ -17,15 +17,12 @@ before_action :find_id, :only => [:show, :edit, :update, :destroy]
 	def show
 	end
 	def create
-		
 		@obj = Obj.new(obj_params)
-		
 		if @obj.save
 			flash[:notice] ="新增成功"
 			redirect_to objs_path
 		else
-			@objs = Obj.page(params[:page]).per(10)
-			@@pgv = params[:page]
+			@objs = Obj.page(@@pgv).per(10)
 			render :index
 		end
 	end
@@ -34,12 +31,12 @@ before_action :find_id, :only => [:show, :edit, :update, :destroy]
 		redirect_to (objs_path+"?page=#{@@pgv}")
 	end
 	def update
-
 		if @obj.update(obj_params)
 			flash[:notice] ="更新成功"
 			redirect_to (objs_path+"?page=#{@@pgv}")
 		else
-			render :edit
+			@objs = Obj.page(@@pgv).per(10)
+			render :index
 		end
 	end
 	def destroy
