@@ -10,14 +10,6 @@
 	<div class="panel-body">
 		<h4 class="pull-left">This is <%= Time.now %> now!</h4>
 		<%= link_to "Index" , objs_path , :class => "btn btn-default pull-right" %>
-		<br><br>
-			<% if @obj.errors.any? %>
-			<dl>
-			<% @obj.errors.full_messages.each do |msg| %>
-				<dd> <p class="label label-danger col-md-7"><%= msg %></p></dd>
-			<% end %>
-		</dl>
-		<% end %>
 	</div>
 <!-- Table -->
 	<table class="table table-hover">
@@ -26,28 +18,41 @@
 		</tr>
 		<%= form_for @obj, :url => u , :method => m do |o| %>
 			<% @obj.attributes.each do |k,v| %>
+				<% ekc = 0 %>
 				<%case "#{k}" %>
 				<%when "id","created_at","updated_at" %>
 				<%else%>
-				<tr>
-				<td class="text-right">
-				<h4 class="text-capitalize">
-				<%= o.label "#{k}", "#{k}：" %>
-				</h4>
-				</td>
-				<td>
-					<% case "#{k}" %>
-					<% when "name","serial","value","snumber1","snumber2","user"  %>
-					<%= o.text_field k  ,:class => "form-control", :placeholder=>"#{k}"%>
-					<% when "datebought","dateretire"  %>
-					<%= o.text_field k  ,:class => "form-control", :placeholder=>"yyyy-mm-dd"%>
-					<% when "description" %>
-					<%= o.text_area k ,:class => "form-control"%>
-					<% when "ispublic" %>
-					<%= o.check_box k %>
-					<% end %>
-				</td>
-				</tr>
+					<tr>
+						<td class="text-right">
+						<h4 class="text-capitalize">
+						<%= o.label "#{k}", "#{k}：" %>
+						</h4>
+						</td>
+						<td>
+							<% if @obj.errors.any? %>
+								<% @obj.errors.keys.each do |ek|%>
+									<% if "#{ek}" == "#{k}" %>
+										<p class="label label-danger col-md-7">
+										<%= @obj.errors.full_messages[ekc] %>
+										</p>
+									<% else %>
+									<% end %>
+									<% ekc += 1 %>
+								<% end %>
+							<% end %>
+							
+							<% case "#{k}" %>
+							<% when "name","serial","value","snumber1","snumber2","user"  %>
+							<%= o.text_field k  ,:class => "form-control", :placeholder=>"#{k}"%>
+							<% when "datebought","dateretire"  %>
+							<%= o.text_field k  ,:class => "form-control", :placeholder=>"yyyy-mm-dd"%>
+							<% when "description" %>
+							<%= o.text_area k ,:class => "form-control"%>
+							<% when "ispublic" %>
+							<%= o.check_box k %>
+							<% end %>
+						</td>
+					</tr>
 				<% end %>
 			<% end %>
 			<tr>
