@@ -17,7 +17,7 @@ before_action :find_id, :only => [:show, :edit, :update, :destroy]
 	def show
 	end
 	def create
-		byebug
+		
 		@obj = Obj.new(obj_params)
 		
 		if @obj.save
@@ -45,7 +45,6 @@ before_action :find_id, :only => [:show, :edit, :update, :destroy]
 	def destroy
 		@obj.destroy
 		flash[:alert] = "刪除成功"
-		
 	end
 
 	private
@@ -67,13 +66,5 @@ before_action :find_id, :only => [:show, :edit, :update, :destroy]
 			:text,
 			:user,
 			:ispublic)
-		params.require(:datebought).permit(
-			:year,
-			:month,
-			:day)
-		params.require(:dateretire).permit(
-			:year,
-			:month,
-			:day)
 	end
 end

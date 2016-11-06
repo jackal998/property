@@ -40,7 +40,7 @@
 					<% when "name","serial","value","snumber1","snumber2","user"  %>
 					<%= o.text_field k  ,:class => "form-control", :placeholder=>"#{k}"%>
 					<% when "datebought","dateretire"  %>
-					<%= select_date Date.today, prefix: k %>
+					<%= o.text_field k  ,:class => "form-control", :placeholder=>"yyyy-mm-dd"%>
 					<% when "description" %>
 					<%= o.text_area k ,:class => "form-control"%>
 					<% when "ispublic" %>
