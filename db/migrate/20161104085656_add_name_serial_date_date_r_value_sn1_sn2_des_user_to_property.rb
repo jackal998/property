@@ -1,5 +1,9 @@
 class AddNameSerialDateDateRValueSn1Sn2DesUserToProperty < ActiveRecord::Migration[5.0]
   def change
+    create_table :events do |t|
+      t.timestamps
+    end
+
   	add_column :objs, :name, :string
   	add_column :objs, :serial, :string
   	add_column :objs, :datebought, :date
