@@ -26,15 +26,17 @@
 	</table>
 </div>
 
-  <% if @obj != 0 %>
-    <% if @obj.id %>    
-      <%= render :partial =>"edit" ,:locals => {:u => obj_path(@obj), :m => "patch"}  %>
-    <% else %>
-      <%= render :partial =>"edit" ,:locals => {:u => objs_path, :m => "post"} %>
-    <% end %>
+<% if @obj != 0 %>
+  <% if @obj.id %>    
+    <%= render :partial =>"edit" ,:locals => {:u => obj_path(@obj), :m => "patch"}  %>
   <% else %>
-  <% @obj = Obj.new %> 
-  <%= render :partial =>"edit" ,:locals => {:u => objs_path, :m => "post" } %>
+    <%= render :partial =>"edit" ,:locals => {:u => objs_path, :m => "post"} %>
   <% end %>
+<% else %>
+<% @obj = Obj.new %> 
+<%= render :partial =>"edit" ,:locals => {:u => objs_path, :m => "post" } %>
+<% end %>
 
-<%= paginate @objs, :window => 2 %>
+
+  <%= paginate @objs, :window => 2 %>
+

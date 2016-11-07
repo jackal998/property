@@ -8,50 +8,47 @@
 		<% end %>
 	</div>
 	<div class="panel-body">
-		<h4 class="pull-left">This is <%= Time.now %> now!</h4>
-		<%= link_to "Index" , objs_path , :class => "btn btn-default pull-right" %>
-	</div>
-<!-- Table -->
-	<table class="table">
-		<tr>
-		<th></th><th><h3>Informations</h3></th>
-		</tr>
-		<%= form_for @obj, :url => u , :method => m do |o| %>
-			<% @obj.attributes.each do |k,v| %>
-				<%case "#{k}" %>
-				<%when "id","created_at","updated_at" %>
-				<%else%>
-					<tr>
-						<td class="text-right">
-						<h4 class="text-capitalize">
-						<%= o.label "#{k}", "#{k}：" %>
-						</h4>
-						</td>
-						<td>
-							<% if @obj.errors[k].empty? %>
-							<% else %>
-								<p class="label label-danger col-md-7">
-								<%= @obj.errors[k][0] %>
-								</p>
-							<% end %>
-							<% case "#{k}" %>
-							<% when "name","serial","value","snumber1","snumber2","user"  %>
-							<%= o.text_field k  ,:class => "form-control", :placeholder=>"#{k}"%>
-							<% when "datebought","dateretire"  %>
-							<%= o.text_field k  ,:class => "form-control", :placeholder=>"yyyy-mm-dd"%>
-							<% when "description" %>
-							<%= o.text_area k ,:class => "form-control"%>
-							<% when "ispublic" %>
-							<%= o.check_box k %>
-							<% end %>
-						</td>
-					</tr>
+		<div class="col-md-12" style="margin: 0 0 2rem 0">
+			<h4 class="pull-left">This is <%= Time.now %> now!</h4>
+			<%= link_to "Index" , objs_path , :class => "btn btn-default pull-right" %>
+		</div>
+
+		<!-- Table -->
+		<div class="col-md-12 ">
+			<%= form_for @obj, :url => u , :method => m do |o| %>
+				<% @obj.attributes.each do |k,v| %>
+					<%case "#{k}" %>
+					<%when "id","created_at","updated_at" %>
+					<%else%>
+						<dl class="dl-horizontal">
+							<dt>
+								<label class="text-capitalize text-right control-label">
+									<h4><%= o.label "#{k}", "#{k}：" %></h4> 
+								</label>						
+							</dt>
+							<dd>
+								<% if @obj.errors[k].empty? %>
+								<% else %>
+									<p class="label label-danger col-md-7">
+									<%= @obj.errors[k][0] %>
+									</p>
+								<% end %>							
+								<% case "#{k}" %>
+								<% when "name","serial","value","snumber1","snumber2","user"  %>
+								<%= o.text_field k  ,:class => "form-control", :placeholder=>"#{k}"%>
+								<% when "datebought","dateretire"  %>
+								<%= o.text_field k  ,:class => "form-control", :placeholder=>"yyyy-mm-dd"%>
+								<% when "description" %>
+								<%= o.text_area k ,:class => "form-control"%>
+								<% when "ispublic" %>
+								<%= o.check_box k %>
+								<% end %>
+							</dd>
+						</dl>
+					<% end %>
 				<% end %>
+				<%= o.submit :class => "btn btn-success col-md-2"%>
 			<% end %>
-			<tr>
-				<td></td>
-				<td><%= o.submit :class => "btn btn-success"%></td>
-			</tr>
-		<% end %>
-	</table>
+		</div>
+	</div>
 </div>
