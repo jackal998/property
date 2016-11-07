@@ -1,15 +1,8 @@
 class ObjsController < ApplicationController
 
-before_action :find_id, :only => [:show, :edit, :update, :destroy]
-
-@@obj=0
-@@pgv=1
-
+before_action :find_id, :only => [:index, :show, :edit, :update, :destroy]
 	def index
 		@objs = Obj.page(params[:page]).per(10)
-		@obj = @@obj
-		@@obj = 0
-		@@pgv = params[:page]
 	end
 	def new
 		@obj = Obj.new
@@ -20,34 +13,37 @@ before_action :find_id, :only => [:show, :edit, :update, :destroy]
 		@obj = Obj.new(obj_params)
 		if @obj.save
 			flash[:notice] ="新增成功"
-			redirect_to objs_path
+			redirect_to objs_path(:page=>params[:page])
 		else
-			@objs = Obj.page(@@pgv).per(10)
+			@objs = Obj.page(params[:page]).per(10)
 			render :index
 		end
 	end
 	def edit
-		@@obj = @obj
-		redirect_to (objs_path+"?page=#{@@pgv}")
+		redirect_to objs_path(:page=>params[:page],:id=>params[:id])
 	end
 	def update
 		if @obj.update(obj_params)
 			flash[:notice] ="更新成功"
-			redirect_to (objs_path+"?page=#{@@pgv}")
+			redirect_to objs_path(:page=>params[:page])
 		else
-			@objs = Obj.page(@@pgv).per(10)
+			@objs = Obj.page(params[:page]).per(10)
 			render :index
 		end
 	end
 	def destroy
 		@obj.destroy
 		flash[:alert] = "刪除成功"
-		redirect_to (objs_path+"?page=#{@@pgv}")
+		redirect_to objs_path(:page=>params[:page])
 	end
 
 	private
 	def find_id
-		@obj = Obj.find(params[:id])
+		if params[:id]
+			@obj = Obj.find(params[:id])
+		else
+			@obj=0
+		end
 	end
 
 	def obj_params

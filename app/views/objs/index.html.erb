@@ -19,8 +19,8 @@
 			<tr>
 				<td><%= obj.name %> ( <%= obj.description %> )</td>
 				<td><%= link_to "Show", obj_path(obj), :class => "btn btn-default" %></td>
-				<td><%= link_to "Edit", edit_obj_path(obj), :class => "btn btn-default" %></td>
-				<td><%= link_to "Delete", obj_path(obj),:method => :delete, :class => "btn btn-danger"%></td>
+				<td><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
+				<td><%= link_to "Delete", obj_path(obj,:page=>params[:page]),:method => :delete, :class => "btn btn-danger"%></td>
 			</tr>
 		<% end %>
 	</table>
@@ -28,15 +28,13 @@
 
 <% if @obj != 0 %>
   <% if @obj.id %>    
-    <%= render :partial =>"edit" ,:locals => {:u => obj_path(@obj), :m => "patch"}  %>
+    <%= render :partial =>"edit" ,:locals => {:u => obj_path(@obj,:page=>params[:page]), :m => "patch"}  %>
   <% else %>
-    <%= render :partial =>"edit" ,:locals => {:u => objs_path, :m => "post"} %>
+    <%= render :partial =>"edit" ,:locals => {:u => objs_path(:page=>params[:page]), :m => "post"} %>
   <% end %>
 <% else %>
 <% @obj = Obj.new %> 
-<%= render :partial =>"edit" ,:locals => {:u => objs_path, :m => "post" } %>
+<%= render :partial =>"edit" ,:locals => {:u => objs_path(:page=>params[:page]), :m => "post" } %>
 <% end %>
-
-
-  <%= paginate @objs, :window => 2 %>
+<%= paginate @objs, :window => 2 %>
 
