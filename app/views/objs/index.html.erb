@@ -25,19 +25,7 @@
 		<% end %>
 	</table>
 </div>
-<!-- 
-  	add_column :objs, :name, :string
-  	add_column :objs, :serial, :string
-  	add_column :objs, :datebought, :date
-  	add_column :objs, :dateretire, :date
-  	add_column :objs, :value, :integer
-  	add_column :objs, :snumber1, :string
-  	add_column :objs, :snumber2, :string
-  	add_column :objs, :description, :text
-  	add_column :objs, :user, :string
- -->
 
-<!-- <%= link_to "New Object", new_obj_path , :class => "pull-left btn btn-success" %> -->
   <% if @obj != 0 %>
     <% if @obj.id %>    
       <%= render :partial =>"edit" ,:locals => {:u => obj_path(@obj), :m => "patch"}  %>
@@ -48,10 +36,5 @@
   <% @obj = Obj.new %> 
   <%= render :partial =>"edit" ,:locals => {:u => objs_path, :m => "post" } %>
   <% end %>
-<!-- <br> 
-<div id="new_obj_form" style="display:none;">
-</div>
-<a href="javascript:showhide('new_obj_form')" class ="pull-left btn btn-success">
-    Click to Add new Object.
-</a> -->
+
 <%= paginate @objs, :window => 2 %>
