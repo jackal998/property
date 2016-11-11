@@ -1,0 +1,151 @@
+<div class="panel panel-default">
+<!-- Default panel contents -->
+	<div class="panel-heading">
+		<% if @obj.id %>
+			<h1>Object NO.<%= @obj.id %></h1>
+		<% else %>
+			<h1>Add new object</h1>
+		<% end %>
+	</div>
+	<div class="panel-body">
+		<div class="col-md-12" style="margin: 0 0 2rem 0">
+			<h4 class="pull-left">This is <%= Time.now %> now!</h4>
+			<%= link_to "Index" , objs_path , :class => "btn btn-default pull-right" %>
+		</div>
+		<!-- Table -->
+		<div class="col-md-12 ">
+			<%= form_for @obj, :url => u , :method => m do |o| %>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4><%= o.label :name, "name：" %></h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:name][0] unless @obj.errors[:name].empty? %></p>
+						<%= o.text_field :name, :class => "form-control", :placeholder=>"there MUST be a name"%>
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4>
+								<%= o.label :serial, "serial：" %>
+							</h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:serial][0] unless @obj.errors[:serial].empty? %></p>
+						<%= o.text_field :serial, :class => "form-control", :placeholder=>"Serial number ( MUST be unique )"%>
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4>
+								<%= o.label :datebought, "datebought：" %>		
+							</h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:datebought][0] unless @obj.errors[:datebought].empty? %></p>
+						<%= o.text_field :datebought, :class => "form-control", :placeholder=>"yyyy-mm-dd"%>
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4>
+								<%= o.label :dateretire, "dateretire：" %>
+							</h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:dateretire][0] unless @obj.errors[:dateretire].empty? %></p>
+						<%= o.text_field :dateretire, :class => "form-control", :placeholder=>"yyyy-mm-dd"%>
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4>
+								<%= o.label :value, "value：" %>
+							</h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:value][0] unless @obj.errors[:value].empty? %></p>
+						<%= o.text_field :value, :class => "form-control", :placeholder=>"price ( number only ! )"%>
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4><%= o.label :snumber1, "snumber1：" %></h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:snumber1][0] unless @obj.errors[:snumber1].empty? %></p>
+						<%= o.text_field :snumber1, :class => "form-control", :placeholder=>"S/N# number"%>
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4><%= o.label :snumber2, "snumber2：" %></h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:snumber2][0] unless @obj.errors[:snumber2].empty? %></p>
+						<%= o.text_field :snumber2, :class => "form-control", :placeholder=>"S/N# number"%>
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4><%= o.label :description, "description：" %></h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:description][0] unless @obj.errors[:description].empty? %></p>
+						<%= o.text_area :description ,:class => "form-control", :placeholder => "please give some description"%>
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4><%= o.label :user, "user：" %></h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:user][0] unless @obj.errors[:user].empty? %></p>
+						<%= o.text_field :user, :class => "form-control", :placeholder=>"user"%>
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4><%= o.label :ispublic, "ispublic：" %></h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:ispublic][0] unless @obj.errors[:ispublic].empty? %></p>
+						<%= o.check_box :ispublic %>
+					</dd>
+				</dl>
+
+				<%= o.submit :class => "btn btn-success col-md-2"%>
+			<% end %>
+		</div>
+	</div>
+</div>

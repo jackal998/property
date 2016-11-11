@@ -28,13 +28,13 @@
 
 <% if @obj != 0 %>
   <% if @obj.id %>    
-    <%= render :partial =>"edit" ,:locals => {:u => obj_path(@obj,:page=>params[:page]), :m => "patch"}  %>
+    <%= render :partial =>"form_template" ,:locals => {:u => obj_path(@obj,:page=>params[:page]), :m => "patch"}  %>
   <% else %>
-    <%= render :partial =>"edit" ,:locals => {:u => objs_path(:page=>params[:page]), :m => "post"} %>
+    <%= render :partial =>"form_template" ,:locals => {:u => objs_path(:page=>params[:page]), :m => "post"} %>
   <% end %>
 <% else %>
 <% @obj = Obj.new %> 
-<%= render :partial =>"edit" ,:locals => {:u => objs_path(:page=>params[:page]), :m => "post" } %>
+<%= render :partial =>"form_template" ,:locals => {:u => objs_path(:page=>params[:page]), :m => "post" } %>
 <% end %>
 <%= paginate @objs, :window => 2 %>
 
