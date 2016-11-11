@@ -17,14 +17,14 @@
   <body>
 	  <div class="container">
 	  	<% if flash[:alert] %>
-	  		<p class="alert alert-warning col-md-1" role="alert"><%= flash[:alert] %></p>
+	  		<p class="alert alert-warning col-md-4 text-center" role="alert"><%= flash[:alert] %></p>
 	  	<% end %>
 	  	<% if flash[:notice] %>
-	  		<p class="alert alert-info col-md-1" role="alert"><%= flash[:notice] %></p>
+	  		<p class="alert alert-info col-md-4 text-center" role="alert"><%= flash[:notice] %></p>
 	  	<% end %>
 	  	<div class="row">
 	  		<div class="col-md-12">
-	  			<%= render :partial => "navbar" %> 
+	  			<%= render :partial => "/objs/navbar" %> 
 	    		<%= yield %>
 	  		</div>
 	  	</div>

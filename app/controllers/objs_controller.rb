@@ -1,5 +1,5 @@
 class ObjsController < ApplicationController
-
+	before_action :authenticate_user!, :except => [:index]
 	before_action :find_id, :only => [:index, :show, :edit, :update, :destroy]
 	def index
 		if params[:keyword]
