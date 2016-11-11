@@ -1,6 +1,6 @@
 class ObjsController < ApplicationController
 
-before_action :find_id, :only => [:index, :show, :edit, :update, :destroy]
+	before_action :find_id, :only => [:index, :show, :edit, :update, :destroy]
 	def index
 		@objs = Obj.page(params[:page]).per(10)
 	end
@@ -50,8 +50,8 @@ before_action :find_id, :only => [:index, :show, :edit, :update, :destroy]
 		params.require(:obj).permit(
 			:name, 
 			:serial,
-  			:datebought,
-  			:dateretire,
+  		:datebought,
+  		:dateretire,
 			:value, 
 			:snumber1, 
 			:snumber2, 
