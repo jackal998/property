@@ -2,7 +2,12 @@ class ObjsController < ApplicationController
 
 	before_action :find_id, :only => [:index, :show, :edit, :update, :destroy]
 	def index
-		@objs = Obj.page(params[:page]).per(10)
+		if params[:keyword]
+			@objs = Obj.where( [ "name like ?", "%#{params[:keyword]}%" ] )
+		else
+			@objs = Obj.all
+		end
+		@objs = @objs.page(params[:page]).per(10)
 	end
 	def new
 		@obj = Obj.new
@@ -59,6 +64,7 @@ class ObjsController < ApplicationController
 			:description, 
 			:text,
 			:user,
+			:keyword,
 			:ispublic)
 	end
 end

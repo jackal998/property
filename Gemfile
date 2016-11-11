@@ -20,6 +20,7 @@ gem 'kaminari'
 
 gem 'faker'
 
+gem 'devise'
 
 gem 'devise'
 # Use jquery as the JavaScript library
