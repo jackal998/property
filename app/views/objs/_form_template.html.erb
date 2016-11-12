@@ -123,12 +123,12 @@
 				<dl class="dl-horizontal">
 					<dt>
 						<label class="text-capitalize text-right control-label">
-							<h4><%= o.label :user, "user：" %></h4>
+							<h4><%= o.label :custodian, "custodian" %></h4>
 						</label>
 					</dt>
 					<dd>
-						<p class="label label-danger col-md-7"><%= @obj.errors[:user][0] unless @obj.errors[:user].empty? %></p>
-						<%= o.text_field :user, :class => "form-control", :placeholder=>"user"%>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:custodian][0] unless @obj.errors[:custodian].empty? %></p>
+						<%= o.text_field :custodian, :class => "form-control", :placeholder=>"custodian"%>
 					</dd>
 				</dl>
 

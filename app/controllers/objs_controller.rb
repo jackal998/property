@@ -16,6 +16,8 @@ class ObjsController < ApplicationController
 	end
 	def create
 		@obj = Obj.new(obj_params)
+		@obj.user = current_user
+		@obj[:user] = current_user.email
 		if @obj.save
 			flash[:notice] ="新增成功"
 			redirect_to objs_path(:page=>params[:page])
