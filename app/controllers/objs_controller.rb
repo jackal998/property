@@ -63,7 +63,7 @@ class ObjsController < ApplicationController
 			:string,
 			:description, 
 			:text,
-			:user,
+			:custodian,
 			:keyword,
 			:ispublic)
 	end

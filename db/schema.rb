@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161111135933) do
+ActiveRecord::Schema.define(version: 20161112044242) do
 
   create_table "objs", force: :cascade do |t|
     t.datetime "created_at",  null: false
@@ -25,6 +25,9 @@ ActiveRecord::Schema.define(version: 20161111135933) do
     t.text     "description"
     t.string   "user"
     t.boolean  "ispublic"
+    t.integer  "user_id"
+    t.string   "custodian"
+    t.index ["user_id"], name: "index_objs_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
