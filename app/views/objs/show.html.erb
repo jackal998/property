@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">
-  	<h1>Object NO.<%= @obj.id %></h1>
+  	<h1>Object No.<%= @obj.id %></h1>
   </div>
   <div class="panel-body">
     <p>This is <%= Time.now %> now!</p>
@@ -9,21 +9,23 @@
 
   <!-- Table -->
   <table class="table table-bordered table-striped">
-	<tr><th></th>									<th>內容</th></tr>
+	<tr>
+    <th></th>
+    <th>內容</th>
+  </tr>
 	<% @obj.attributes.each do |k,v| %>
-	<tr><td class="text-capitalize align-right"><%= k %> :</td><td><%= v %></td></tr>
+	  <tr>
+      <td class="text-capitalize align-right col-md-2"><%= k %>:</td>
+      <td class="col-md-10 text-left">
+          <p ><%= simple_format(v.to_s) %></p>
+      </td>
+    </tr>
 	<% end %>
 	</table>
 </div>
+
+<% @comments.each do %>
+<% byebug %>
+<% end %>
+<%= render :partial => "form_comment" %>
 <%= link_to "BACK", :back , :class => "btn btn-default" %>
-<!-- 
-  	add_column :objs, :name, :string
-  	add_column :objs, :serial, :string
-  	add_column :objs, :datebought, :date
-  	add_column :objs, :dateretire, :date
-  	add_column :objs, :value, :integer
-  	add_column :objs, :snumber1, :string
-  	add_column :objs, :snumber2, :string
-  	add_column :objs, :description, :text
-  	add_column :objs, :user, :string
- -->

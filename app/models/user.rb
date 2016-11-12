@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   has_many :objs
 
+  has_many :comments
+
   def admin?
     self.role == "admin" 
   end

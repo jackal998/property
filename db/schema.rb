@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161112044242) do
+ActiveRecord::Schema.define(version: 20161112125246) do
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "emotion_tag"
+    t.string   "paragraph"
+    t.integer  "obj_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "title"
+    t.index ["obj_id"], name: "index_comments_on_obj_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
 
   create_table "objs", force: :cascade do |t|
     t.datetime "created_at",  null: false

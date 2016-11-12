@@ -13,6 +13,8 @@ class ObjsController < ApplicationController
 		@obj = Obj.new
 	end
 	def show
+		@user = current_user
+		@comments = @obj.comments if @obj.comments
 	end
 	def create
 		@obj = Obj.new(obj_params)

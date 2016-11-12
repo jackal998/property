@@ -11,13 +11,18 @@
   <table class="table table-hover">
 		<tr>
 			<th><h3>Property (description)</h3></th>
-			<th><h3>Edit</h3></th>
-			<th><h3>Delete</h3></th>
+      <% if current_user %>
+        <th><h3>Edit</h3></th>
+        <th><h3>Delete</h3></th>
+      <% else %>  
+        <th></th>
+        <th></th>
+      <% end %>
 		</tr>
 		<% @objs.each do |obj| %>
 			<tr>
 				<td>
-        <% show_obj_name = simple_format("#{obj.name}\n( #{obj.description[0..10]}#{"..." if obj.description.length > 10} )", nil, :class => "text-left") %>
+        <% show_obj_name = simple_format("#{obj.name}\n( #{obj.description[0..25]}#{"..." if obj.description.length > 25} )", nil, :class => "text-left") %>
         <%= link_to show_obj_name, obj_path(obj), :class => "text-left btn-link " %>
         </td>
         
