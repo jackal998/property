@@ -16,7 +16,10 @@
 		</tr>
 		<% @objs.each do |obj| %>
 			<tr>
-				<td><%= link_to "#{obj.name}  ( #{obj.description} )", obj_path(obj), :class => "btn btn-link" %></td>
+				<td>
+        <% show_obj_name = simple_format("#{obj.name}\n( #{obj.description[0..10]}#{"..." if obj.description.length > 10} )", nil, :class => "text-left") %>
+        <%= link_to show_obj_name, obj_path(obj), :class => "text-left btn-link " %>
+        </td>
         
         <% if current_user %>
           <% if current_user == obj.user || current_user.role == "admin" %>
