@@ -11,22 +11,20 @@
   <table class="table table-hover">
 		<tr>
 			<th><h3>Property (description)</h3></th>
-			<th><h3>Show Details</h3></th>
 			<th><h3>Edit</h3></th>
 			<th><h3>Delete</h3></th>
 		</tr>
 		<% @objs.each do |obj| %>
 			<tr>
-				<td><%= obj.name %> ( <%= obj.description %> )</td>
-				<td><%= link_to "Show", obj_path(obj), :class => "btn btn-default" %></td>
+				<td><%= link_to "#{obj.name}  ( #{obj.description} )", obj_path(obj), :class => "btn btn-link" %></td>
         
         <% if current_user %>
-          <% if obj.user.nil? %>
-            <td><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
-            <td></td>
-          <% elsif obj.user == current_user %>
+          <% if current_user == obj.user || current_user.role == "admin" %>
             <td><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
             <td><%= link_to "Delete", obj_path(obj,:page=>params[:page]),:method => :delete, :class => "btn btn-danger"%></td>
+          <% elsif obj.user.nil? %>
+            <td><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
+            <td></td>
           <% else %>
             <td></td>
             <td></td>
@@ -48,8 +46,8 @@
     <%= render :partial =>"form_template" ,:locals => {:u => objs_path(:page=>params[:page]), :m => "post"} %>
   <% end %>
 <% else %>
-<% @obj = Obj.new %> 
-<%= render :partial =>"form_template" ,:locals => {:u => objs_path(:page=>params[:page]), :m => "post" } %>
+  <% @obj = Obj.new %> 
+  <%= render :partial =>"form_template" ,:locals => {:u => objs_path(:page=>params[:page]), :m => "post" } %>
 <% end %>
 <%= paginate @objs, :window => 2 %>
 
