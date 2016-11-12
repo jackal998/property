@@ -16,8 +16,8 @@ class ObjsController < ApplicationController
 	end
 	def create
 		@obj = Obj.new(obj_params)
-		@obj.user = current_user
-		@obj[:user] = current_user.email
+		edited_by_user
+
 		if @obj.save
 			flash[:notice] ="新增成功"
 			redirect_to objs_path(:page=>params[:page])
@@ -30,6 +30,7 @@ class ObjsController < ApplicationController
 		redirect_to objs_path(:page=>params[:page],:id=>params[:id])
 	end
 	def update
+		edited_by_user
 		if @obj.update(obj_params)
 			flash[:notice] ="更新成功"
 			redirect_to objs_path(:page=>params[:page])
@@ -45,6 +46,7 @@ class ObjsController < ApplicationController
 	end
 
 	private
+
 	def find_id
 		if params[:id]
 			@obj = Obj.find(params[:id])
@@ -68,5 +70,10 @@ class ObjsController < ApplicationController
 			:custodian,
 			:keyword,
 			:ispublic)
+	end
+
+	def edited_by_user
+		@obj.user = current_user
+		@obj[:user] = current_user.email
 	end
 end

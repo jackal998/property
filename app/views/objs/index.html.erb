@@ -19,9 +19,24 @@
 			<tr>
 				<td><%= obj.name %> ( <%= obj.description %> )</td>
 				<td><%= link_to "Show", obj_path(obj), :class => "btn btn-default" %></td>
-				<td><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
-				<td><%= link_to "Delete", obj_path(obj,:page=>params[:page]),:method => :delete, :class => "btn btn-danger"%></td>
-			</tr>
+        
+        <% if current_user %>
+          <% if obj.user.nil? %>
+            <td><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
+            <td></td>
+          <% elsif obj.user == current_user %>
+            <td><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
+            <td><%= link_to "Delete", obj_path(obj,:page=>params[:page]),:method => :delete, :class => "btn btn-danger"%></td>
+          <% else %>
+            <td></td>
+            <td></td>
+          <% end %>
+        <% else %>
+          <td></td>
+          <td></td>
+			  <% end %>
+
+      </tr>
 		<% end %>
 	</table>
 </div>
