@@ -9,6 +9,7 @@
 
   <!-- Table -->
   <table class="table table-hover">
+
 		<tr>
 			<th><h3>Property (description)</h3></th>
       <% if current_user %>
@@ -19,11 +20,15 @@
         <th></th>
       <% end %>
 		</tr>
+
 		<% @objs.each do |obj| %>
 			<tr>
 				<td>
-        <% show_obj_name = simple_format("#{obj.name}\n( #{obj.description[0..25]}#{"..." if obj.description.length > 25} )", nil, :class => "text-left") %>
-        <%= link_to show_obj_name, obj_path(obj), :class => "text-left btn-link " %>
+          <% obj_name = simple_format("#{obj.name}\n( #{obj.description[0..25]}#{"..." if obj.description.length > 25} )", nil, :class => "text-left") %>
+          <li class="list-group-item">
+            <span class="badge"><%= obj.comments.count %></span>
+            <%= link_to obj_name, obj_path(obj), :class => "text-left btn-link" %>
+          </li>
         </td>
         
         <% if current_user %>

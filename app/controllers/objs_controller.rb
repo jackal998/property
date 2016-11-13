@@ -7,7 +7,7 @@ class ObjsController < ApplicationController
 		else
 			@objs = Obj.all
 		end
-		@objs = @objs.page(params[:page]).per(10)
+		@objs = @objs.page(params[:page]).per(10).includes(:comments)
 	end
 	def new
 		@obj = Obj.new

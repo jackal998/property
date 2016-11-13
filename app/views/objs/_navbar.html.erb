@@ -1,3 +1,11 @@
+<% if current_user.nickname.nil? || current_user.nickname == "" %>
+  <% show_user_name = comment.user.email.split("@").first %>
+<% elsif current_user.nickname.length > 15 %>
+  <% show_user_name = current_user.nickname[0..14] + "..." %>
+<% else %>
+  <% show_user_name = current_user.nickname %>
+<% end %>
+
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -48,7 +56,7 @@
         <% end %>
         <li class="dropdown">
           <a href=<%= objs_path %> class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <%= current_user.nickname.nil? || current_user.nickname == "" ? current_user.email.split("@").first : current_user.nickname if current_user %>
+            <%= show_user_name if current_user %>
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
