@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-success">
 <!-- Default panel contents -->
 	<div class="panel-heading">
 		<% if @obj.id %>
@@ -8,14 +8,11 @@
 		<% end %>
 	</div>
 	<div class="panel-body">
-		<div class="col-md-12" style="margin: 0 0 2rem 0">
-			<%= link_to "Index" , objs_path , :class => "btn btn-default pull-right" %>
-		</div>
 		<!-- Table -->
 		<div class="col-md-12 ">
 			<%= form_for @obj, :url => u , :method => m do |o| %>
 			
-			<ul class="pager">
+				<ul class="pager">
 					<% Category.all.each do |c| %>
 						<li>
 							<div class="col-md-3">

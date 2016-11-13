@@ -4,15 +4,28 @@
   	<h1>Property List</h1>
   </div>
   <div class="panel-body">
-    <p>This is <%= Time.now %> now!</p>
+    <div class="btn-group" role="group" aria-label="...">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default">
+          <%= link_to "apply", objs_path(:page => params[:page]) %>
+        </button>
+        <% Category.all.each do |c| %>
+          <button type="button" class="btn btn-default">
+            <%= check_box_tag "obj[category_ids][]", c.id, false %>
+            <%= c.name %>
+          </button>
+        <% end %>
+      </div>
+    </div>
+    <%= hidden_field_tag 'obj[category_ids][]','' %>
   </div>
-
   <!-- Table -->
   <table class="table table-hover">
 
 		<tr>
 			<th>
-        <ul class="nav nav-pills">
+        <h4 class="navbar-left">Sort by</h4>
+        <ul class="nav nav-pills navbar-right">
           <li role="presentation"><a href=<%= objs_path(:order => "by_newest",:page=>params[:page]) %>>Default</a></li>
           <li role="presentation"><a href=<%= objs_path(:order => "by_name",:page=>params[:page]) %>>Alphabet</a></li>
           <li role="presentation"><a href=<%= objs_path(:order => "by_last_updated",:page=>params[:page]) %>>Lastupdate</a></li>
@@ -21,36 +34,36 @@
         </ul>
       </th>
       <% if current_user %>
-        <th><h3>Edit</h3></th>
-        <th><h3>Delete</h3></th>
+        <th class="text-center"><h4>Edit</h4></th>
+        <th class="text-center"><h4>Delete</h4></th>
       <% end %>
 		</tr>
 
 		<% @objs.each do |obj| %>
-			<tr>
-				<td>
-          <% obj_name = simple_format("#{obj.name}\n( #{obj.description[0..25]}#{"..." if obj.description.length > 25} )", nil, :class => "text-left") %>
-          <li class="list-group-item">
+  			<tr>
+  				<td>
+            <% obj_name = simple_format("#{obj.name}\n( #{obj.description[0..25]}#{"..." if obj.description.length > 25} )", nil, :class => "text-left") %>
             <% obj.update(:comment_counts => obj.comments.count) %>
-            <span class="badge"><%= obj.comment_counts %></span>
+            <div class="pull-right">
+              <span class="badge next"><%= obj.comment_counts %></span> 
+            </div>
             <%= link_to obj_name, obj_path(obj), :class => "text-left btn-link" %>
-          </li>
-        </td>
-        
-        <% if current_user %>
-          <% if current_user == obj.user || current_user.role == "admin" %>
-            <td><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
-            <td><%= link_to "Delete", obj_path(obj,:page=>params[:page]),:method => :delete, :class => "btn btn-danger"%></td>
-          <% elsif obj.user.nil? %>
-            <td><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
-            <td></td>
-          <% else %>
-            <td></td>
-            <td></td>
-          <% end %>
-			  <% end %>
+          </td>
+          
+          <% if current_user %>
+            <% if current_user == obj.user || current_user.role == "admin" %>
+              <td class="text-center"><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
+              <td class="text-center"><%= link_to "Delete", obj_path(obj,:page=>params[:page]),:method => :delete, :class => "btn btn-danger"%></td>
+            <% elsif obj.user.nil? %>
+              <td class="text-center"><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
+              <td></td>
+            <% else %>
+              <td></td>
+              <td></td>
+            <% end %>
+  			  <% end %>
 
-      </tr>
+        </tr>
 		<% end %>
 	</table>
 </div>
