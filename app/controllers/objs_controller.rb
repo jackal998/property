@@ -12,28 +12,16 @@ class ObjsController < ApplicationController
 		case params[:order]
 		when "by_name"
 			@objs = @objs.order('name')
-			sort_by = "by_name"
 		when "by_last_updated"
-
 			@objs = @objs.order('updated_at')
-			sort_by = "by_last_updated"
 		when "by_newcomment"
-
-			@objs = @objs.joins(:comments).order('comments.created_at').uniq
-			sort_by = "by_newcomment"
-
+			@objs = @objs.joins(:comments).order('comments.created_at DESC').uniq
 		when "by_hotest"
-
-
-			array_of_commentcount = []
-			@objs.each do |o|
-				array_of_commentcount << [ o.comments.count , o.id]
-			end
-			@objs = @objs.find(array_of_commentcount.sort.reverse.collect {|aocsrc| aocsrc[1] })
+			@objs = @objs.order('comment_counts DESC')
 		else
 			@objs = @objs.order('created_at')
-			sort_by = "created_at"
 		end
+
 		@objs = @objs.page(params[:page]).per(10)
 	end
 	def new

@@ -31,7 +31,8 @@
 				<td>
           <% obj_name = simple_format("#{obj.name}\n( #{obj.description[0..25]}#{"..." if obj.description.length > 25} )", nil, :class => "text-left") %>
           <li class="list-group-item">
-            <span class="badge"><%= obj.comments.count %></span>
+            <% obj.update(:comment_counts => obj.comments.count) %>
+            <span class="badge"><%= obj.comment_counts %></span>
             <%= link_to obj_name, obj_path(obj), :class => "text-left btn-link" %>
           </li>
         </td>

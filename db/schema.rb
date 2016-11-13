@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161112125246) do
+ActiveRecord::Schema.define(version: 20161113102545) do
 
   create_table "comments", force: :cascade do |t|
     t.string   "emotion_tag"
@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(version: 20161112125246) do
   end
 
   create_table "objs", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "name"
     t.string   "serial"
     t.date     "datebought"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20161112125246) do
     t.boolean  "ispublic"
     t.integer  "user_id"
     t.string   "custodian"
+    t.integer  "comment_counts"
     t.index ["user_id"], name: "index_objs_on_user_id"
   end
 
