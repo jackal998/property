@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161113102545) do
+ActiveRecord::Schema.define(version: 20161113115702) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "comments", force: :cascade do |t|
     t.string   "emotion_tag"
@@ -22,6 +28,13 @@ ActiveRecord::Schema.define(version: 20161113102545) do
     t.string   "title"
     t.index ["obj_id"], name: "index_comments_on_obj_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "obj_categoryships", force: :cascade do |t|
+    t.integer  "obj_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "objs", force: :cascade do |t|

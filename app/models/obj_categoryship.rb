@@ -1,0 +1,2 @@
+class ObjCategoryship < ApplicationRecord
+end
