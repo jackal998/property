@@ -9,4 +9,6 @@ class Obj < ApplicationRecord
   belongs_to :user
 
   has_many :comments
+  has_many :obj_categoryships
+  has_many :categories, :through => :obj_categoryships
 end
