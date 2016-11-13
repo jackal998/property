@@ -1,9 +1,13 @@
-<% if current_user.nickname.nil? || current_user.nickname == "" %>
-  <% show_user_name = comment.user.email.split("@").first %>
-<% elsif current_user.nickname.length > 15 %>
-  <% show_user_name = current_user.nickname[0..14] + "..." %>
+<% if current_user %>
+  <% if current_user.nickname.nil? || current_user.nickname == "" %>
+    <% show_user_name = comment.user.email.split("@").first %>
+  <% elsif current_user.nickname.length > 15 %>
+    <% show_user_name = current_user.nickname[0..14] + "..." %>
+  <% else %>
+    <% show_user_name = current_user.nickname %>
+  <% end %>
 <% else %>
-  <% show_user_name = current_user.nickname %>
+  <% show_user_name = Faker::Superhero.name %>
 <% end %>
 
 <nav class="navbar navbar-default">
@@ -56,7 +60,7 @@
         <% end %>
         <li class="dropdown">
           <a href=<%= objs_path %> class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <%= show_user_name if current_user %>
+            <%= show_user_name %>
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">

@@ -11,13 +11,18 @@
   <table class="table table-hover">
 
 		<tr>
-			<th><h3>Property (description)</h3></th>
+			<th>
+        <ul class="nav nav-pills">
+          <li role="presentation"><a href=<%= objs_path(:order => "by_newest",:page=>params[:page]) %>>Default</a></li>
+          <li role="presentation"><a href=<%= objs_path(:order => "by_name",:page=>params[:page]) %>>Alphabet</a></li>
+          <li role="presentation"><a href=<%= objs_path(:order => "by_last_updated",:page=>params[:page]) %>>Lastupdate</a></li>
+          <li role="presentation"><a href=<%= objs_path(:order => "by_newcomment",:page=>params[:page]) %>>NewComment</a></li>
+          <li role="presentation"><a href=<%= objs_path(:order => "by_hotest",:page=>params[:page]) %>>Hotest</a></li>
+        </ul>
+      </th>
       <% if current_user %>
         <th><h3>Edit</h3></th>
         <th><h3>Delete</h3></th>
-      <% else %>  
-        <th></th>
-        <th></th>
       <% end %>
 		</tr>
 
@@ -38,13 +43,7 @@
           <% elsif obj.user.nil? %>
             <td><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
             <td></td>
-          <% else %>
-            <td></td>
-            <td></td>
           <% end %>
-        <% else %>
-          <td></td>
-          <td></td>
 			  <% end %>
 
       </tr>

@@ -2,14 +2,14 @@
 <!-- Default panel contents -->
 	<div class="panel-heading">
 		<% if @obj.id %>
-			<h1>Object No.<%= @obj.id %></h1>
+			<h1><%= @obj.name %></h1>
 		<% else %>
-			<h1>Add new object</h1>
+			<h1>Add one more</h1>
 		<% end %>
 	</div>
 	<div class="panel-body">
 		<div class="col-md-12" style="margin: 0 0 2rem 0">
-			<h4 class="pull-left">This is <%= Time.now %> now!</h4>
+
 			<%= link_to "Index" , objs_path , :class => "btn btn-default pull-right" %>
 		</div>
 		<!-- Table -->
