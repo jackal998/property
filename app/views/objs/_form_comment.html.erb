@@ -1,20 +1,21 @@
 
 <%= form_for Comment.new, :url => user_comments_path(:obj => @obj) do |c| %>
 
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1">Title:</span>
-        <%= c.text_field :title, :class => "form-control", :placeholder=> "RE: #{@obj.name}" %>
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">Title:</button>
+        </span>
+        <%= c.text_field :title, :class => "form-control", :placeholder=> "Re: #{@obj.name}" %>
       </div>
-          
     </div>
 
     <div class="panel-body">
       <%= c.text_area :paragraph, :class => "form-control" %>
     </div>
 
-    <div class="panel-footer">
+    <div class="panel-body">
       <div class="input-group">
 
         <%= c.submit "submit", :class => "btn btn-default text-right" %>
@@ -35,7 +36,6 @@
 
       </div>
     </div>
-
 
   </div>    
 <% end %>

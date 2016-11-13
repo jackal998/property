@@ -14,7 +14,7 @@ class ObjsController < ApplicationController
 	end
 	def show
 		@user = current_user
-		@comments = @obj.comments if @obj.comments
+		@comments = @obj.comments.includes(:user) if @obj.comments
 	end
 	def create
 		@obj = Obj.new(obj_params)

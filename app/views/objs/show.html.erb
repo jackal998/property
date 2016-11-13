@@ -17,15 +17,15 @@
 	  <tr>
       <td class="text-capitalize align-right col-md-2"><%= k %>:</td>
       <td class="col-md-10 text-left">
-          <p ><%= simple_format(v.to_s) %></p>
+        <p ><%= simple_format(v.to_s) %></p>
       </td>
     </tr>
 	<% end %>
 	</table>
 </div>
 
-<% @comments.each do %>
-<% byebug %>
+<% @comments.each do |comment| %>
+  <%= render :partial => "comments", :locals => {:comment => comment} %>
 <% end %>
 <%= render :partial => "form_comment" %>
 <%= link_to "BACK", :back , :class => "btn btn-default" %>

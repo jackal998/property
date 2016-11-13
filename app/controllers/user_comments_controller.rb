@@ -1,14 +1,17 @@
 class UserCommentsController < ApplicationController
 
   def create
-    current_user.objs.find(params[:obj]).comments.create(comment_params)
+    @comment = current_user.comments.new(comment_params)
+    @comment.obj = Obj.find(params[:obj])
+    @comment.save
+
     redirect_to obj_path(params[:obj])
   end
 
   private
 
   def comment_params
-    params.require(:comment).permit(:title, :paragraph)
+    params.require(:comment).permit(:title, :paragraph) 
   end
 
 end
