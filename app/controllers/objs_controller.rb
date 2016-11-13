@@ -86,7 +86,8 @@ class ObjsController < ApplicationController
 			:text,
 			:custodian,
 			:keyword,
-			:ispublic)
+			:ispublic,
+			:category_ids => [])
 	end
 
 	def edited_by_user

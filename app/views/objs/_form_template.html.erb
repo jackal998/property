@@ -9,12 +9,29 @@
 	</div>
 	<div class="panel-body">
 		<div class="col-md-12" style="margin: 0 0 2rem 0">
-			
 			<%= link_to "Index" , objs_path , :class => "btn btn-default pull-right" %>
 		</div>
 		<!-- Table -->
 		<div class="col-md-12 ">
 			<%= form_for @obj, :url => u , :method => m do |o| %>
+			
+			<ul class="pager">
+					<% Category.all.each do |c| %>
+						<li>
+							<div class="col-md-3">
+						    <div class="input-group">
+						      <span class="input-group-addon">
+						  			<%= check_box_tag "obj[category_ids][]", c.id, @obj.categories.map(&:id).include?(c.id) %>
+						  		</span>
+						  		<div class="form-control">
+						  			<%= c.name %>
+						  		</div>
+						  	</div>
+							</div>
+						</li>
+					<% end %>
+					<%= hidden_field_tag 'obj[category_ids][]','' %>
+				</ul>
 
 				<dl class="dl-horizontal">
 					<dt>

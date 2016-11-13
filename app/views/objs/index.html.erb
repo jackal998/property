@@ -44,6 +44,9 @@
           <% elsif obj.user.nil? %>
             <td><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
             <td></td>
+          <% else %>
+            <td></td>
+            <td></td>
           <% end %>
 			  <% end %>
 
