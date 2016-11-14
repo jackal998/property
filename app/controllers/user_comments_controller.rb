@@ -1,8 +1,12 @@
 class UserCommentsController < ApplicationController
 
   def create
-    @comment = current_user.comments.new(comment_params)
+    @comment = current_user.comments.new(comment_params) 
     @comment.obj = Obj.find(params[:obj])
+    # @obj.update(:comment_counts +=1)
+
+
+
     @comment.save
 
     redirect_to obj_path(params[:obj])
