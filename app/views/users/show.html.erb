@@ -1,0 +1,42 @@
+使用者可以編輯個人簡介，點擊使用者 ID 可以進入使用者 Profile 頁，看到個人簡介
+使用者 Profile 頁可以看到他張貼過的文章和回覆。
+
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+    <h1><%= @user.nickname %></h1>
+  </div>
+
+  <!-- Table -->
+  <table class="table table-bordered table-striped">
+    <tr>
+      <th></th>
+      <th>內容</th>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">objs</td>
+      <td>
+        <% @user_objs.each do |o| %>
+          <span class="label label-default"><%= o.name %></span>
+          <% o.comments.each do |oc| %>
+            <div class="panel panel-default">
+              <div class="panel-heading"><%= oc.title %></div>
+              <div class="panel-body"><%= oc.paragraph %></div>
+            </div>
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">nickname</td>
+      <td class="col-md-10 text-left"><%= @user.nickname %></td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">email</td>
+      <td class="col-md-10 text-left"><%= @user.email %></td>
+    </tr>
+  </table>
+</div>
+
+<%= link_to "Index", objs_path, :class => "btn btn-default" %>
