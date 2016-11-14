@@ -1,22 +1,21 @@
+<% category_arr = category_params[:category_ids] if params[:obj] %>
+
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">
   	<h1>Property List</h1>
   </div>
   <div class="panel-body">
-    <div class="btn-group" role="group" aria-label="...">
-      <div class="btn-group" role="group">
+    <%= form_tag objs_path(:page => params[:page]), :method => "get" do %>
+      <%= submit_tag "apply", :class => "btn btn-primary" %>
+      <% Category.all.each do |c| %>
         <button type="button" class="btn btn-default">
-          <%= link_to "apply", objs_path(:page => params[:page]) %>
+          <% checkinclude = category_arr.include?(c.id.to_s) if params[:obj] %>
+          <%= check_box_tag "obj[category_ids][]", c.id, checkinclude %>
+          <%= c.name %>
         </button>
-        <% Category.all.each do |c| %>
-          <button type="button" class="btn btn-default">
-            <%= check_box_tag "obj[category_ids][]", c.id, false %>
-            <%= c.name %>
-          </button>
-        <% end %>
-      </div>
-    </div>
+      <% end %>
+    <% end %>
     <%= hidden_field_tag 'obj[category_ids][]','' %>
   </div>
   <!-- Table -->
@@ -26,11 +25,21 @@
 			<th>
         <h4 class="navbar-left">Sort by</h4>
         <ul class="nav nav-pills navbar-right">
-          <li role="presentation"><a href=<%= objs_path(:order => "by_newest",:page=>params[:page]) %>>Default</a></li>
-          <li role="presentation"><a href=<%= objs_path(:order => "by_name",:page=>params[:page]) %>>Alphabet</a></li>
-          <li role="presentation"><a href=<%= objs_path(:order => "by_last_updated",:page=>params[:page]) %>>Lastupdate</a></li>
-          <li role="presentation"><a href=<%= objs_path(:order => "by_newcomment",:page=>params[:page]) %>>NewComment</a></li>
-          <li role="presentation"><a href=<%= objs_path(:order => "by_hotest",:page=>params[:page]) %>>Hotest</a></li>
+          <li role="presentation" <%= "class=active" if params[:order] == "by_newest" %>>
+              <a href=<%= objs_path(:order => "by_newest", :page=>params[:page]) %>>Default</a>
+          </li>
+          <li role="presentation" <%= "class=active" if params[:order] == "by_name" %>>
+              <a href=<%= objs_path(:order => "by_name",:page=>params[:page]) %>>Alphabet</a>
+          </li>
+          <li role="presentation" <%= "class=active" if params[:order] == "by_last_updated" %>>
+              <a href=<%= objs_path(:order => "by_last_updated",:page=>params[:page]) %>>Lastupdate</a>
+          </li>
+          <li role="presentation" <%= "class=active" if params[:order] == "by_newcomment" %>>
+              <a href=<%= objs_path(:order => "by_newcomment",:page=>params[:page]) %>>NewComment</a>
+          </li>
+          <li role="presentation" <%= "class=active" if params[:order] == "by_hotest" %>>
+              <a href=<%= objs_path(:order => "by_hotest",:page=>params[:page]) %>>Hotest</a>
+          </li>
         </ul>
       </th>
       <% if current_user %>
@@ -43,7 +52,7 @@
   			<tr>
   				<td>
             <% obj_name = simple_format("#{obj.name}\n( #{obj.description[0..25]}#{"..." if obj.description.length > 25} )", nil, :class => "text-left") %>
-            <% obj.update(:comment_counts => obj.comments.count) %>
+            <% obj.update(:comment_counts => obj.comments.count) unless obj.comment_counts == obj.comments.count %>
             <div class="pull-right">
               <span class="badge next"><%= obj.comment_counts %></span> 
             </div>

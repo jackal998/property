@@ -1,12 +1,23 @@
 class ObjsController < ApplicationController
 	before_action :authenticate_user!, :except => [:index]
 	before_action :find_id, :only => [:index, :show, :edit, :update, :destroy]
-	def index
 
+	def index
 		if params[:keyword]
 			@objs = Obj.where( [ "name like ?", "%#{params[:keyword]}%" ] ).includes(:comments)
 		else
-			@objs = Obj.all.includes(:comments)
+			@objs = Obj.all.includes( :comments)
+		end
+
+		if params[:obj]
+			if obj_params[:category_ids]
+				obj_catships_arr = ObjCategoryship.where(:category_id => obj_params[:category_ids]).collect{ |ocs| ocs[:obj_id] }.uniq
+				@objs = @objs.where(:id => obj_catships_arr)
+
+				@objs = @objs.page(1).per(10)
+			end
+		else
+			@objs = @objs.page(params[:page]).per(10)
 		end
 
 		case params[:order]
@@ -15,14 +26,13 @@ class ObjsController < ApplicationController
 		when "by_last_updated"
 			@objs = @objs.order('updated_at')
 		when "by_newcomment"
-			@objs = @objs.joins(:comments).order('comments.created_at DESC').uniq
+			@objs = @objs.order('comments.created_at DESC').uniq
 		when "by_hotest"
 			@objs = @objs.order('comment_counts DESC')
 		else
 			@objs = @objs.order('created_at')
 		end
 
-		@objs = @objs.page(params[:page]).per(10)
 	end
 	def new
 		@obj = Obj.new
@@ -71,7 +81,6 @@ class ObjsController < ApplicationController
 			@obj=0
 		end
 	end
-
 	def obj_params
 		params.require(:obj).permit(
 			:name, 
@@ -89,7 +98,6 @@ class ObjsController < ApplicationController
 			:ispublic,
 			:category_ids => [])
 	end
-
 	def edited_by_user
 		@obj.user = current_user
 		@obj[:user] = current_user.email

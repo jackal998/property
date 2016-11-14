@@ -11,4 +11,5 @@ class Obj < ApplicationRecord
   has_many :comments
   has_many :obj_categoryships
   has_many :categories, :through => :obj_categoryships
+
 end
