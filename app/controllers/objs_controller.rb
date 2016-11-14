@@ -34,15 +34,17 @@ class ObjsController < ApplicationController
 		else
 			@objs = @objs.order('created_at')
 		end
-
 	end
+
 	def new
 		@obj = Obj.new
 	end
+
 	def show
 		@user = current_user
 		@comments = @obj.comments.includes(:user) if @obj.comments
 	end
+
 	def create
 		@obj = Obj.new(obj_params)
 		edited_by_user
@@ -55,9 +57,11 @@ class ObjsController < ApplicationController
 			render :index
 		end
 	end
+
 	def edit
 		redirect_to objs_path(:page=>params[:page],:id=>params[:id])
 	end
+
 	def update
 		edited_by_user
 		if @obj.update(obj_params)
@@ -68,10 +72,17 @@ class ObjsController < ApplicationController
 			render :index
 		end
 	end
+
 	def destroy
 		@obj.destroy
 		flash[:alert] = "刪除成功"
 		redirect_to objs_path(:page=>params[:page])
+	end
+
+	def about
+		@objs = Obj.all
+		@comments = Comment.all
+		@users = User.all
 	end
 
 	private
