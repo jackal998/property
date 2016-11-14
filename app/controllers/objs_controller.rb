@@ -30,10 +30,12 @@ class ObjsController < ApplicationController
 		when "by_newcomment"
 			@objs = @objs.order('comments.created_at DESC').uniq
 		when "by_hotest"
-			@objs = @objs.order('comment_counts DESC')
+			@objs = @objs.order('comments_count DESC')
 		else
 			@objs = @objs.order('created_at')
 		end
+
+		@objs = @objs.includes(:user)
 	end
 
 	def new

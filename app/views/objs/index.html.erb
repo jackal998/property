@@ -50,9 +50,8 @@
 			<tr>
 				<td>
           <% obj_name = simple_format("#{obj.name}\n( #{obj.description[0..25]}#{"..." if obj.description.length > 25} )", nil, :class => "text-left") %>
-          <% obj.update(:comment_counts => obj.comments.count) unless obj.comment_counts == obj.comments.count %>
           <div class="pull-right">
-            <span class="badge next"><%= obj.comment_counts %></span> 
+            <span class="badge next"><%= obj.comments_count %></span> 
           </div>
           <%= link_to obj_name, obj_path(obj), :class => "text-left btn-link" %>
         </td>
