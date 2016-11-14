@@ -2,20 +2,22 @@ class ObjsController < ApplicationController
 	before_action :authenticate_user!, :except => [:index]
 	before_action :find_id, :only => [:index, :show, :edit, :update, :destroy]
 
+	def post_index
+		redirect_to objs_path(:page=>params[:page], :id=>params[:id], :order=>params[:order], :category_ids=>obj_params[:category_ids])
+	end
+
 	def index
 		if params[:keyword]
-			@objs = Obj.where( [ "name like ?", "%#{params[:keyword]}%" ] ).includes(:comments)
+			@objs = Obj.wchere( [ "name like ?", "%#{params[:keyword]}%" ] ).includes(:comments)
 		else
 			@objs = Obj.all.includes( :comments)
 		end
 
-		if params[:obj]
-			if obj_params[:category_ids]
-				obj_catships_arr = ObjCategoryship.where(:category_id => obj_params[:category_ids]).collect{ |ocs| ocs[:obj_id] }.uniq
-				@objs = @objs.where(:id => obj_catships_arr)
+		if params[:category_ids]
+			obj_catships_arr = ObjCategoryship.where(:category_id =>params[:category_ids]).collect{ |ocs| ocs[:obj_id] }.uniq
+			@objs = @objs.where(:id => obj_catships_arr)
 
-				@objs = @objs.page(1).per(10)
-			end
+			@objs = @objs.page(1).per(10)
 		else
 			@objs = @objs.page(params[:page]).per(10)
 		end

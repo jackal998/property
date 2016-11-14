@@ -1,4 +1,3 @@
-<% category_arr = category_params[:category_ids] if params[:obj] %>
 
 <div class="panel panel-default">
   <!-- Default panel contents -->
@@ -6,11 +5,11 @@
   	<h1>Property List</h1>
   </div>
   <div class="panel-body">
-    <%= form_tag objs_path(:page => params[:page]), :method => "get" do %>
+    <%= form_tag post_index_objs_path(:page => params[:page], :order => params[:order]) do %>
       <%= submit_tag "apply", :class => "btn btn-primary" %>
       <% Category.all.each do |c| %>
         <button type="button" class="btn btn-default">
-          <% checkinclude = category_arr.include?(c.id.to_s) if params[:obj] %>
+          <% checkinclude = params[:category_ids].include?(c.id.to_s) if params[:category_ids] %>
           <%= check_box_tag "obj[category_ids][]", c.id, checkinclude %>
           <%= c.name %>
         </button>
@@ -20,25 +19,24 @@
   </div>
   <!-- Table -->
   <table class="table table-hover">
-
 		<tr>
 			<th>
         <h4 class="navbar-left">Sort by</h4>
         <ul class="nav nav-pills navbar-right">
           <li role="presentation" <%= "class=active" if params[:order] == "by_newest" %>>
-              <a href=<%= objs_path(:order => "by_newest", :page=>params[:page]) %>>Default</a>
+            <a href=<%= objs_path(:order => "by_newest", :page=>params[:page]) %>>Default</a>
           </li>
           <li role="presentation" <%= "class=active" if params[:order] == "by_name" %>>
-              <a href=<%= objs_path(:order => "by_name",:page=>params[:page]) %>>Alphabet</a>
+            <a href=<%= objs_path(:order => "by_name",:page=>params[:page]) %>>Alphabet</a>
           </li>
           <li role="presentation" <%= "class=active" if params[:order] == "by_last_updated" %>>
-              <a href=<%= objs_path(:order => "by_last_updated",:page=>params[:page]) %>>Lastupdate</a>
+            <a href=<%= objs_path(:order => "by_last_updated",:page=>params[:page]) %>>Lastupdate</a>
           </li>
           <li role="presentation" <%= "class=active" if params[:order] == "by_newcomment" %>>
-              <a href=<%= objs_path(:order => "by_newcomment",:page=>params[:page]) %>>NewComment</a>
+            <a href=<%= objs_path(:order => "by_newcomment",:page=>params[:page]) %>>NewComment</a>
           </li>
           <li role="presentation" <%= "class=active" if params[:order] == "by_hotest" %>>
-              <a href=<%= objs_path(:order => "by_hotest",:page=>params[:page]) %>>Hotest</a>
+            <a href=<%= objs_path(:order => "by_hotest",:page=>params[:page]) %>>Hotest</a>
           </li>
         </ul>
       </th>
@@ -49,30 +47,29 @@
 		</tr>
 
 		<% @objs.each do |obj| %>
-  			<tr>
-  				<td>
-            <% obj_name = simple_format("#{obj.name}\n( #{obj.description[0..25]}#{"..." if obj.description.length > 25} )", nil, :class => "text-left") %>
-            <% obj.update(:comment_counts => obj.comments.count) unless obj.comment_counts == obj.comments.count %>
-            <div class="pull-right">
-              <span class="badge next"><%= obj.comment_counts %></span> 
-            </div>
-            <%= link_to obj_name, obj_path(obj), :class => "text-left btn-link" %>
-          </td>
-          
-          <% if current_user %>
-            <% if current_user == obj.user || current_user.role == "admin" %>
-              <td class="text-center"><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
-              <td class="text-center"><%= link_to "Delete", obj_path(obj,:page=>params[:page]),:method => :delete, :class => "btn btn-danger"%></td>
-            <% elsif obj.user.nil? %>
-              <td class="text-center"><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
-              <td></td>
-            <% else %>
-              <td></td>
-              <td></td>
-            <% end %>
-  			  <% end %>
-
-        </tr>
+			<tr>
+				<td>
+          <% obj_name = simple_format("#{obj.name}\n( #{obj.description[0..25]}#{"..." if obj.description.length > 25} )", nil, :class => "text-left") %>
+          <% obj.update(:comment_counts => obj.comments.count) unless obj.comment_counts == obj.comments.count %>
+          <div class="pull-right">
+            <span class="badge next"><%= obj.comment_counts %></span> 
+          </div>
+          <%= link_to obj_name, obj_path(obj), :class => "text-left btn-link" %>
+        </td>
+        
+        <% if current_user %>
+          <% if current_user == obj.user || current_user.role == "admin" %>
+            <td class="text-center"><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
+            <td class="text-center"><%= link_to "Delete", obj_path(obj,:page=>params[:page]),:method => :delete, :class => "btn btn-danger"%></td>
+          <% elsif obj.user.nil? %>
+            <td class="text-center"><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
+            <td></td>
+          <% else %>
+            <td></td>
+            <td></td>
+          <% end %>
+			  <% end %>
+      </tr>
 		<% end %>
 	</table>
 </div>

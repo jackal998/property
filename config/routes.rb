@@ -8,5 +8,10 @@ Rails.application.routes.draw do
   resources :user_comments
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root :to => "objs#index"
-  resources :objs
+
+  resources :objs do
+    collection do
+      post :post_index
+    end
+  end
 end
