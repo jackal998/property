@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161114125746) do
+ActiveRecord::Schema.define(version: 20161115150507) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 20161114125746) do
     t.string   "snumber1"
     t.string   "snumber2"
     t.text     "description"
-    t.string   "user"
     t.boolean  "ispublic"
     t.integer  "user_id"
     t.string   "custodian"

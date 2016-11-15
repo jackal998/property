@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Category.create(:name => "PC")
+Category.create(:name => "Monitor")
+Category.create(:name => "Projector")
+Category.create(:name => "Laptop")
+Category.create(:name => "Refrigerator")
+Category.create(:name => "HDD")

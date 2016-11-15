@@ -3,13 +3,13 @@ namespace :dev do
   task :rebuild => ["db:reset", :fake]
 
   task :fake => :environment do 
-    # User.delete_all
-    # Obj.delete_all
-    # Comment.delete_all
+    User.delete_all
+    Obj.delete_all
+    Comment.delete_all
 
     puts "Creating"
 
-    # user = User.create!(:email=>"zxc@zxc",:password => "zxczxc",:role=>"admin")
+    user = User.create!(:email=>"zxc@zxc",:password => "zxczxc",:role=>"admin")
 
     (1..15).to_a.sample.times do |i|
       u = User.create(:email => "#{i&i&i}@faker",:password => "123123")
@@ -20,15 +20,16 @@ namespace :dev do
 
     (1..25).to_a.sample.times do |j|
 
-      randuser_id = (1..created_users).to_a.sample
+      randuser_id = @users.ids.sample
       @user = @users.find(randuser_id)
 
-      serialnumber = Faker::StarWars.droid + "#{j}"
+      serialnumber = Faker::StarWars.droid + Faker::Code.asin
       sn2 = Faker::Code.imei if [true,false].sample
 
       o = Obj.create(
         :name=>Faker::Space.star,
-        :serial=>serialnumber, 
+        :serial=>serialnumber,
+        :category_ids => (1..6).to_a.sample((1..6).to_a.sample),
         :datebought=>Faker::Date.between(1.year.ago, 2.days.ago), 
         :dateretire=>Faker::Date.between(Date.today,5.years.from_now), 
         :value =>Faker::Number.between(100000, 1000000), 
@@ -36,6 +37,7 @@ namespace :dev do
         :snumber2=>sn2,
         :description=>Faker::Lorem.paragraph(1,true,4),
         :custodian=>Faker::Name.name,
+        :ispublic => [true,false].sample,
         :user=> @user)
 
       (1..10).to_a.sample.times do |k|
