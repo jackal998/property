@@ -7,18 +7,23 @@ namespace :dev do
     Obj.delete_all
     Comment.delete_all
 
-    puts "Creating"
+    puts "Creating Users"
 
     user = User.create!(:email=>"zxc@zxc",:password => "zxczxc",:role=>"admin")
 
-    (1..15).to_a.sample.times do |i|
-      u = User.create(:email => "#{i&i&i}@faker",:password => "123123")
+    (1..9).to_a.sample.times do |i|
+      u = User.create(
+        :email => "#{i&i&i}@faker",
+        :password => "123123",
+        :nickname => Faker::Superhero.name,
+        )
     end
 
-    created_users = User.count
     @users = User.all
 
-    (1..25).to_a.sample.times do |j|
+    puts "Creating Objs"
+
+    (1..27).to_a.sample.times do |j|
 
       randuser_id = @users.ids.sample
       @user = @users.find(randuser_id)
@@ -40,15 +45,17 @@ namespace :dev do
         :ispublic => [true,false].sample,
         :user=> @user)
 
-      (1..10).to_a.sample.times do |k|
-        @user = @users.find((1..created_users).to_a.sample)
+      (1..3).to_a.sample.times do |k|
+        @user = @users.find(@users.ids.sample)
         Comment.create(
           :title => Faker::Company.name, 
           :paragraph => Faker::Lorem.paragraph(1, true, 2),
           :obj => o,
           :user => @user)
       end
-
     end
+
+    puts "Sucess!!"
+
   end
 end
