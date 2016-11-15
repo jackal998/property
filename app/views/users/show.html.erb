@@ -20,10 +20,10 @@
             </li>
           </ul>
           <% o.comments.each do |oc| %>
-              <div class="panel panel-default">
-                <div class="panel-heading"><%= oc.title %></div>
-                <div class="panel-body"><%= oc.paragraph %></div>
-              </div>
+            <div class="panel panel-default">
+              <div class="panel-heading"><%= oc.title %></div>
+              <div class="panel-body"><%= oc.paragraph %></div>
+            </div>
           <% end %>
         <% end %>
       </td>
@@ -32,7 +32,13 @@
       <td class="text-capitalize align-right col-md-2">comments</td>
       <td>
         <% @user_comments.each do |c| %>
-          <span class="label label-info"><%= c.obj[:name] %></span>
+          <ul class="pager">
+            <li class="previous">
+              <a href=<%= obj_path(c.obj) %>>
+                <span aria-hidden="true">&larr;</span><%= c.obj[:name] %>
+              </a>
+            </li>
+          </ul>
           <div class="panel panel-default">
             <div class="panel-heading"><%= c.title %></div>
             <div class="panel-body"><%= c.paragraph %></div>
