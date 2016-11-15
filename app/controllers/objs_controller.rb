@@ -8,7 +8,7 @@ class ObjsController < ApplicationController
 
 	def index
 		if params[:keyword]
-			@objs = Obj.wchere( [ "name like ?", "%#{params[:keyword]}%" ] ).includes(:comments)
+			@objs = Obj.where( [ "name like ?", "%#{params[:keyword]}%" ] ).includes(:comments)
 		else
 			@objs = Obj.all.includes( :comments)
 		end
