@@ -14,13 +14,29 @@
       <td class="text-capitalize align-right col-md-2">objs</td>
       <td>
         <% @user_objs.each do |o| %>
-          <span class="label label-info"><%= o.name %></span>
+          <ul class="pager">
+            <li class="previous">
+              <a href=<%= obj_path(o) %>><%= o.name %><span aria-hidden="true">&rarr;</span></a>
+            </li>
+          </ul>
           <% o.comments.each do |oc| %>
-            <div class="panel panel-default">
-              <div class="panel-heading"><%= oc.title %></div>
-              <div class="panel-body"><%= oc.paragraph %></div>
-            </div>
+              <div class="panel panel-default">
+                <div class="panel-heading"><%= oc.title %></div>
+                <div class="panel-body"><%= oc.paragraph %></div>
+              </div>
           <% end %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">comments</td>
+      <td>
+        <% @user_comments.each do |c| %>
+          <span class="label label-info"><%= c.obj[:name] %></span>
+          <div class="panel panel-default">
+            <div class="panel-heading"><%= c.title %></div>
+            <div class="panel-body"><%= c.paragraph %></div>
+          </div>
         <% end %>
       </td>
     </tr>
