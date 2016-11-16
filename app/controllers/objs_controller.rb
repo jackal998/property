@@ -10,7 +10,7 @@ class ObjsController < ApplicationController
 		if params[:keyword]
 			@objs = Obj.where( [ "name like ?", "%#{params[:keyword]}%" ] ).includes(:comments)
 		else
-			@objs = Obj.all.includes( :comments)
+			@objs = Obj.all.includes(:comments)
 		end
 
 		if params[:category_ids]
@@ -31,6 +31,8 @@ class ObjsController < ApplicationController
 			@objs = @objs.order('comments.created_at DESC').uniq
 		when "by_hotest"
 			@objs = @objs.order('comments_count DESC')
+		when "by_mostviewed"
+			@objs = @objs.order('views_count DESC')
 		else
 			@objs = @objs.order('created_at')
 		end
@@ -44,6 +46,7 @@ class ObjsController < ApplicationController
 
 	def show
 		@user = current_user
+		@obj.update(:views_count =>  @obj.views_count += 1)
 		@comments = @obj.comments.includes(:user) if @obj.comments
 	end
 

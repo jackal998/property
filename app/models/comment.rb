@@ -3,6 +3,5 @@ class Comment < ApplicationRecord
 
   belongs_to :obj , :counter_cache => true
   belongs_to :user
-
   
 end
