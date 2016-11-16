@@ -4,7 +4,10 @@ class Admin::ObjsController < ApplicationController
   layout "admin"
 
   def index
-    @objs = Obj.all
+    @objs = Obj.all.includes(:comments)
+    @users = User.all
+
+    @users = @users.page(params[:page]).per(10)
   end
 
   private

@@ -8,12 +8,10 @@ class UserCommentsController < ApplicationController
     redirect_to obj_path(params[:obj])
   end
 
-  def show
-    byebug
-  end
-
   def destroy
-    byebug
+    Comment.find(params[:id]).destroy
+    flash[:alert] = "comment deleted"
+    redirect_to obj_path(params[:obj])
   end
 
   private
