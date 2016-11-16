@@ -12,10 +12,16 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
+
       <div class="input-group">
         <span class="input-group-addon" id="basic-addon1"><%= show_user_name %></span>
-        <span class="input-group-addon" id="basic-addon1">Title:</span>
+        <span class="input-group-addon" id="basic-addon2">Title:</span>
         <%= c.text_field :title, :class => "form-control", :readonly => true, :style => "background-color:#fff" %>
+        <% if comment.user == current_user %>
+          <span class="input-group-btn" id="basic-addon3">
+            <%= link_to "Del", user_comment_path(comment,:obj => @obj), :method=>"delete", :class =>"btn btn-danger" %>
+          </span>          
+        <% end %>
       </div>
     </div>
 

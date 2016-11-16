@@ -8,6 +8,14 @@ class UserCommentsController < ApplicationController
     redirect_to obj_path(params[:obj])
   end
 
+  def show
+    byebug
+  end
+
+  def destroy
+    byebug
+  end
+
   private
 
   def comment_params
