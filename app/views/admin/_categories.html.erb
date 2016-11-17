@@ -1,0 +1,47 @@
+<% count_if_no_objs = 0 %>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+    <h1>Category List</h1>
+  </div>
+  <div class="panel-body">
+    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+      <%= form_tag admin_categories_path do %>
+        <% Category.all.includes(:obj_categoryships).each do |c| %>
+          <div class="btn-group" role="group">
+            <% if c.obj_categoryships.length == 0 %>
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <%= check_box_tag "category_ids[]", c.id, false %>
+                </span>
+                <div class="input-group-btn">
+                  <%= link_to c.name, admin_categories_path, :class => "btn btn-warning"  %>
+                </div>
+              </div>
+              <% count_if_no_objs += 1 %>
+            <% else %>
+              <%= link_to c.name, admin_categories_path, :class => "btn btn-default"  %>
+            <% end %>
+          </div>
+        <% end %>
+        <% if count_if_no_objs > 0 %>
+          <div class="btn-group" role="group">
+            <%= submit_tag "Del", :class => "btn btn-danger" %>
+          </div>
+        <% end %>
+      <% end %>
+      <%= hidden_field_tag 'category_ids[]','' %>    
+    </div>
+  </div>
+  <div class="panel-body">
+    <%= form_tag admin_categories_path do %>
+      <div class="input-group">
+        <span class="input-group-btn">
+          <button class="btn btn-success" type="submit">Create!</button>
+        </span>
+        <%= text_field :category, :name, :class=>"form-control", :placeholder => "Category..." %>
+      </div>
+    <% end %>
+  </div>
+</div>

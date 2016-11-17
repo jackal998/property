@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   namespace :admin do
     resources :users
-    resources :objs    
+    resources :objs
+    resources :categories
   end
 
   devise_for :users

@@ -28,7 +28,9 @@ class ObjsController < ApplicationController
 		when "by_last_updated"
 			@objs = @objs.order('updated_at')
 		when "by_newcomment"
-			@objs = @objs.order('comments.created_at DESC').uniq
+# wrong
+
+			@objs = @objs.order('comments.created_at DESC').uniq 
 		when "by_hotest"
 			@objs = @objs.order('comments_count DESC')
 		when "by_mostviewed"
