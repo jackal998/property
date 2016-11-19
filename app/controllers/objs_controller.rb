@@ -4,7 +4,7 @@ class ObjsController < ApplicationController
 
 	def post_index
 		redirect_to objs_path(:page=>params[:page], :id=>params[:id], :order=>params[:order], :category_ids=>obj_params[:category_ids])
-	end
+	end	
 
 	def index
 		if params[:keyword]
@@ -13,24 +13,11 @@ class ObjsController < ApplicationController
 			@objs = Obj.all.includes(:comments)
 		end
 
-		if params[:category_ids]
-			obj_catships_arr = ObjCategoryship.where(:category_id =>params[:category_ids]).collect{ |ocs| ocs[:obj_id] }.uniq
-			@objs = @objs.where(:id => obj_catships_arr)
-
-			@objs = @objs.page(1).per(10)
-		else
-			@objs = @objs.page(params[:page]).per(10)
-		end
-
 		case params[:order]
 		when "by_name"
 			@objs = @objs.order('name')
-		when "by_last_updated"
-			@objs = @objs.order('updated_at')
 		when "by_newcomment"
-# wrong
-
-			@objs = @objs.order('comments.created_at DESC').uniq 
+			@objs = @objs.order('comments.created_at DESC').distinct 
 		when "by_hotest"
 			@objs = @objs.order('comments_count DESC')
 		when "by_mostviewed"
@@ -39,6 +26,15 @@ class ObjsController < ApplicationController
 			@objs = @objs.order('created_at')
 		end
 
+		if params[:category_ids]
+			obj_catships_arr = ObjCategoryship.where(:category_id =>params[:category_ids]).collect{ |ocs| ocs[:obj_id] }.uniq
+			@objs = @objs.where(:id => obj_catships_arr)
+
+			@objs = @objs.page(1).per(10)
+		else
+			# page之後排序有誤
+			@objs = @objs.page(params[:page]).per(10)
+		end
 		@objs = @objs.includes(:user)
 	end
 
@@ -54,7 +50,7 @@ class ObjsController < ApplicationController
 
 	def create
 		@obj = Obj.new(obj_params)
-		edited_by_user
+		@obj.user = current_user
 
 		if @obj.save
 			flash[:notice] ="新增成功"
@@ -117,9 +113,5 @@ class ObjsController < ApplicationController
 			:keyword,
 			:ispublic,
 			:category_ids => [])
-	end
-	def edited_by_user
-		@obj.user = current_user
-		@obj[:user] = current_user.email
 	end
 end

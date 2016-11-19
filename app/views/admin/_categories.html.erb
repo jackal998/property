@@ -1,4 +1,13 @@
 <% count_if_no_objs = 0 %>
+<% if @category.new_record? %>
+  <% u = admin_categories_path %>
+  <% btn_name = "Create!" %>
+  <% class_details = "btn-success" %>
+<% else %>
+  <% u = admin_category_path(@category) %>
+  <% btn_name = "Update!" %>
+  <% class_details = "btn-primary" %>
+<% end %>
 
 <div class="panel panel-info">
   <!-- Default panel contents -->
@@ -16,12 +25,12 @@
                   <%= check_box_tag "category_ids[]", c.id, false %>
                 </span>
                 <div class="input-group-btn">
-                  <%= link_to c.name, admin_categories_path, :class => "btn btn-warning"  %>
+                  <%= link_to c.name, edit_admin_category_path(c), :class => "btn btn-warning"  %>
                 </div>
               </div>
               <% count_if_no_objs += 1 %>
             <% else %>
-              <%= link_to c.name, admin_categories_path, :class => "btn btn-default"  %>
+              <%= link_to c.name, edit_admin_category_path(c), :class => "btn btn-default"  %>
             <% end %>
           </div>
         <% end %>
@@ -34,13 +43,14 @@
       <%= hidden_field_tag 'category_ids[]','' %>    
     </div>
   </div>
+
   <div class="panel-body">
-    <%= form_tag admin_categories_path do %>
+    <%= form_for @category, :url => u do |f| %>
       <div class="input-group">
         <span class="input-group-btn">
-          <button class="btn btn-success" type="submit">Create!</button>
+            <button class="btn <%= class_details %>" type="submit"><%= btn_name %></button>
         </span>
-        <%= text_field :category, :name, :class=>"form-control", :placeholder => "Category..." %>
+        <%= f.text_field :name, :class=>"form-control", :placeholder => "Category..." %>
       </div>
     <% end %>
   </div>

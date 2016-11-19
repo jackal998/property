@@ -4,6 +4,11 @@ before_action :find_user_id, :only => [:edit, :update, :destroy]
   def index
     @users = User.all
     @users = @users.page(params[:page]).per(10)
+    if params[:id]
+      @category = Category.find(params[:id])
+    else
+      @category = Category.new
+    end
   end
 
   def edit
