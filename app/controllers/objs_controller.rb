@@ -35,6 +35,10 @@ class ObjsController < ApplicationController
 			# page之後排序有誤
 			@objs = @objs.page(params[:page]).per(10)
 		end
+
+		if current_user
+			@ucs = UserCollectionship.where(:user_id => current_user.id)
+		end
 		@objs = @objs.includes(:user)
 	end
 

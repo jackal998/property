@@ -13,16 +13,16 @@
     <tr>
       <td class="text-capitalize align-right col-md-2">objs</td>
       <td>
-        <% @user_objs.each do |o| %>
+        <% @user_objs.each do |obj| %>
           <ul class="pager">
             <li class="previous">
-              <a href=<%= obj_path(o) %>><%= o.name %><span aria-hidden="true">&rarr;</span></a>
+              <a href=<%= obj_path(obj) %>><%= obj.name %><span aria-hidden="true">&rarr;</span></a>
             </li>
           </ul>
-          <% o.comments.each do |oc| %>
-            <div class="panel panel-default">
-              <div class="panel-heading"><%= oc.title %></div>
-              <div class="panel-body"><%= oc.paragraph %></div>
+          <% obj.comments.each do |obj_comment| %>
+            <div class="panel panel-primary">
+              <div class="panel-heading"><%= obj_comment.title %></div>
+              <div class="panel-body"><%= obj_comment.paragraph %></div>
             </div>
           <% end %>
         <% end %>
@@ -31,17 +31,17 @@
     <tr>
       <td class="text-capitalize align-right col-md-2">comments</td>
       <td>
-        <% @user_comments.each do |c| %>
+        <% @user_comments.each do |comment| %>
           <ul class="pager">
             <li class="previous">
-              <a href=<%= obj_path(c.obj) %>>
-                <span aria-hidden="true">&larr;</span><%= c.obj[:name] %>
+              <a href=<%= obj_path(comment.obj) %>>
+                <span aria-hidden="true">&larr;</span><%= comment.obj[:name] %>
               </a>
             </li>
           </ul>
           <div class="panel panel-default">
-            <div class="panel-heading"><%= c.title %></div>
-            <div class="panel-body"><%= c.paragraph %></div>
+            <div class="panel-heading"><%= comment.title %></div>
+            <div class="panel-body"><%= comment.paragraph %></div>
           </div>
         <% end %>
       </td>
@@ -53,6 +53,30 @@
     <tr>
       <td class="text-capitalize align-right col-md-2">email</td>
       <td class="col-md-10 text-left"><%= @user.email %></td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">collection</td>
+      <td>
+        <% @objs.each do |obj| %>
+          <ul class="pager">
+            <li class="previous">
+              <a href=<%= obj_path(obj) %>>
+                <span aria-hidden="true">&larr;</span><%= obj.name %>
+              </a>
+            </li>
+          </ul>
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <% if obj.user.nickname == "" %>
+                <%= obj.user.email.split('@').first %>
+              <% else %>
+                <%= obj.user.nickname %>
+              <% end %>
+            </div>
+            <div class="panel-body"><%= obj.description %></div>
+          </div>
+        <% end %>
+      </td>
     </tr>
   </table>
 </div>

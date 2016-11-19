@@ -11,5 +11,6 @@ class Obj < ApplicationRecord
   has_many :comments, :dependent => :destroy
   has_many :obj_categoryships, :dependent => :destroy
   has_many :categories, :through => :obj_categoryships
+  has_many :user_collectionships, :dependent => :destroy
 
 end

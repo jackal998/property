@@ -1,5 +1,7 @@
 class UserCommentsController < ApplicationController
 
+  before_action :authenticate_user!
+
   def create
     @comment = current_user.comments.new(comment_params) 
     @comment.obj = Obj.find(params[:obj])

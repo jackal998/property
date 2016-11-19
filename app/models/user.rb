@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   has_many :comments, :dependent => :destroy
 
+  has_many :user_collectionships, :dependent => :destroy
+
   def admin?
     self.role == "admin" 
   end

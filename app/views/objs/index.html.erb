@@ -40,6 +40,7 @@
         </ul>
       </th>
       <% if current_user %>
+        <th class="text-center"><h4>Like</h4></th>
         <th class="text-center"><h4>Edit</h4></th>
         <th class="text-center"><h4>Delete</h4></th>
       <% end %>
@@ -62,11 +63,24 @@
         </td>
         
         <% if current_user %>
+          <td class="text-center">
+            <% if @ucs.find_by_obj_id(obj) %>
+              <%= link_to "", edit_user_path(obj,:page=>params[:page]),  :class => "btn glyphicon glyphicon-star" %>
+            <% else %>
+              <%= link_to "", edit_user_path(obj,:page=>params[:page]),  :class => "btn glyphicon glyphicon-star-empty" %>
+            <% end %>
+          </td>
           <% if current_user == obj.user || current_user.role == "admin" %>
-            <td class="text-center"><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
-            <td class="text-center"><%= link_to "Delete", obj_path(obj,:page=>params[:page]),:method => :delete, :class => "btn btn-danger"%></td>
+            <td class="text-center">
+              <%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %>
+            </td>
+            <td class="text-center">
+              <%= link_to "Delete", obj_path(obj,:page=>params[:page]),:method => :delete, :class => "btn btn-danger"%>
+            </td>
           <% elsif obj.user.nil? %>
-            <td class="text-center"><%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %></td>
+            <td class="text-center">
+              <%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %>
+            </td>
             <td></td>
           <% else %>
             <td></td>
