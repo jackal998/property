@@ -7,10 +7,18 @@ class ObjsController < ApplicationController
 	end	
 
 	def index
+
+		@objs = Obj.where(:ispublic => true).all.includes(:comments)
+		
+		if current_user
+			if current_user.admin?
+				@objs = Obj.all
+			end
+			@ucs = UserCollectionship.where(:user_id => current_user.id)
+		end
+
 		if params[:keyword]
-			@objs = Obj.where( [ "name like ?", "%#{params[:keyword]}%" ] ).includes(:comments)
-		else
-			@objs = Obj.all.includes(:comments)
+			@objs = @objs.where( [ "name like ?", "%#{params[:keyword]}%" ] )
 		end
 
 		case params[:order]
@@ -36,10 +44,7 @@ class ObjsController < ApplicationController
 			@objs = @objs.page(params[:page]).per(10)
 		end
 
-		if current_user
-			@ucs = UserCollectionship.where(:user_id => current_user.id)
-		end
-		@objs = @objs.includes(:user)
+		@objs = @objs.all.includes(:user)
 	end
 
 	def new
@@ -70,7 +75,6 @@ class ObjsController < ApplicationController
 	end
 
 	def update
-		edited_by_user
 		if @obj.update(obj_params)
 			flash[:notice] ="更新成功"
 			redirect_to objs_path(:page=>params[:page])
@@ -102,20 +106,22 @@ class ObjsController < ApplicationController
 		end
 	end
 	def obj_params
-		params.require(:obj).permit(
-			:name, 
-			:serial,
-  		:datebought,
-  		:dateretire,
-			:value, 
-			:snumber1, 
-			:snumber2, 
-			:string,
-			:description, 
-			:text,
-			:custodian,
-			:keyword,
-			:ispublic,
-			:category_ids => [])
+		if params[:obj]
+			params.require(:obj).permit(
+				:name, 
+				:serial,
+	  		:datebought,
+	  		:dateretire,
+				:value, 
+				:snumber1, 
+				:snumber2, 
+				:string,
+				:description, 
+				:text,
+				:custodian,
+				:keyword,
+				:ispublic,
+				:category_ids => [])
+		end
 	end
 end

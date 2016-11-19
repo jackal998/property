@@ -58,13 +58,9 @@
       <td class="text-capitalize align-right col-md-2">collection</td>
       <td>
         <% @objs.each do |obj| %>
-          <ul class="pager">
-            <li class="previous">
-              <a href=<%= obj_path(obj) %>>
-                <span aria-hidden="true">&larr;</span><%= obj.name %>
-              </a>
-            </li>
-          </ul>
+          <a href=<%= obj_path(obj) %>>
+            <span aria-hidden="true">&larr;</span><%= obj.name %>
+          </a>
           <div class="panel panel-info">
             <div class="panel-heading">
               <% if obj.user.nickname == "" %>

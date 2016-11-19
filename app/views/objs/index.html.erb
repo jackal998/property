@@ -5,14 +5,22 @@
   </div>
   <div class="panel-body">
     <%= form_tag post_index_objs_path(:page => params[:page], :order => params[:order]) do %>
-      <%= submit_tag "apply", :class => "btn btn-primary" %>
       <% Category.all.each do |c| %>
-        <button type="button" class="btn btn-default">
-          <% checkinclude = params[:category_ids].include?(c.id.to_s) if params[:category_ids] %>
-          <%= check_box_tag "obj[category_ids][]", c.id, checkinclude %>
-          <%= c.name %>
-        </button>
+        <% checkinclude = params[:category_ids].include?(c.id.to_s) if params[:category_ids] %>
+        <div class="form-group">
+          <div class="pull-left">
+            <div class="checkbox btn btn-default" style="margin: 0 3px;" >
+              <label>
+                <%= check_box_tag "obj[category_ids][]", c.id, checkinclude %>
+                <%= c.name %>
+              </label>
+            </div>
+          </div>
+        </div>
       <% end %>
+      <div class="form-group pull-right">
+        <%= submit_tag "apply", :class => "btn btn-primary" %>
+      </div>
     <% end %>
     <%= hidden_field_tag 'obj[category_ids][]','' %>
   </div>
@@ -46,7 +54,7 @@
       <% end %>
 		</tr>
 		<% @objs.each do |obj| %>
-      <% objcs = obj.comments.includes(:user) %>
+      <% objcs = obj.comments.all.includes(:user) %>
 			<tr>
 				<td>
           <% obj_name = simple_format("#{obj.name}\n( #{obj.description[0..25]}#{"..." if obj.description.length > 25} )", nil, :class => "text-left") %>
@@ -65,10 +73,12 @@
         <% if current_user %>
           <td class="text-center">
             <% if @ucs.find_by_obj_id(obj) %>
-              <%= link_to "", edit_user_path(obj,:page=>params[:page]),  :class => "btn glyphicon glyphicon-star" %>
+              <% class_of_like_link = "btn glyphicon glyphicon-star" %>
             <% else %>
-              <%= link_to "", edit_user_path(obj,:page=>params[:page]),  :class => "btn glyphicon glyphicon-star-empty" %>
+              <% class_of_like_link = "btn glyphicon glyphicon-star-empty" %>
             <% end %>
+            <%= link_to "", edit_user_path(obj, :page => params[:page], :order => params[:order]), 
+                            :class => class_of_like_link %>
           </td>
           <% if current_user == obj.user || current_user.role == "admin" %>
             <td class="text-center">

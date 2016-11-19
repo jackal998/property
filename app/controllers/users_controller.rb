@@ -18,6 +18,6 @@ before_action :authenticate_user!
     else
       @uc.destroy
     end
-    redirect_to objs_path(:page => params[:page])
+    redirect_to objs_path(:page => params[:page], :order => params[:order])
   end
 end
