@@ -57,6 +57,10 @@ class ObjsController < ApplicationController
 		@comments = @obj.comments.includes(:user) if @obj.comments
 	end
 
+	def editor
+		@obj = Obj.find(params[:obj])
+	end
+
 	def create
 		@obj = Obj.new(obj_params)
 		@obj.user = current_user

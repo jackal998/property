@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :objs do
     collection do
       post :post_index
+      get :editor
       get :about
 
     end
