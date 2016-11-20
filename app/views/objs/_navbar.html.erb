@@ -6,8 +6,10 @@
   <% else %>
     <% show_user_name = current_user.nickname %>
   <% end %>
+  <% gravatar_image = gravatar_url(current_user.email.strip.downcase) %>
 <% else %>
   <% show_user_name = Faker::Superhero.name %>
+  <% gravatar_image = gravatar_url("#{show_user_name.strip.downcase}@gmail.com") %>
 <% end %>
 
 <nav class="navbar navbar-default">
@@ -27,19 +29,6 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href=<%= about_objs_path %>>about<span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
       </ul>
       <div class="nav navbar-form  navbar-left">
         <div class="form-group">
@@ -53,10 +42,7 @@
           <div class="fb-like" data-href="http://localhost:3000/objs" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
         </div>
       </div>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <img src="" alt="">
-        </li>
+      <ul class="nav navbar-nav navbar-right">        
         <% if current_user %>
           <li><%= link_to( "Now you see me", admin_users_path) if current_user.admin? %></li>
           <li><%= link_to( "Edit profile", edit_registration_path(:user)) %></li>
@@ -65,6 +51,9 @@
           <li><%= link_to( "Sign up", new_registration_path(:user)) %></li>
           <li><%= link_to( "Sign in", new_session_path(:user)) %></li>
         <% end %>
+        <li>
+          <img src=<%= gravatar_image %> alt="gravatar_image" class="btn">
+        </li>
         <li class="dropdown">
           <a href=<%= current_user ? user_path(current_user) : "#" %> class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <%= show_user_name %>
