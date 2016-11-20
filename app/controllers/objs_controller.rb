@@ -12,7 +12,7 @@ class ObjsController < ApplicationController
 		
 		if current_user
 			if current_user.admin?
-				@objs = Obj.all
+				@objs = Obj.all.includes(:comments)
 			end
 			@ucs = UserCollectionship.where(:user_id => current_user.id)
 		end
@@ -25,7 +25,7 @@ class ObjsController < ApplicationController
 		when "by_name"
 			@objs = @objs.order('name')
 		when "by_newcomment"
-			@objs = @objs.order('comments.created_at DESC').distinct 
+			@objs = @objs.order('comments.id DESC').uniq
 		when "by_hotest"
 			@objs = @objs.order('comments_count DESC')
 		when "by_mostviewed"
@@ -43,7 +43,6 @@ class ObjsController < ApplicationController
 			# page之後排序有誤
 			@objs = @objs.page(params[:page]).per(10)
 		end
-
 		@objs = @objs.all.includes(:user)
 	end
 
