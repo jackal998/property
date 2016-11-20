@@ -1,5 +1,6 @@
-
-<%= form_for Comment.new, :url => user_comments_path(:obj => @obj) do |c| %>
+<%= form_for @comment, 
+  :url => user_comments_path(:obj => @obj,:comment_id => @comment), 
+  :method => "post" do |c| %>
 
   <div class="panel panel-success">
     <div class="panel-heading">
@@ -17,25 +18,13 @@
 
     <div class="panel-body">
       <div class="input-group">
-
         <%= c.submit "submit", :class => "btn btn-default text-right" %>
-        
-        <div class="input-group-btn">
-          <button type="button" class="btn btn-default" aria-label="Left Align" value="Input">
-            <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
-          </button>
-
-          <button type="button" class="btn btn-default" aria-label="Left Align" value="Input">
-            <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-          </button>
-
-          <button type="button" class="btn btn-default" aria-label="Left Align" value="Input">
-            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-          </button>
+        <div class="checkbox btn btn-info" style="margin: 0 3px;">
+          <label>
+            <%= check_box_tag :ispublic, true %> （Draft）-> check to post.
+          </label>
         </div>
-
       </div>
     </div>
-
   </div>    
 <% end %>

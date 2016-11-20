@@ -64,7 +64,10 @@
                 <%= ou.nickname == "" ? ou.email.split('@').first : ou.nickname %>
               </span>
             <% end %>
-            <span class="label label-info"><%= obj.comments_count %></span> 
+            <%# obj.comments.group(:ispublic).count[true] %>
+            <span class="label label-info">
+              <%= obj.comments_count %>
+            </span> 
             <span class="badge"><%= obj.views_count %></span> 
           </div>
           <%= link_to obj_name, obj_path(obj), :class => "text-left btn-link" %>
@@ -72,8 +75,12 @@
         
         <% if current_user %>
           <td class="text-center">
-            <% if @ucs.find_by_obj_id(obj) %>
-              <% class_of_like_link = "btn glyphicon glyphicon-star" %>
+            <% if @ucs %>
+              <% if @ucs.find_by_obj_id(obj) %>
+                <% class_of_like_link = "btn glyphicon glyphicon-star" %>
+              <% else %>
+                <% class_of_like_link = "btn glyphicon glyphicon-star-empty" %>
+              <% end %>
             <% else %>
               <% class_of_like_link = "btn glyphicon glyphicon-star-empty" %>
             <% end %>

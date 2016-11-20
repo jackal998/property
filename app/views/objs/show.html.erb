@@ -65,7 +65,10 @@
 </div>
 
 <% @comments.each do |comment| %>
-  <%= render :partial => "comments", :locals => {:comment => comment} %>
+  <% if current_user.admin? || comment.ispublic %>
+    <%= render :partial => "comments", :locals => {:comment => comment} %>
+  <% end %>
 <% end %>
+
 <%= render :partial => "form_comment" %>
 <%= link_to "Index", objs_path, :class => "btn btn-default" %>

@@ -55,6 +55,8 @@ class ObjsController < ApplicationController
 		@user = current_user
 		@obj.update(:views_count =>  @obj.views_count += 1)
 		@comments = @obj.comments.includes(:user) if @obj.comments
+		@comment = @comments.where(:user => @user).find_by_ispublic(false)
+		@comment = Comment.new unless @comment
 	end
 
 	def editor

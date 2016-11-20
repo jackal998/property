@@ -13,7 +13,7 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
+@import "objs.scss";
 
 .pagination a, .pagination span.current, .pagination span.gap {
     float: left;
