@@ -41,8 +41,9 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
     $(document).ready(function() {
-      $('label').click(function(){
-        console.log();
+      $('label').click(function(ce){
+        ce.stopPropagation();
+        console.log("aa");
         $(this).parent('.checkbox').toggleClass('active');
       });
     });

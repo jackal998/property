@@ -20,8 +20,10 @@ gem 'coffee-rails', '~> 4.2'
 gem 'kaminari'
 # Use Faker in ganerating fake informations. 'j'
 gem 'faker'
-#Use devise as an user recognize plugin. 'j'
+# Use devise as an user recognize plugin. 'j'
 gem 'devise'
+# Use as image pre-processor
+gem "paperclip", "~> 5.0.0"
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

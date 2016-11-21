@@ -126,6 +126,7 @@ class ObjsController < ApplicationController
 				:custodian,
 				:keyword,
 				:ispublic,
+				:image,
 				:category_ids => [])
 		end
 	end

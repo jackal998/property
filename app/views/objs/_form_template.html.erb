@@ -154,10 +154,18 @@
 					</dt>
 					<dd>
 						<p class="label label-danger col-md-7"><%= @obj.errors[:ispublic][0] unless @obj.errors[:ispublic].empty? %></p>
-						<div class="checkbox">
+						<div class="checkbox  col-md-4">
 							<label>
 								<%= o.check_box :ispublic %> （Default）Draft
 							</label>
+						</div>
+						<div class="col-md-6">
+							<label style="margin-top: 10px; margin-bottom: 10px;">
+								<%= o.file_field :image, :class=>"col-md-8" %>
+							</label>							
+						</div>
+
+							
 						</div>
 					</dd>
 				</dl>
