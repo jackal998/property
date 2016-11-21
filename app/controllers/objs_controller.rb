@@ -40,7 +40,6 @@ class ObjsController < ApplicationController
 
 			@objs = @objs.page(1).per(10)
 		else
-			# page之後排序有誤
 			@objs = @objs.page(params[:page]).per(10)
 		end
 		@objs = @objs.all.includes(:user)
@@ -80,6 +79,10 @@ class ObjsController < ApplicationController
 	end
 
 	def update
+		if params[:del]
+			@obj.image = nil
+		end
+		
 		if @obj.update(obj_params)
 			flash[:notice] ="更新成功"
 			redirect_to objs_path(:page=>params[:page])

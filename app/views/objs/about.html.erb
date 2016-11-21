@@ -1,4 +1,71 @@
-<p>全站共有：</p>
-<p><%= @users.count %>個使用者</p>
-<p><%= @objs.count %>個財產</p>
-<p><%= @comments.count %>篇回覆</p>
+<div class="panel panel-primary">
+<!-- Default panel contents -->
+  <div class="panel-heading">
+    Informations
+  </div>
+  <div class="panel-body">
+    <p>全站共有：<%= @users.count %>個使用者/<%= @objs.count %>個財產/<%= @comments.count %>篇回覆</p>
+    <!-- Table -->
+    <div class="col-md-12 ">
+      <% tpconstruction["result"]["results"].each do |tpcrr| %>
+        <div class="panel panel-primary">
+          <div class="panel-body">
+            <% tpcrr.each do |k,v| %>
+              <dl class="dl-horizontal">
+                <dt>
+                  <label class="text-capitalize text-right control-label">
+                    <% case k %>
+                    <% when "Ac_no".upcase %>
+                      核備文號(Ac_no)
+                    <% when "St_no".upcase %>
+                      期數(St_no)
+                    <% when "sno".upcase %>
+                      序號(sno)
+                    <% when "AppMode".upcase %>
+                      通報類別(AppMode)
+                    <% when "X".upcase %>
+                      X座標(X)
+                    <% when "Y".upcase %>
+                      Y座標(Y)
+                    <% when "AppTime".upcase %>
+                      通報時間(AppTime)
+                    <% when "App_Name".upcase %>
+                      施工單位(App_Name)
+                    <% when "C_Name".upcase %>
+                      行政區(C_Name)
+                    <% when "Addr".upcase %>
+                      施工位置(Addr)
+                    <% when "Cb_Da".upcase %>
+                      核准施工起日(Cb_Da)
+                    <% when "Ce_Da".upcase %>
+                      核准施工迄日(Ce_Da)
+                    <% when "Co_Ti".upcase %>
+                      施工時段(Co_Ti)
+                    <% when "Tc_Ma".upcase %>
+                      監工(Tc_Ma)
+                    <% when "Tc_Tl".upcase %>
+                      監工電話(Tc_Tl)
+                    <% when "Tc_Ma3".upcase %>
+                      廠商現場施工人員(Tc_Ma3)
+                    <% when "Tc_Tl3".upcase %>
+                      現場施工人員手機(Tc_Tl3)
+                    <% when "NPurp".upcase %>
+                      挖掘目的(NPurp)
+                    <% when "DType".upcase %>
+                      逾時原因(DType)
+                    <% else %>
+                      <%= k %>
+                    <% end %>
+                  </label>
+                </dt>
+                <dd>
+                  <%= v %>
+                </dd>
+              </dl>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

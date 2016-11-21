@@ -154,18 +154,33 @@
 					</dt>
 					<dd>
 						<p class="label label-danger col-md-7"><%= @obj.errors[:ispublic][0] unless @obj.errors[:ispublic].empty? %></p>
-						<div class="checkbox  col-md-4">
+						<div class="checkbox  col-md-3">
 							<label>
 								<%= o.check_box :ispublic %> （Default）Draft
 							</label>
 						</div>
-						<div class="col-md-6">
-							<label style="margin-top: 10px; margin-bottom: 10px;">
-								<%= o.file_field :image, :class=>"col-md-8" %>
-							</label>							
+						<div class="col-md-2 text-right">
+							<label class="text-capitalize">
+								<h4 style="font-weight: bold;">image:</h4>
+							</label>
 						</div>
-
-							
+						<div class="col-md-6">
+							<% o_file_field_margin = "margin: 10px 0;" %>
+							<% if o.object.image.exists? %>
+				        <a href=<%= o.object.image.url %>>
+				          <%= image_tag o.object.image.url(:medium) %>
+				        </a>
+				        <div class="chechbox">
+				        	<label>
+				        		<%= check_box_tag :del %> Delete this image 
+				        	</label>
+				        </div>
+				        <p>or update another one.</p>
+				        <% o_file_field_margin = "margin: 0;" %>
+							<% end %>
+							<label>
+								<%= o.file_field :image, :style=>o_file_field_margin %>
+							</label>							
 						</div>
 					</dd>
 				</dl>
