@@ -8,7 +8,7 @@ class Obj < ApplicationRecord
 
   belongs_to :user
 
-  has_many :comments, :dependent => :destroy
+  self.has_many(:comments, {:dependent => :destroy})
   has_many :obj_categoryships, :dependent => :destroy
   has_many :categories, :through => :obj_categoryships
   has_many :user_collectionships, :dependent => :destroy

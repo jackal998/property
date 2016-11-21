@@ -4,21 +4,23 @@ class ObjsController < ApplicationController
 
 	def post_index
 		redirect_to objs_path(:page=>params[:page], :id=>params[:id], :order=>params[:order], :category_ids=>obj_params[:category_ids])
-	end	
+	end
 
 	def index
-
-		@objs = Obj.where(:ispublic => true).all.includes(:comments)
+		# objs = Obj.where('for obj filter')
+		# objs = objs.includes('all you need associate')
+		@categories = Category.all
+		@objs = Obj.includes(:user).includes(:comments => :user).where(:ispublic => true)
 		
-		if current_user
-			if current_user.admin?
-				@objs = Obj.all.includes(:comments)
-			end
-			@ucs = UserCollectionship.where(:user_id => current_user.id)
-		end
-
 		if params[:keyword]
 			@objs = @objs.where( [ "name like ?", "%#{params[:keyword]}%" ] )
+		end
+
+		if current_user
+			if current_user.admin?
+				@objs = Obj.includes(:comments => :user)
+			end
+			@ucs = UserCollectionship.where(:user_id => current_user.id).pluck(:obj_id)
 		end
 
 		case params[:order]
@@ -42,7 +44,6 @@ class ObjsController < ApplicationController
 		else
 			@objs = @objs.page(params[:page]).per(10)
 		end
-		@objs = @objs.all.includes(:user)
 	end
 
 	def new
