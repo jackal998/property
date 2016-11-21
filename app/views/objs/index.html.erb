@@ -9,12 +9,14 @@
         <% checkinclude = params[:category_ids].include?(c.id.to_s) if params[:category_ids] %>
         <div class="form-group">
           <div class="pull-left">
-            <div class="checkbox btn btn-default" style="margin: 0 3px;" >
-              <label for=<%="obj_category_ids_#{c.id}"%> >
-                <%= check_box_tag "obj[category_ids][]", c.id, checkinclude, :id => "obj_category_ids_#{c.id}" %>
-                <%= c.name %>
-              </label>
-            </div>
+            <label for=<%="obj_category_ids_#{c.id}"%> >
+              <div class="checkbox btn btn-default" style="margin: 0 3px;" >
+                <label>
+                  <%= check_box_tag "obj[category_ids][]", c.id, checkinclude, :id => "obj_category_ids_#{c.id}" %>
+                  <%= c.name %>
+                </label>
+              </div>
+            </label>
           </div>
         </div>
       <% end %>
@@ -63,9 +65,11 @@
                 <%= ou.nickname == "" ? ou.email.split('@').first : ou.nickname %>
               </span>
             <% end %>
-            <span class="label label-info">
-              <%= obj.comments.group(:ispublic).count[true] %>
-            </span> 
+            <% if public_comments = obj.comments.group(:ispublic).count[true] %>
+              <span class="label label-info">
+                <%= public_comments %>
+              </span>
+            <% end %>
             <span class="badge"><%= obj.views_count %></span> 
           </div>
           <%= link_to obj_name, obj_path(obj), :class => "text-left btn-link" %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161121062100) do
+ActiveRecord::Schema.define(version: 20161121143622) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -39,21 +39,21 @@ ActiveRecord::Schema.define(version: 20161121062100) do
   end
 
   create_table "objs", force: :cascade do |t|
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.string   "name"
     t.string   "serial"
     t.date     "datebought"
     t.date     "dateretire"
-    t.integer  "value"
+    t.integer  "value",              limit: 8
     t.string   "snumber1"
     t.string   "snumber2"
     t.text     "description"
     t.boolean  "ispublic"
     t.integer  "user_id"
     t.string   "custodian"
-    t.integer  "comments_count",     default: 0
-    t.integer  "views_count",        default: 0
+    t.integer  "comments_count",               default: 0
+    t.integer  "views_count",                  default: 0
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"

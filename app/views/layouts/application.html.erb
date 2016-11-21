@@ -40,12 +40,10 @@
     //   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
     //   fjs.parentNode.insertBefore(js, fjs);
     // }(document, 'script', 'facebook-jssdk'));
-    // $(document).ready(function() {
-    //   $('input[id~="obj_category_ids_"]').on('', function(ce){
-    // //     // ce.stopPropagation();
-    //     console.log("aa");
-    //     // $(this).parent('.checkbox').toggleClass('active');
-    //   });
-    // });
+    $(document).ready(function() {
+      $('input').on('change', function(){
+        $(this).closest('.checkbox').toggleClass('active');
+      });
+    });
   </script>
 </html>
