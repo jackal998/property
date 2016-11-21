@@ -13,7 +13,7 @@ class Obj < ApplicationRecord
   has_many :categories, :through => :obj_categoryships
   has_many :user_collectionships, :dependent => :destroy
 
-  has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/system/objs/images/:style/鮮乳坊簽名圖.png"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
 end

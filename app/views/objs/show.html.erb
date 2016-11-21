@@ -14,7 +14,8 @@
       <th>
         <a href=<%= @obj.image.url %>>
           <%= image_tag @obj.image.url(:medium) %>
-        </a>  
+        </a>
+        <%= "這是預設圖片，請上傳一張圖片吧！" if @obj.image_updated_at.nil? %>
       </th>
     </tr>
     <tr>
@@ -61,10 +62,12 @@
       <td class="text-capitalize align-right col-md-2">custodian</td>
       <td class="col-md-10 text-left"><%= @obj.custodian %></td>
     </tr>
-    <tr>
-      <td class="text-capitalize align-right col-md-2">ispublic</td>
-      <td class="col-md-10 text-left"><%= @obj.ispublic %></td>
-    </tr>
+    <% if current_user.admin? %>
+      <tr>
+        <td class="text-capitalize align-right col-md-2">ispublic</td>
+        <td class="col-md-10 text-left"><%= @obj.ispublic %></td>
+      </tr>      
+    <% end %>
 	</table>
 </div>
 
