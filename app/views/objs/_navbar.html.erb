@@ -1,15 +1,11 @@
 <% if current_user %>
-  <% if current_user.nickname.nil? || current_user.nickname == "" %>
-    <% show_user_name = current_user.email.split("@").first %>
-  <% elsif current_user.nickname.length > 15 %>
-    <% show_user_name = current_user.nickname[0..14] + "..." %>
+  <% if current_user.fb_uid %>
+    <% avatar_url = current_user.fb_raw_data.info.image %>
   <% else %>
-    <% show_user_name = current_user.nickname %>
+    <% avatar_url = gravatar_url(current_user.email.strip.downcase) %>
   <% end %>
-  <% gravatar_image = gravatar_url(current_user.email.strip.downcase) %>
 <% else %>
-  <% show_user_name = Faker::Superhero.name %>
-  <% gravatar_image = gravatar_url("#{show_user_name.strip.downcase}@gmail.com") %>
+  <% avatar_url = gravatar_url("#{show_my_name.strip.downcase}@gmail.com") %>
 <% end %>
 
 <nav class="navbar navbar-default">
@@ -57,11 +53,11 @@
           <li><%= link_to "FB Sign in", user_facebook_omniauth_authorize_path %></li>
         <% end %>
         <li>
-          <img src=<%= gravatar_image %> alt="gravatar_image" class="btn">
+          <img src=<%= avatar_url %> alt="avatar" style="margin: 8px 12px; width: 32px;">
         </li>
         <li class="dropdown">
           <a href=<%= current_user ? user_path(current_user) : "#" %> class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <%= show_user_name %>
+            <%= show_my_name %>
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">

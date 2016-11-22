@@ -27,7 +27,7 @@
         <td><%= user.created_at %></td>
         <td><%= user.updated_at %></td>
         <td><%= link_to user.email, user_path(user), :class => "text-left btn-link" %></td>
-        <td><%= user.nickname %></td>
+        <td><%= user.nickname || user.fb_raw_data.info.name || "" %></td>
         <td><%= user.firstname %></td>
         <td><%= user.lastname %></td>
         <td><%= user.role %></td>
