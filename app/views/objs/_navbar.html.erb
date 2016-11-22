@@ -48,12 +48,13 @@
       </div>
       <ul class="nav navbar-nav navbar-right">        
         <% if current_user %>
-          <li><%= link_to( "Now you see me", admin_users_path) if current_user.admin? %></li>
-          <li><%= link_to( "Edit profile", edit_registration_path(:user)) %></li>
-          <li><%= link_to( "Log out", destroy_user_session_path, :method => "delete" ) %></li>
+          <li><%= link_to "Now you see me", admin_users_path if current_user.admin? %></li>
+          <li><%= link_to "Edit profile", edit_registration_path(:user) %></li>
+          <li><%= link_to "Log out", destroy_user_session_path, :method => "delete" %></li>
         <% else %>
-          <li><%= link_to( "Sign up", new_registration_path(:user)) %></li>
-          <li><%= link_to( "Sign in", new_session_path(:user)) %></li>
+          <li><%= link_to "Sign up", new_registration_path(:user) %></li>
+          <li><%= link_to "Sign in", new_session_path(:user) %></li>
+          <li><%= link_to "FB Sign in", user_facebook_omniauth_authorize_path %></li>
         <% end %>
         <li>
           <img src=<%= gravatar_image %> alt="gravatar_image" class="btn">
