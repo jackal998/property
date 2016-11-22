@@ -121,5 +121,6 @@
   <% @obj = Obj.new %> 
   <%= render :partial =>"form_template" ,:locals => {:u => objs_path(:page=>params[:page]), :m => "post" } %>
 <% end %>
+
 <%= paginate @objs %>
 

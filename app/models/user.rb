@@ -40,6 +40,7 @@ class User < ApplicationRecord
     user.save!
     return user
   end
+  
   def admin?
     self.role == "admin" 
   end

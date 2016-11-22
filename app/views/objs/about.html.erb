@@ -7,10 +7,10 @@
     <p>全站共有：<%= @users.count %>個使用者/<%= @objs.count %>個財產/<%= @comments.count %>篇回覆</p>
     <!-- Table -->
     <div class="col-md-12 ">
-      <% tpconstruction["result"]["results"].each do |tpcrr| %>
+      <% @tpconstructions.each do |tpc| %>
         <div class="panel panel-primary">
           <div class="panel-body">
-            <% tpcrr.each do |k,v| %>
+            <% tpc.each do |k,v| %>
               <dl class="dl-horizontal">
                 <dt>
                   <label class="text-capitalize text-right control-label">
@@ -69,3 +69,4 @@
     </div>
   </div>
 </div>
+
