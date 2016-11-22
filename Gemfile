@@ -22,10 +22,13 @@ gem 'kaminari'
 gem 'faker'
 # Use devise as an user recognize plugin. 'j'
 gem 'devise'
+gem 'omniauth-facebook'
 # Use as image pre-processor
 gem "paperclip", "~> 5.0.0"
 
 gem 'rest-client'
+
+
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

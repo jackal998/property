@@ -37,7 +37,7 @@ class ObjsController < ApplicationController
 		end
 
 		if params[:category_ids]
-			obj_catships_arr = ObjCategoryship.where(:category_id =>params[:category_ids]).collect{ |ocs| ocs[:obj_id] }.uniq
+			obj_catships_arr = ObjCategoryship.where(:category_id => params[:category_ids]).collect{ |ocs| ocs[:obj_id] }.uniq
 			@objs = @objs.where(:id => obj_catships_arr)
 
 			@objs = @objs.page(1).per(10)
