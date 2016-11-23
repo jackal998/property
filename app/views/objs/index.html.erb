@@ -74,20 +74,9 @@
           </div>
           <%= link_to obj_name, obj_path(obj), :class => "text-left btn-link" %>
         </td>
-        
         <% if current_user %>
-          <td class="text-center">
-            <% if @ucs %>
-              <% if @ucs.include? obj.id %>
-                <% class_of_like_link = "btn glyphicon glyphicon-star" %>
-              <% else %>
-                <% class_of_like_link = "btn glyphicon glyphicon-star-empty" %>
-              <% end %>
-            <% else %>
-              <% class_of_like_link = "btn glyphicon glyphicon-star-empty" %>
-            <% end %>
-            <%= link_to "", edit_user_path(obj, :page => params[:page], :order => params[:order]), 
-                            :class => class_of_like_link %>
+          <td id="like_star_<%= obj.id %>" class="text-center">
+            <%= render :partial => "/users/like", :locals => { :obj => obj } %>
           </td>
           <% if current_user == obj.user || current_user.role == "admin" %>
             <td class="text-center">

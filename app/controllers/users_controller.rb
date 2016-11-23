@@ -11,13 +11,15 @@ before_action :authenticate_user!
   end
 
   def edit
-    @ucship = UserCollectionship.where(:user_id => current_user.id)
-    @uc = @ucship.find_by_obj_id(params[:id])
-    if @uc.nil?
-      UserCollectionship.create(:user_id => current_user.id, :obj_id  => params[:id])
+    @obj = Obj.find(params[:id])
+    @user_collectionship = current_user.user_collectionships.find_by_obj_id(@obj)
+    if @user_collectionship.nil?
+      UserCollectionship.create(:user_id => current_user.id, :obj_id  => @obj.id)
     else
-      @uc.destroy
+      @user_collectionship.destroy
     end
-    redirect_to objs_path(:page => params[:page], :order => params[:order])
+    respond_to do |format|
+      format.js
+    end
   end
 end
