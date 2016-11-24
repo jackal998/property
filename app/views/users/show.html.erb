@@ -69,20 +69,28 @@
     <tr>
       <td class="text-capitalize align-right col-md-2">collection</td>
       <td>
-        <% @objs.each do |obj| %>
-          <a href=<%= obj_path(obj) %>>
-            <span aria-hidden="true">&larr;</span><%= obj.name %>
+        <% @ucs_objs.each do |ucs_obj| %>
+          <a href=<%= obj_path(ucs_obj) %>>
+            <span aria-hidden="true">&larr;</span><%= ucs_obj.name %>
           </a>
           <div class="panel panel-info">
             <div class="panel-heading">
-              <% if obj.user.nickname == "" %>
-                <%= obj.user.email.split('@').first %>
+              <% if ucs_obj.user.nickname == "" %>
+                <%= ucs_obj.user.email.split('@').first %>
               <% else %>
-                <%= obj.user.nickname %>
+                <%= ucs_obj.user.nickname %>
               <% end %>
             </div>
-            <div class="panel-body"><%= obj.description %></div>
+            <div class="panel-body"><%= ucs_obj.description %></div>
           </div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">liked</td>
+      <td>-
+        <% @uls_objs.each do |uls_obj| %>
+          <%= uls_obj.name %> -
         <% end %>
       </td>
     </tr>

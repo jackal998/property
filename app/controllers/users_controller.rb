@@ -4,8 +4,13 @@ before_action :authenticate_user!
   def show
     @user = User.find(params[:id])
     @ucships = UserCollectionship.where(:user_id => params[:id])
-    ucships_arr = @ucships.collect{ |ucship| ucship[:obj_id] }
-    @objs = Obj.where(:id => ucships_arr)
+    ucships_arr = @ucships.collect{ |ucship| ucship[:obj_id] }    
+    @ucs_objs = Obj.includes(:user).where(:id => ucships_arr)
+
+    @ulships = UserLikeship.where(:user_id => params[:id])
+    ulships_arr = @ulships.collect{ |ulship| ulship[:obj_id] }    
+    @uls_objs = Obj.where(:id => ulships_arr)
+
     @user_comments = @user.comments.includes(:obj)
     @user_objs = @user.objs.includes(:comments)
   end
