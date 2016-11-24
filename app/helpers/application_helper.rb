@@ -19,4 +19,16 @@ module ApplicationHelper
       return Faker::Superhero.name 
     end
   end
+  def user_name(comment)
+    if comment.user.fb_uid
+      return current_user.fb_raw_data.info.name
+    end    
+    if comment.user.nickname.nil?
+      return comment.user.email.split("@").first
+    elsif comment.user.nickname.length > 15
+      return comment.user.nickname[0..14] + "..."
+    else
+      return comment.user.nickname
+    end
+  end
 end

@@ -65,11 +65,9 @@
                 <%= ou.nickname == "" ? ou.email.split('@').first : ou.nickname %>
               </span>
             <% end %>
-            <% if public_comments = obj.comments.group(:ispublic).count[true] %>
-              <span class="label label-info">
-                <%= public_comments %>
-              </span>
-            <% end %>
+            <span class="label label-info">
+              <%= obj.comments.size %>
+            </span>
             <span class="badge"><%= obj.views_count %></span> 
           </div>
           <%= link_to obj_name, obj_path(obj), :class => "text-left btn-link" %>

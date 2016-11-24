@@ -9,9 +9,10 @@ class ObjsController < ApplicationController
 	def index
 		# objs = Obj.where('for obj filter')
 		# objs = objs.includes('all you need associate')
+
 		@categories = Category.all
-		@objs = Obj.includes(:user).includes(:comments => :user).where(:ispublic => true)
-		
+		@objs = Obj.includes(:user).includes(:comments => :user).where('comments.ispublic' => true, :ispublic => true)
+
 		if params[:keyword]
 			@objs = @objs.where( [ "name like ?", "%#{params[:keyword]}%" ] )
 		end
@@ -25,16 +26,18 @@ class ObjsController < ApplicationController
 
 		case params[:order]
 		when "by_name"
-			@objs = @objs.order('name')
+			@objs = @objs.order('objs.name')
 		when "by_newcomment"
 			@objs = @objs.order('comments.id DESC').uniq
 		when "by_hotest"
-			@objs = @objs.order('comments_count DESC')
+			@objs = @objs.order('objs.comments_count DESC')
 		when "by_mostviewed"
-			@objs = @objs.order('views_count DESC')
+			@objs = @objs.order('objs.views_count DESC')
 		else
-			@objs = @objs.order('created_at')
+			@objs = @objs.order('objs.created_at')
 		end
+
+		@objs = @objs.includes(:user_collectionships)
 
 		if params[:category_ids]
 			obj_catships_arr = ObjCategoryship.where(:category_id => params[:category_ids]).collect{ |ocs| ocs[:obj_id] }.uniq

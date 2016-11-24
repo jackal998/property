@@ -18,8 +18,11 @@ class UserCommentsController < ApplicationController
 
   def destroy
     Comment.find(params[:id]).destroy
-    flash[:alert] = "comment deleted"
-    redirect_to obj_path(params[:obj])
+    # flash[:alert] = "comment deleted"
+    respond_to do |format|
+      format.js
+    end
+    # redirect_to obj_path(params[:obj])
   end
 
   private
