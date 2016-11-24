@@ -22,7 +22,6 @@ before_action :authenticate_user!
       format.js
     end
   end
-
   def edit_like
     @obj = Obj.find(params[:id])
     @user_likeship = current_user.user_likeships.find_by_obj_id(@obj)
@@ -30,6 +29,18 @@ before_action :authenticate_user!
       UserLikeship.create(:user_id => current_user.id, :obj_id  => @obj.id)
     else
       @user_likeship.destroy
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+  def edit_subscribe
+    @obj = Obj.find(params[:id])
+    @user_subscribeship = current_user.user_subscribeships.find_by_obj_id(@obj)
+    if @user_subscribeship.nil?
+      UserSubscribeship.create(:user_id => current_user.id, :obj_id  => @obj.id)
+    else
+      @user_subscribeship.destroy
     end
     respond_to do |format|
       format.js
