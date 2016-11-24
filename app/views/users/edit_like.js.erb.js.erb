@@ -1,0 +1,2 @@
+var content = "<%= j render(:partial=>'like', :locals => {:obj => @obj}) %>"
+$('#like_star_<%= params[:id] %>').html(content);

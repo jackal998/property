@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :objs, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :user_collectionships, :dependent => :destroy
+  has_many :user_likeships, :dependent => :destroy
   serialize :fb_raw_data
   
   def self.from_omniauth(auth)

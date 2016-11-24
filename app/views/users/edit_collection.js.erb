@@ -1,0 +1,2 @@
+var content = "<%= j render(:partial=>'subs', :locals => {:obj => @obj}) %>"
+$('#subs_<%= params[:id] %>').html(content);

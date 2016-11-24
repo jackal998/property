@@ -10,7 +10,7 @@ before_action :authenticate_user!
     @user_objs = @user.objs.includes(:comments)
   end
 
-  def edit
+  def edit_collection
     @obj = Obj.find(params[:id])
     @user_collectionship = current_user.user_collectionships.find_by_obj_id(@obj)
     if @user_collectionship.nil?
@@ -22,4 +22,19 @@ before_action :authenticate_user!
       format.js
     end
   end
+
+  def edit_like
+    @obj = Obj.find(params[:id])
+    @user_likeship = current_user.user_likeships.find_by_obj_id(@obj)
+    if @user_likeship.nil?
+      UserLikeship.create(:user_id => current_user.id, :obj_id  => @obj.id)
+    else
+      @user_likeship.destroy
+    end
+    respond_to do |format|
+      format.js
+    end
+  end  
+
+
 end

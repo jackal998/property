@@ -22,6 +22,7 @@ class ObjsController < ApplicationController
 				@objs = Obj.includes(:comments => :user)
 			end
 			@ucs = UserCollectionship.where(:user_id => current_user.id).pluck(:obj_id)
+			@uls = UserLikeship.where(:user_id => current_user.id).pluck(:obj_id)
 		end
 
 		case params[:order]
@@ -36,8 +37,6 @@ class ObjsController < ApplicationController
 		else
 			@objs = @objs.order('objs.created_at')
 		end
-
-		@objs = @objs.includes(:user_collectionships)
 
 		if params[:category_ids]
 			obj_catships_arr = ObjCategoryship.where(:category_id => params[:category_ids]).collect{ |ocs| ocs[:obj_id] }.uniq
