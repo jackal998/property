@@ -1,10 +1,16 @@
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">
-  	<h1><%= @obj.name %></h1>
+    <div id="collection_heart" class="pull-right">
+      <%= render :partial => "/users/collection" %>  
+    </div>
+    <h1><%= @obj.name %></h1>
   </div>
   <div class="panel-body">
-    <p>This is <%= Time.now %> now!</p>
+    <span class="glyphicon glyphicon-star"></span>
+    <% @obj_user_likeships.each do |uls| %>
+      <%= uls.user.email %>
+    <% end %>
   </div>
 
   <!-- Table -->

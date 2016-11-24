@@ -19,9 +19,8 @@ class ObjsController < ApplicationController
 
 		if current_user
 			if current_user.admin?
-				@objs = Obj.includes(:comments => :user)
+				@objs = Obj.includes(:user).includes(:comments => :user)
 			end
-			@ucs = UserCollectionship.where(:user_id => current_user.id).pluck(:obj_id)
 			@uls = UserLikeship.where(:user_id => current_user.id).pluck(:obj_id)
 		end
 
@@ -46,6 +45,7 @@ class ObjsController < ApplicationController
 		else
 			@objs = @objs.page(params[:page]).per(10)
 		end
+		@objs = @objs.includes(:user_likeships)
 	end
 
 	def new
@@ -55,6 +55,8 @@ class ObjsController < ApplicationController
 	def show
 		@user = current_user
 		@obj.update(:views_count =>  @obj.views_count += 1)
+		@obj_user_likeships = @obj.user_likeships.includes(:user)
+		@ucs = UserCollectionship.where(:user_id => current_user.id).pluck(:obj_id)
 		@comments = @obj.comments.includes(:user) if @obj.comments
 		@comment = @comments.where(:user => @user).find_by_ispublic(false)
 		@comment = Comment.new unless @comment

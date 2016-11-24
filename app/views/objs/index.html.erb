@@ -60,7 +60,7 @@
 				<td>
           <% obj_name = simple_format("#{obj.name}\n( #{obj.description[0..25]}#{"..." if obj.description.length > 25} )", nil, :class => "text-left") %>
           <div class="pull-right">
-            <% obj.comments.collect{|o| o.user}.uniq.each do |ou| %>
+            <% obj.comments.collect{|oc| oc.user}.uniq.each do |ou| %>
               <span class="label label-success">
                 <%= ou.nickname == "" ? ou.email.split('@').first : ou.nickname %>
               </span>
