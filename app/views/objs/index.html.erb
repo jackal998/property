@@ -75,7 +75,6 @@
           <td id="like_star_<%= obj.id %>" class="text-center">
             <%= render :partial => "/users/like", :locals => { :obj => obj } %>
           </td>
-          <%# TODO if current_user.can_edit?(obj) %>
           <% if current_user.access?(obj) %>
             <td class="text-center">
               <%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %>

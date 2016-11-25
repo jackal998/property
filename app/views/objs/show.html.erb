@@ -81,7 +81,7 @@
 </div>
 
 <% @comments.each do |comment| %>
-  <% if current_user.admin? || comment.ispublic %>
+  <% if current_user.see?(comment) %>
     <%= render :partial => "comments", :locals => {:comment => comment} %>
   <% end %>
 <% end %>

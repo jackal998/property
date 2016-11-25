@@ -55,4 +55,7 @@ class User < ApplicationRecord
   def access?(target)
     self.admin? || self == target.user
   end
+  def see?(target)
+    self.admin? || target.ispublic
+  end
 end
