@@ -17,10 +17,10 @@ before_action :authenticate_user!
   def edit_collection
     @obj = Obj.find(params[:id])
     @user_collectionship = current_user.user_collectionships.find_by_obj_id(@obj)
-    if @user_collectionship.nil?
-      UserCollectionship.create(:user_id => current_user.id, :obj_id  => @obj.id)
-    else
+    if @user_collectionship
       @user_collectionship.destroy
+    else
+      UserCollectionship.create(:user_id => current_user.id, :obj_id  => @obj.id)
     end
     respond_to do |format|
       format.js
@@ -29,10 +29,10 @@ before_action :authenticate_user!
   def edit_like
     @obj = Obj.find(params[:id])
     @user_likeship = current_user.user_likeships.find_by_obj_id(@obj)
-    if @user_likeship.nil?
-      UserLikeship.create(:user_id => current_user.id, :obj_id  => @obj.id)
-    else
+    if @user_likeship
       @user_likeship.destroy
+    else
+      UserLikeship.create(:user_id => current_user.id, :obj_id  => @obj.id)
     end
     respond_to do |format|
       format.js
@@ -41,10 +41,10 @@ before_action :authenticate_user!
   def edit_subscribe
     @obj = Obj.find(params[:id])
     @user_subscribeship = current_user.user_subscribeships.find_by_obj_id(@obj)
-    if @user_subscribeship.nil?
-      UserSubscribeship.create(:user_id => current_user.id, :obj_id  => @obj.id)
-    else
+    if @user_subscribeship
       @user_subscribeship.destroy
+    else
+      UserSubscribeship.create(:user_id => current_user.id, :obj_id  => @obj.id)
     end
     respond_to do |format|
       format.js
