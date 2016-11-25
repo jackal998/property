@@ -61,10 +61,9 @@
           <%#  TODO Move this to helper  %>
           <% obj_name = simple_format("#{obj.name}\n( #{obj.description[0..25]}#{"..." if obj.description.length > 25} )", nil, :class => "text-left") %>
           <div class="pull-right">
-            <% obj.comments.collect{|oc| oc.user}.uniq.each do |ou| %>
+            <% obj.comments.collect{|comment| comment.user}.uniq.each do |obj_comment_user| %>
               <span class="label label-success">
-                <%# TODO implement display_name instance method in obj model %>
-                <%= ou.nickname == "" ? ou.email.split('@').first : ou.nickname %>
+                <%= user_name(obj_comment_user) %>
               </span>
             <% end %>
             <span class="label label-info">
