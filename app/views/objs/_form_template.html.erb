@@ -156,7 +156,7 @@
 						<p class="label label-danger col-md-7"><%= @obj.errors[:ispublic][0] unless @obj.errors[:ispublic].empty? %></p>
 						<div class="checkbox  col-md-3">
 							<label>
-								<%= o.check_box :ispublic %> （Default）Draft
+								<%= o.check_box :ispublic %> Select to post
 							</label>
 						</div>
 						<div class="col-md-2 text-right">
@@ -167,6 +167,7 @@
 						<div class="col-md-6">
 							<% o_file_field_margin = "margin: 10px 0;" %>
 							<% if o.object.image.exists? %>
+								<% o_file_field_margin = "margin: 0;" %>
 				        <a href=<%= o.object.image.url %>>
 				          <%= image_tag o.object.image.url(:medium) %>
 				        </a>
@@ -176,7 +177,6 @@
 				        	</label>
 				        </div>
 				        <p>or update another one.</p>
-				        <% o_file_field_margin = "margin: 0;" %>
 							<% end %>
 							<label>
 								<%= o.file_field :image, :style=>o_file_field_margin %>

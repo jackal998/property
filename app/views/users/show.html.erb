@@ -65,16 +65,16 @@
     <tr>
       <td class="text-capitalize align-right col-md-2">collection</td>
       <td>
-        <% @ucs_objs.each do |ucs_obj| %>
-          <%= link_to obj_path(ucs_obj) do %>
+        <% @user_collection_objs.each do |obj| %>
+          <%= link_to obj_path(obj) do %>
             <span aria-hidden="true">&larr;</span>
-            <%= ucs_obj.name %>
+            <%= obj.name %>
           <% end %>
           <div class="panel panel-info">
             <div class="panel-heading">
-              <%= user_name(ucs_obj.user) %>
+              <%= user_name(obj.user) %>
             </div>
-            <div class="panel-body"><%= ucs_obj.description %></div>
+            <div class="panel-body"><%= obj.description %></div>
           </div>
         <% end %>
       </td>
