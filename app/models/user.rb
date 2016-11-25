@@ -18,6 +18,7 @@ class User < ApplicationRecord
     if user
       user.fb_token = auth.credentials.token
       user.fb_name = auth.info.name
+      user.fb_avatar = auth.info.image
       user.fb_raw_data = auth
       user.save!
       return user
@@ -29,6 +30,7 @@ class User < ApplicationRecord
       existing_user.fb_uid = auth.uid
       existing_user.fb_token = auth.credentials.token
       existing_user.fb_name = auth.info.name
+      user.fb_avatar = auth.info.image
       existing_user.fb_raw_data = auth
       existing_user.save!
       return existing_user
@@ -39,6 +41,7 @@ class User < ApplicationRecord
     user.fb_uid = auth.uid
     user.fb_token = auth.credentials.token
     user.fb_name = auth.info.name
+    user.fb_avatar = auth.info.image
     user.email = auth.info.email
     user.password = Devise.friendly_token[0,20]
     user.fb_raw_data = auth
