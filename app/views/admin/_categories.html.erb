@@ -17,7 +17,7 @@
   <div class="panel-body">
     <div class="btn-group btn-group-justified" role="group" aria-label="...">
       <%= form_tag admin_categories_path do %>
-        <% Category.all.includes(:obj_categoryships).each do |c| %>
+        <% Category.includes(:obj_categoryships).each do |c| %>
           <div class="btn-group" role="group">
             <% if c.obj_categoryships.length == 0 %>
               <% count_if_no_objs = true %>

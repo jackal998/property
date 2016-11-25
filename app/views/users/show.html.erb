@@ -41,9 +41,10 @@
         <% @user_comments.each do |comment| %>
           <ul class="pager">
             <li class="previous">
-              <a href=<%= obj_path(comment.obj) %>>
-                <span aria-hidden="true">&larr;</span><%= comment.obj[:name] %>
-              </a>
+              <%= link_to obj_path(comment.obj) do %>
+                <span aria-hidden="true">&larr;</span>
+                <%= comment.obj[:name] %>
+              <% end %>
             </li>
           </ul>
           <div class="panel panel-default">
@@ -65,9 +66,10 @@
       <td class="text-capitalize align-right col-md-2">collection</td>
       <td>
         <% @ucs_objs.each do |ucs_obj| %>
-          <a href=<%= obj_path(ucs_obj) %>>
-            <span aria-hidden="true">&larr;</span><%= ucs_obj.name %>
-          </a>
+          <%= link_to obj_path(ucs_obj) do %>
+            <span aria-hidden="true">&larr;</span>
+            <%= ucs_obj.name %>
+          <% end %>
           <div class="panel panel-info">
             <div class="panel-heading">
               <%= user_name(ucs_obj.user) %>
