@@ -27,4 +27,7 @@ module ObjsHelper
       return editor_objs_path(:obj => obj)
     end
   end
+  def index_name(obj)
+    return simple_format("#{obj.name}\n( #{obj.description[0..25]}#{"..." if obj.description.length > 25} )", nil, :class => "text-left")
+  end
 end

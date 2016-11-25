@@ -58,8 +58,6 @@
 		<% @objs.each do |obj| %>
 			<tr>
 				<td>
-          <%#  TODO Move this to helper  %>
-          <% obj_name = simple_format("#{obj.name}\n( #{obj.description[0..25]}#{"..." if obj.description.length > 25} )", nil, :class => "text-left") %>
           <div class="pull-right">
             <% obj.comments.collect{|comment| comment.user}.uniq.each do |obj_comment_user| %>
               <span class="label label-success">
@@ -71,25 +69,20 @@
             </span>
             <span class="badge"><%= obj.views_count %></span> 
           </div>
-          <%= link_to obj_name, obj_path(obj), :class => "text-left btn-link" %>
+          <%= link_to index_name(obj), obj_path(obj), :class => "text-left btn-link" %>
         </td>
         <% if current_user %>
           <td id="like_star_<%= obj.id %>" class="text-center">
             <%= render :partial => "/users/like", :locals => { :obj => obj } %>
           </td>
           <%# TODO if current_user.can_edit?(obj) %>
-          <% if current_user == obj.user || current_user.role == "admin" %>
+          <% if current_user.access?(obj) %>
             <td class="text-center">
               <%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %>
             </td>
             <td class="text-center">
               <%= link_to "Delete", obj_path(obj,:page=>params[:page]),:method => :delete, :class => "btn btn-danger"%>
             </td>
-          <% elsif obj.user.nil? # TODO Remove this line and fix legacy data %>
-            <td class="text-center">
-              <%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %>
-            </td>
-            <td></td>
           <% else %>
             <td></td>
             <td></td>

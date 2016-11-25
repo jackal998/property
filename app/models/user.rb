@@ -52,4 +52,7 @@ class User < ApplicationRecord
   def admin?
     self.role == "admin" 
   end
+  def access?(target)
+    self.admin? || self == target.user
+  end
 end
