@@ -1,10 +1,10 @@
-<% count_if_no_objs = 0 %>
+<% count_if_no_objs = nil %>
 <% if @category.new_record? %>
-  <% u = admin_categories_path %>
+  <% url = admin_categories_path %>
   <% btn_name = "Create!" %>
   <% class_details = "btn-success" %>
 <% else %>
-  <% u = admin_category_path(@category) %>
+  <% url = admin_category_path(@category) %>
   <% btn_name = "Update!" %>
   <% class_details = "btn-primary" %>
 <% end %>
@@ -20,6 +20,7 @@
         <% Category.all.includes(:obj_categoryships).each do |c| %>
           <div class="btn-group" role="group">
             <% if c.obj_categoryships.length == 0 %>
+              <% count_if_no_objs = true %>
               <div class="input-group">
                 <span class="input-group-addon">
                   <%= check_box_tag "category_ids[]", c.id, false %>
@@ -28,13 +29,12 @@
                   <%= link_to c.name, edit_admin_category_path(c), :class => "btn btn-warning"  %>
                 </div>
               </div>
-              <% count_if_no_objs += 1 %>
             <% else %>
               <%= link_to c.name, edit_admin_category_path(c), :class => "btn btn-default"  %>
             <% end %>
           </div>
         <% end %>
-        <% if count_if_no_objs > 0 %>
+        <% if count_if_no_objs %>
           <div class="btn-group" role="group">
             <%= submit_tag "Del", :class => "btn btn-danger" %>
           </div>
@@ -45,7 +45,7 @@
   </div>
 
   <div class="panel-body">
-    <%= form_for @category, :url => u do |f| %>
+    <%= form_for @category, :url => url do |f| %>
       <div class="input-group">
         <span class="input-group-btn">
             <button class="btn <%= class_details %>" type="submit"><%= btn_name %></button>

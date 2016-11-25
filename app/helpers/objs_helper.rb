@@ -20,7 +20,7 @@ module ObjsHelper
       return @user_likeship.nil?
     end
   end
-  def user_show_link(obj)
+  def obj_link(obj)
     if obj.ispublic
       return obj_path(obj)
     else

@@ -4,7 +4,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1"><%= user_name(comment) %></span>
+        <span class="input-group-addon" id="basic-addon1"><%= user_name(comment.user) %></span>
         <span class="input-group-addon" id="basic-addon2">Title:</span>
         <%= c.text_field :title, :class => "form-control", :readonly => true, :style => "background-color:#fff" %>
         <% if comment.user == current_user %>

@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">
-    <h1><%= @user.nickname %></h1>
+    <h1><%= user_name(@user) %></h1>
   </div>
 
   <!-- Table -->
@@ -16,7 +16,7 @@
         <% @user_objs.each do |obj| %>
           <ul class="pager">
             <li class="previous">
-              <%= link_to user_show_link(obj) do %>
+              <%= link_to obj_link(obj) do %>
                 <% if obj.ispublic %>
                   <%= obj.name %>
                   <span aria-hidden="true">&rarr;</span>
@@ -70,12 +70,7 @@
           </a>
           <div class="panel panel-info">
             <div class="panel-heading">
-              <%# TODO %>
-              <% if ucs_obj.user.nickname == "" %>
-                <%= ucs_obj.user.email.split('@').first %>
-              <% else %>
-                <%= ucs_obj.user.nickname %>
-              <% end %>
+              <%= user_name(ucs_obj.user) %>
             </div>
             <div class="panel-body"><%= ucs_obj.description %></div>
           </div>
