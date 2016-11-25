@@ -1,6 +1,6 @@
 class ObjsController < ApplicationController
 	before_action :authenticate_user!, :except => [:index]
-	before_action :find_id, :only => [:index, :show, :edit, :update, :destroy]
+	before_action :set_obj, :only => [:show, :edit, :update, :destroy]
 
 	def post_index
 		redirect_to objs_path(:page=>params[:page], :id=>params[:id], :order=>params[:order], :category_ids=>obj_params[:category_ids])
@@ -14,7 +14,7 @@ class ObjsController < ApplicationController
 		@objs = Obj.includes(:user).includes(:comments => :user).where('comments.ispublic' => true, :ispublic => true)
 
 		if params[:keyword]
-			@objs = @objs.where( [ "name like ?", "%#{params[:keyword]}%" ] )
+			@objs = @objs.where([ "name like ?", "%#{params[:keyword]}%" ])
 		end
 
 		if current_user
@@ -40,12 +40,15 @@ class ObjsController < ApplicationController
 		if params[:category_ids]
 			obj_catships_arr = ObjCategoryship.where(:category_id => params[:category_ids]).collect{ |ocs| ocs[:obj_id] }.uniq
 			@objs = @objs.where(:id => obj_catships_arr)
-
-			@objs = @objs.page(1).per(10)
-		else
-			@objs = @objs.page(params[:page]).per(10)
 		end
+		@objs = @objs.page(params[:page]).per(10)
 		@objs = @objs.includes(:user_likeships)
+
+		if params[:id]
+			@obj = Obj.find(params[:id])
+		else
+			@obj=Obj.new
+		end
 	end
 
 	def new
@@ -76,6 +79,7 @@ class ObjsController < ApplicationController
 			redirect_to objs_path(:page=>params[:page])
 		else
 			@objs = Obj.page(params[:page]).per(10)
+			@categories = Category.all
 			render :index
 		end
 	end
@@ -94,6 +98,7 @@ class ObjsController < ApplicationController
 			redirect_to objs_path(:page=>params[:page])
 		else
 			@objs = Obj.page(params[:page]).per(10)
+			@categories = Category.all
 			render :index
 		end
 	end
@@ -109,35 +114,20 @@ class ObjsController < ApplicationController
 		@comments = Comment.all
 		@users = User.all
 		@tpconstructions = tpconstruction["result"]["results"]
+		byebug
 	end
 
 	private
 
-	def find_id
-		if params[:id]
-			@obj = Obj.find(params[:id])
-		else
-			@obj=0
-		end
+	def set_obj
+		@obj = Obj.find(params[:id])
 	end
 	def obj_params
 		if params[:obj]
 			params.require(:obj).permit(
-				:name, 
-				:serial,
-	  		:datebought,
-	  		:dateretire,
-				:value, 
-				:snumber1, 
-				:snumber2, 
-				:string,
-				:description, 
-				:text,
-				:custodian,
-				:keyword,
-				:ispublic,
-				:image,
-				:category_ids => [])
+				:name, :serial, :datebought, :dateretire, :value, :snumber1, :snumber2, 
+				:string, :description, :text, :custodian, :keyword, :ispublic, :image, :category_ids => []
+			)
 		end
 	end
 	def tpconstruction

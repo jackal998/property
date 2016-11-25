@@ -5,6 +5,7 @@ module ApplicationHelper
   end
   def show_my_name
     if current_user
+      # TODO DO NOT use name in raw_data and remove nil?
       if current_user.fb_uid
         return current_user.fb_raw_data.info.name
       end
@@ -31,4 +32,11 @@ module ApplicationHelper
       return comment.user.nickname
     end
   end
+
+
+  # def user_name(user) 
+  #   if user
+  #   else
+  #   end
+  # end
 end

@@ -10,7 +10,7 @@
 	<div class="panel-body">
 		<!-- Table -->
 		<div class="col-md-12 ">
-			<%= form_for @obj, :url => u , :method => m do |o| %>
+			<%= form_for @obj, :url => url , :method => method do |o| %>
 			
 				<ul class="pager">
 					<% Category.all.each do |c| %>

@@ -1,11 +1,11 @@
 class Admin::UsersController < AdminApplicationController
-before_action :find_user_id, :only => [:edit, :update, :destroy]
+before_action :find_user, :only => [:edit, :update, :destroy]
 
   def index
     @users = User.all
     @users = @users.page(params[:page]).per(10)
-    if params[:id]
-      @category = Category.find(params[:id])
+    if params[:category_id]
+      @category = Category.find(params[:category_id])
     else
       @category = Category.new
     end
@@ -29,16 +29,11 @@ before_action :find_user_id, :only => [:edit, :update, :destroy]
 
   private
 
-  def find_user_id
+  def find_user
     @user = User.find(params[:id])
   end
 
   def user_params
-    params.require(:user).permit(
-      :email,
-      :nickname,
-      :firstname,
-      :lastname,
-      :role)
+    params.require(:user).permit(:email, :nickname, :firstname, :lastname, :role)
   end
 end

@@ -1,7 +1,7 @@
 class Admin::CategoriesController < AdminApplicationController
   
   def edit
-    redirect_to admin_users_path(:id => params[:id])
+    redirect_to admin_users_path(:category_id => params[:id])
   end
 
   def update
@@ -11,13 +11,13 @@ class Admin::CategoriesController < AdminApplicationController
   end
 
   def create
-    if params[:commit].nil?
-      Category.create(:name => params[:category][:name])
-    else
+    if params[:commit]
       @categories = Category.where(:id => params[:category_ids])
       @categories.each do |c|
         c.destroy
       end
+    else
+      Category.create(:name => params[:category][:name])
     end
     redirect_to admin_users_path
   end
