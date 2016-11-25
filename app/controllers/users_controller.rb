@@ -7,9 +7,8 @@ before_action :authenticate_user!
     user_collection_arr = UserCollectionship.where(:user_id => params[:id]).pluck(:obj_id)
     @user_collection_objs = Obj.includes(:user).where(:id => user_collection_arr)
 
-    @ulships = UserLikeship.where(:user_id => params[:id])
-    ulships_arr = @ulships.pluck(:obj_id)
-    @uls_objs = Obj.where(:id => ulships_arr)
+    user_like_arr = UserLikeship.where(:user_id => params[:id]).pluck(:obj_id)
+    @user_like_objs = Obj.where(:id => user_like_arr)
 
     @user_comments = @user.comments.includes(:obj)
     @user_objs = @user.objs.includes(:comments)
