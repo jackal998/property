@@ -19,5 +19,12 @@ module ObjsHelper
     else
       return @user_likeship.nil?
     end
-  end  
+  end
+  def user_show_link(obj)
+    if obj.ispublic
+      return obj_path(obj)
+    else
+      return editor_objs_path(:obj => obj)
+    end
+  end
 end

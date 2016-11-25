@@ -14,22 +14,16 @@
       <td class="text-capitalize align-right col-md-2">objs</td>
       <td>
         <% @user_objs.each do |obj| %>
-          <% if obj.ispublic %>
-            <% href = obj_path(obj) %>
-            <% show_name = obj.name %>
-          <% else %>
-            <% href = editor_objs_path(:obj => obj) %>
-            <%# TODO display_obj_name(obj) %>
-            <% show_name =  "(Draft...) " + obj.name %>
-          <% end %>
           <ul class="pager">
             <li class="previous">
-              <a href=<%= href %>>
-                <%= show_name %>
+              <%= link_to user_show_link(obj) do %>
                 <% if obj.ispublic %>
+                  <%= obj.name %>
                   <span aria-hidden="true">&rarr;</span>
+                <% else %>
+                  <%= "(Draft...) " + obj.name %>
                 <% end %>
-              </a>
+              <% end %>
             </li>
           </ul>
           <% obj.comments.each do |obj_comment| %>
