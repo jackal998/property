@@ -56,13 +56,10 @@ class ObjsController < ApplicationController
 	end
 
 	def show
-		@user = current_user
 		@obj.update(:views_count =>  @obj.views_count += 1)
 		@obj_user_likeships = @obj.user_likeships.includes(:user)
-		@ucs = UserCollectionship.where(:user_id => current_user.id).pluck(:obj_id)
-		@uss = UserSubscribeship.where(:user_id => current_user.id).pluck(:obj_id)
 		@comments = @obj.comments.includes(:user) if @obj.comments
-		@comment = @comments.where(:user => @user).find_by_ispublic(false)
+		@comment = @comments.where(:user => current_user).find_by_ispublic(false)
 		@comment = Comment.new unless @comment
 	end
 
@@ -114,7 +111,6 @@ class ObjsController < ApplicationController
 		@comments = Comment.all
 		@users = User.all
 		@tpconstructions = tpconstruction["result"]["results"]
-		byebug
 	end
 
 	private

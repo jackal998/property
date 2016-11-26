@@ -1,5 +1,5 @@
 <%= form_for @comment, 
-  :url => user_comments_path(:obj => @obj,:id => @comment), 
+  :url => user_comments_path(:obj_id => @obj.id,:id => @comment), 
   :method => "post" do |f| %>
 
   <div class="panel panel-success">

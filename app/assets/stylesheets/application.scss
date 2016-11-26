@@ -14,43 +14,4 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "objs";
-
-.pagination a, .pagination span.current, .pagination span.gap {
-    float: left;
-    padding: 0 14px;
-    line-height: 34px;
-    text-decoration: none;
-    background-color: white;
-    border: 1px solid #DDD;
-    border-radius: 10%;
-}
-
-.pagination {
-	margin: 0 0 0 0;
-
-    .first{
-        padding : 0;
-        float: none;
-        border: none;
-    }
-    .prev {
-        padding : 0;
-        float: none;
-        border: none;
-    }
-    .page{
-        padding : 0;
-        float: none;
-        border: none;
-    }
-    .next{
-        padding : 0;
-        float: none;
-        border: none;
-    }
-    .last{
-        padding : 0;
-        float: none;
-        border: none;
-    }
-}
+@import "pagination_setting";

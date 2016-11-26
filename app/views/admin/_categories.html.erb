@@ -8,20 +8,20 @@
   <div class="panel-body">
     <div class="btn-group btn-group-justified" role="group" aria-label="...">
       <%= form_tag admin_categories_path do %>
-        <% Category.includes(:obj_categoryships).each do |c| %>
+        <% Category.includes(:obj_categoryships).each do |category| %>
           <div class="btn-group" role="group">
-            <% if c.obj_categoryships.length == 0 %>
+            <% if category.obj_categoryships.length == 0 %>
               <% count_if_no_objs = true %>
               <div class="input-group">
                 <span class="input-group-addon">
-                  <%= check_box_tag "category_ids[]", c.id, false %>
+                  <%= check_box_tag "category_ids[]", category.id, false %>
                 </span>
                 <div class="input-group-btn">
-                  <%= link_to c.name, edit_admin_category_path(c), :class => "btn btn-warning"  %>
+                  <%= link_to category.name, edit_admin_category_path(category), :class => "btn btn-warning"  %>
                 </div>
               </div>
             <% else %>
-              <%= link_to c.name, edit_admin_category_path(c), :class => "btn btn-default"  %>
+              <%= link_to category.name, edit_admin_category_path(category), :class => "btn btn-default"  %>
             <% end %>
           </div>
         <% end %>
