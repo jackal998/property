@@ -11,18 +11,19 @@ class ObjsController < ApplicationController
 		# objs = objs.includes('all you need associate')
 
 		@categories = Category.all
-		@objs = Obj.includes(:user).includes(:comments => :user).where('comments.ispublic' => true, :ispublic => true)
-
+		
 		if params[:keyword]
-			@objs = @objs.where([ "name like ?", "%#{params[:keyword]}%" ])
+			@objs = Obj.where([ "name like ?", "%#{params[:keyword]}%" ])
+		else
+			@objs = Obj.all
 		end
 
-		if current_user
-			if current_user.admin?
-				@objs = Obj.includes(:user).includes(:comments => :user)
-			end
-			@uls = UserLikeship.where(:user_id => current_user.id).pluck(:obj_id)
+		if current_user && current_user.admin?
+			@objs = @objs.includes(:user).includes(:comments => :user)
+		else
+			@objs = @objs.includes(:user).includes(:comments => :user).where('comments.ispublic' => true, :ispublic => true)
 		end
+
 
 		case params[:order]
 		when "by_name"
