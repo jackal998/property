@@ -1,0 +1,3 @@
+$('#tags').append('<%= link_to " ##{params[:tag][:name]}", "#{params[:tag][:name]}", :class=>"btn btn-link", :style=>"padding: 0;" unless params[:tag][:name].empty? %>');
+
+$('#tag_input').val('');

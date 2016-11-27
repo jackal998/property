@@ -10,12 +10,17 @@
     <h1><%= @obj.name %></h1>
   </div>
   <div class="panel-body">
-    <span class="glyphicon glyphicon-star"></span>
-    <% @obj_user_likeships.each do |uls| %>
-      <%= uls.user.email %>
-    <% end %>
+    <div class="pull-left  col-md-3">
+      <span class="glyphicon glyphicon-star"></span>
+      <% @obj_user_likeships.each do |uls| %>
+        <%= uls.user.email %>
+      <% end %>
+    </div>
+    <div id="tags" class="col-md-6">
+      <%= render :partial => "/tags/tags" %>
+    </div>
     <div id="new_tag" class="pull-right col-md-3">
-        <%= render :partial => "tag" %>
+      <%= render :partial => "/tags/new_tag" %>
     </div>
   </div>
 

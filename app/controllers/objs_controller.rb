@@ -60,6 +60,7 @@ class ObjsController < ApplicationController
 	def show
 		@obj.update(:views_count =>  @obj.views_count += 1)
 		@obj_user_likeships = @obj.user_likeships.includes(:user)
+		@obj_tags = @obj.tags
 		@comments = @obj.comments.includes(:user) if @obj.comments
 		@comment = @comments.where(:user => current_user).find_by_ispublic(false)
 		@comment = Comment.new unless @comment

@@ -26,4 +26,6 @@ Rails.application.routes.draw do
       get :about
     end
   end
+
+  resources :tags
 end
