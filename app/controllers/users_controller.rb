@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   end
 
   def edit_collection
-    @obj = Obj.find(params[:id])
+    @obj = Obj.find(params[:obj_id])
     @user_collectionship = current_user.user_collectionships.find_by_obj_id(@obj)
     if @user_collectionship
       @user_collectionship.destroy

@@ -1,16 +1,12 @@
 module ObjsHelper
-  def collected?(obj_id)
-    if @ucs
-      return @ucs.include? obj_id
-    else
-      return @user_collectionship.nil?
-    end
+  def collected?(obj)
+    return current_user.user_collectionships.find_by_obj_id(obj)
   end
-  def subscribed?(obj_id)
-    if @uss
-      return @uss.include? obj_id
+  def subscribed?(obj)
+    if @user_subscribeship_arr
+      return @user_subscribeship_arr.include? obj.id
     else
-      return @user_subscribeship.nil?
+      return @user_subscribeship_arr.nil?
     end
   end 
   def liked?(obj)
