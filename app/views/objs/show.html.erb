@@ -5,7 +5,7 @@
       <%= render :partial => "/users/collection" %>  
     </div>
     <div id="subscribe_buttun" class="pull-right">
-      <%= render :partial => "/users/subscribe" %> 
+      <%= render :partial => "/users/subscribe" %>
     </div>
     <h1><%= @obj.name %></h1>
   </div>
@@ -14,6 +14,9 @@
     <% @obj_user_likeships.each do |uls| %>
       <%= uls.user.email %>
     <% end %>
+    <div id="new_tag" class="pull-right col-md-3">
+        <%= render :partial => "tag" %>
+    </div>
   </div>
 
   <!-- Table -->

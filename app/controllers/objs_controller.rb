@@ -31,6 +31,7 @@ class ObjsController < ApplicationController
 		when "by_newcomment"
 			@objs = @objs.order('comments.id DESC').uniq
 		when "by_hotest"
+			# counter_cache(order_by_all_comments)
 			@objs = @objs.order('objs.comments_count DESC')
 		when "by_mostviewed"
 			@objs = @objs.order('objs.views_count DESC')
