@@ -56,6 +56,7 @@
       <% end %>
 		</tr>
 		<% @objs.each do |obj| %>
+      <% @obj_tags = obj.tags %>
 			<tr>
 				<td>
           <div class="pull-right">
@@ -69,7 +70,8 @@
             </span>
             <span class="badge"><%= obj.views_count %></span> 
           </div>
-          <%= link_to index_name(obj), obj_path(obj), :class => "text-left btn-link", data: { turbolinks: false } %>
+          <%= link_to index_name(obj), obj_path(obj), :class => "text-left btn-link col-md-4", data: { turbolinks: false } %>            
+          <%= render :partial =>"/tags/tags" %>
         </td>
         <% if current_user %>
           <td id="like_star_<%= obj.id %>" class="text-center">

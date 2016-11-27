@@ -11,7 +11,7 @@ class ObjsController < ApplicationController
 		# objs = objs.includes('all you need associate')
 
 		@categories = Category.all
-		@user_likeship_arr = current_user.user_likeships.pluck(:obj_id)
+		@user_likeship_arr = current_user.user_likeships.pluck(:obj_id) if current_user
 		
 		if params[:keyword]
 			@objs = Obj.where([ "name like ?", "%#{params[:keyword]}%" ])
@@ -44,7 +44,7 @@ class ObjsController < ApplicationController
 			@objs = @objs.where(:id => obj_catships_arr)
 		end
 		@objs = @objs.page(params[:page]).per(10)
-		@objs = @objs.includes(:user_likeships)
+		@objs = @objs.includes(:user_likeships).includes(:tags)
 
 		if params[:id]
 			@obj = Obj.find(params[:id])
