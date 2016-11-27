@@ -1,5 +1,7 @@
 $(document).ready(function() {
-  $('#tag_fold_buttun').click(function(event) {
+  $('.panel-body').on('click', '#tag_fold_buttun', function(event) {
+    console.log('ppp');
+    event.preventDefault();
     $(this).toggleClass('input-group-btn');
     $(this).find('.btn').toggleClass(' glyphicon-console glyphicon-chevron-right');
     $('#tag_input').toggleClass('hidden');

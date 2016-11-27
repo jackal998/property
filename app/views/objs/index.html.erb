@@ -69,7 +69,7 @@
             </span>
             <span class="badge"><%= obj.views_count %></span> 
           </div>
-          <%= link_to index_name(obj), obj_path(obj), :class => "text-left btn-link" %>
+          <%= link_to index_name(obj), obj_path(obj), :class => "text-left btn-link", data: { turbolinks: false } %>
         </td>
         <% if current_user %>
           <td id="like_star_<%= obj.id %>" class="text-center">
