@@ -27,12 +27,14 @@ class UsersController < ApplicationController
     end
   end
   def edit_like
-    @obj = Obj.find(params[:id])
+    @obj = Obj.find(params[:obj_id])
     @user_likeship = current_user.user_likeships.find_by_obj_id(@obj)
     if @user_likeship
       @user_likeship.destroy
+      @user_likeship_arr = nil
     else
       UserLikeship.create(:user_id => current_user.id, :obj_id  => @obj.id)
+      @user_likeship_arr = [params[:obj_id].to_i]
     end
     respond_to do |format|
       format.js

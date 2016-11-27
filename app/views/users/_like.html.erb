@@ -1,6 +1,6 @@
- <% if liked?(obj.id) %>
+<% if liked?(obj) %>
   <% class_of_like_link = "btn glyphicon glyphicon-star" %>
 <% else %>
   <% class_of_like_link = "btn glyphicon glyphicon-star-empty" %>
 <% end %>
-<%= link_to obj.user_likeships.size, edit_like_users_path(:id => obj.id), :class => class_of_like_link, :remote => true %>
+<%= link_to obj.user_likeships.size, edit_like_users_path(:obj_id => obj.id), :class => class_of_like_link, :remote => true %>

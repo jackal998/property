@@ -13,11 +13,11 @@ module ObjsHelper
       return @user_subscribeship.nil?
     end
   end 
-  def liked?(obj_id)
-    if @uls
-      return @uls.include? obj_id
+  def liked?(obj)
+    if @user_likeship_arr
+      return @user_likeship_arr.include? obj.id
     else
-      return @user_likeship.nil?
+      return @user_likeship_arr
     end
   end
   def obj_link(obj)
