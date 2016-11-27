@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     end
   end
   def edit_subscribe
-    @obj = Obj.find(params[:id])
+    @obj = Obj.find(params[:obj_id])
     @user_subscribeship = current_user.user_subscribeships.find_by_obj_id(@obj)
     if @user_subscribeship
       @user_subscribeship.destroy

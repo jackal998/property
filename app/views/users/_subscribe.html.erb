@@ -7,6 +7,6 @@
   <% class_of_subscribe_buttun = "btn btn-primary" %>
   <% name_of_buttun = " Subscribe!" %>
 <% end %>
-<%= link_to edit_subscribe_users_path(:id => @obj.id), :class => class_of_subscribe_buttun, :remote => true do %>
+<%= link_to edit_subscribe_users_path(:obj_id => @obj.id), :class => class_of_subscribe_buttun, :remote => true do %>
   <%= content_tag(:span, name_of_buttun,:class => class_of_subscribe_link) %>
 <% end %>

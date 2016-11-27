@@ -3,11 +3,7 @@ module ObjsHelper
     return current_user.user_collectionships.find_by_obj_id(obj)
   end
   def subscribed?(obj)
-    if @user_subscribeship_arr
-      return @user_subscribeship_arr.include? obj.id
-    else
-      return @user_subscribeship_arr.nil?
-    end
+    return current_user.user_subscribeships.find_by_obj_id(obj)
   end 
   def liked?(obj)
     if @user_likeship_arr
