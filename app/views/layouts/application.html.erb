@@ -3,7 +3,8 @@
   <head>
     <title>Property</title>
     <%= csrf_meta_tags %>
-
+    
+    <%= yield :head_css %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <!-- You can use open graph tags to customize link previews.
@@ -13,7 +14,6 @@
     <meta property="og:title"         content="Your Website Title" />
     <meta property="og:description"   content="Your description" />
     <meta property="og:image"         content="http://www.your-domain.com/path/image.jpg" />
-
   </head>
 
   <body>
