@@ -16,7 +16,7 @@
         <% @user_objs.each do |obj| %>
           <ul class="pager">
             <li class="previous">
-              <%= link_to obj_link(obj) do %>
+              <%= link_to obj_link(obj), data: { turbolinks: false } do %>
                 <% if obj.ispublic %>
                   <%= obj.name %>
                   <span aria-hidden="true">&rarr;</span>

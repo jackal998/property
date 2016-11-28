@@ -22,7 +22,9 @@ class ObjsController < ApplicationController
 		if current_user && current_user.admin?
 			@objs = @objs.includes(:user).includes(:comments => :user)
 		else
-			@objs = @objs.includes(:user).includes(:comments => :user).where('comments.ispublic' => true, :ispublic => true)
+			@objs = @objs.includes(:user).where(:ispublic => true)
+			# byebug_無法加入沒有留言的文章
+			@objs = @objs.includes(:comments => :user).where('comments.ispublic' => true)
 		end
 
 		case params[:order]
@@ -43,6 +45,7 @@ class ObjsController < ApplicationController
 			obj_catships_arr = ObjCategoryship.where(:category_id => params[:category_ids]).pluck(:obj_id).uniq
 			@objs = @objs.where(:id => obj_catships_arr)
 		end
+		
 		@objs = @objs.page(params[:page]).per(10)
 		@objs = @objs.includes(:user_likeships).includes(:tags)
 
