@@ -12,11 +12,15 @@ $(document).ready(function() {
   $('.panel-body').on('click', '#tag_create_buttun', function(event) { event.stopPropagation() });
 
   $('.panel').on('click', '.panel-body', function(event) {
-    $('#tags').find('a').toggleClass('btn-danger btn-link');
-    if ($('#tags').find('a').attr('data-method') == "delete") {
-      $('#tags').find('a').removeAttr('data-method');
-    } else {
-      $('#tags').find('a').attr('data-method','delete');
-    }
+    if(event.target.tagName != 'A'){
+      $('#tags').find('a').toggleClass('btn-danger btn-link');
+      if ($('#tags').find('a').attr('data-method') == "delete") {
+        $('#tags').find('a').removeAttr('data-method');
+        $('#tags').find('a').removeAttr('data-remote');
+      } else {
+        $('#tags').find('a').attr('data-remote',true);
+        $('#tags').find('a').attr('data-method','delete');
+      }
+    };
   });
 });

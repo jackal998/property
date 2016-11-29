@@ -1,3 +1,7 @@
+<% content_for :head_css do %>
+  <%= stylesheet_link_tag :objs %>
+<% end %>
+
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">
@@ -70,8 +74,10 @@
             </span>
             <span class="badge"><%= obj.views_count %></span> 
           </div>
-          <%= link_to index_name(obj), obj_path(obj), :class => "text-left btn-link col-md-4", data: { turbolinks: false } %>            
-          <%= render :partial =>"/tags/tags" %>
+          <%= link_to index_name(obj), obj_path(obj), :class => "text-left btn-link col-md-4", data: { turbolinks: false } %>  
+          <div id="tags">
+            <%= render :partial =>"/tags/tags" %>
+          </div>          
         </td>
         <% if current_user %>
           <td id="like_star_<%= obj.id %>" class="text-center">
