@@ -3,12 +3,11 @@ class Api::UsersController < Api::BaseController
   skip_before_action :verify_authenticity_token
   skip_before_action :authenticate_user!
 
-
   #rescue_from (class)=> Ac_R_::R_N_F.. , with def somthing(e)=> e.message...do_something... => render json:....
 
   def index
+  
     @users = User.all
-    
     # response.headers['Content-Typea'] = 'abcdefg'
     # render json: { users: @users }
     # (想要customize的話請愛用prefix)

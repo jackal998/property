@@ -20,6 +20,6 @@ module ObjsHelper
     end
   end
   def index_name(obj)
-    return simple_format("#{obj.name}\n( #{obj.description[0..25]}#{"..." if obj.description.length > 25} )", nil, :class => "text-left")
+    return simple_format("#{obj.name}\n( #{obj.description[0..20]}#{"..." if obj.description.length > 20} )", nil, :class => "text-left")
   end
 end

@@ -5,8 +5,12 @@ Rails.application.routes.draw do
     resources :categories
   end
 
-  namespace :api do
-    resources :users
+
+  # namespace :api, path: 'somthing' do => /something => api::xxx
+  namespace :api, path: '' do
+    constraints(host: 'api.localhost') do
+      resources :users
+    end
   end  
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }

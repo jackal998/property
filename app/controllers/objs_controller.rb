@@ -23,7 +23,6 @@ class ObjsController < ApplicationController
 			@objs = @objs.includes(:user).includes(:comments => :user)
 		else
 			@objs = @objs.includes(:user).where(:ispublic => true)
-			# byebug_無法加入沒有留言的文章
 			@objs = @objs.includes(:public_comments => :user)
 		end
 

@@ -54,6 +54,8 @@ group :development, :test do
 	gem 'sqlite3'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  # （rails裡面用來寫測試的）測試框架
+  gem 'rspec-rails'
 end
 
 group :development do
