@@ -1,7 +1,14 @@
+
 <% @objs.each do |obj| %>
-  <%= obj.name %>
-  <% obj.tags.each do |tag| %>
-    <%= tag.name %>
-  <% end %>
-  <br>
+<tr>
+  <th>
+    <%= link_to obj.name, obj_path(obj), :class=>"btn btn-link", data: { turbolinks: false }  %>  
+  </th>
+  <td>
+    <% obj.tags.each do |tag| %>
+      <%= tag.name %>
+    <% end %>
+  </td>
+</tr>
+<br>
 <% end %>

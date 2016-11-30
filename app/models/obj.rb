@@ -8,7 +8,9 @@ class Obj < ApplicationRecord
 
   belongs_to :user
 
-  self.has_many(:comments, {:dependent => :destroy})
+  has_many :public_comments, ->{ where( "ispublic = ?", true)},:dependent => :destroy, :class_name => 'Comment'
+  has_many :comments, :dependent => :destroy
+
   has_many :obj_categoryships, :dependent => :destroy
   has_many :categories, :through => :obj_categoryships
 

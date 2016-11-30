@@ -64,14 +64,7 @@
 			<tr>
 				<td>
           <div class="pull-right">
-            <% obj.comments.collect{|comment| comment.user}.uniq.each do |obj_comment_user| %>
-              <span class="label label-success">
-                <%= user_name(obj_comment_user) %>
-              </span>
-            <% end %>
-            <span class="label label-info">
-              <%= obj.comments.size %>
-            </span>
+            <%= render :partial =>"comments_users", :locals => {:obj => obj } %>
             <span class="badge"><%= obj.views_count %></span> 
           </div>
           <%= link_to index_name(obj), obj_path(obj), :class => "text-left btn-link col-md-4", data: { turbolinks: false } %>  

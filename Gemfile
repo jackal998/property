@@ -28,7 +28,8 @@ gem "paperclip", "~> 5.0.0"
 
 gem 'rest-client'
 
-
+# cand read http verbs (:option => put/del/etc...)
+gem 'rack-cors', :require => 'rack/cors'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

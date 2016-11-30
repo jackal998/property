@@ -1,0 +1,19 @@
+<% if current_user.admin? %>
+  <% obj.comments.collect{|comment| comment.user}.uniq.each do |obj_comment_user| %>
+    <span class="label label-success">
+      <%= user_name(obj_comment_user) %>
+    </span>
+  <% end %>
+  <span class="label label-info">
+    <%= obj.comments.size %>
+  </span>
+<% else %>
+  <% obj.public_comments.collect{|comment| comment.user}.uniq.each do |obj_comment_user| %>
+    <span class="label label-success">
+      <%= user_name(obj_comment_user) %>
+    </span>
+  <% end %>
+  <span class="label label-info">
+    <%= obj.public_comments.size %>
+  </span>
+<% end %>
