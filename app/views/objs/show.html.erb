@@ -13,7 +13,7 @@
     </div>
     <h1><%= @obj.name %></h1>
   </div>
-  <div class="panel-body">
+  <div id="show-panel-body" class="panel-body">
     <div class="pull-left  col-md-3">
       <span class="glyphicon glyphicon-star"></span>
       <% @obj_user_likeships.each do |uls| %>
@@ -97,6 +97,7 @@
     <%= render :partial => "comments", :locals => {:comment => comment} %>
   <% end %>
 <% end %>
-
-<%= render :partial => "form_comment" %>
+<div id="form_comment">
+  <%= render :partial => "form_comment" %>
+</div>
 <%= link_to "Index", objs_path, :class => "btn btn-default" %>

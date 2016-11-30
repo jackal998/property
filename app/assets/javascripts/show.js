@@ -11,7 +11,7 @@ $(document).ready(function() {
   $('.panel-body').on('click', '#tag_input', function(event) { event.stopPropagation() });
   $('.panel-body').on('click', '#tag_create_buttun', function(event) { event.stopPropagation() });
 
-  $('.panel').on('click', '.panel-body', function(event) {
+  $('.panel').on('click', '#show-panel-body', function(event) {
     if(event.target.tagName != 'A'){
       $('#tags').find('a').toggleClass('btn-danger btn-link');
       if ($('#tags').find('a').attr('data-method') == "delete") {
