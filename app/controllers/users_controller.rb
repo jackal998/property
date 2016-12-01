@@ -10,9 +10,8 @@ class UsersController < ApplicationController
     @user_like_objs = Obj.where(:id => user_like_arr)
 
     @user_comments = @user.comments.includes(:obj)
-    @user_objs = @user.objs.includes(:comments)
+    @user_objs = @user.objs.includes(:public_comments)
   end
-
   def edit_collection
     @obj = Obj.find(params[:obj_id])
     @user_collectionship = current_user.user_collectionships.find_by_obj_id(@obj)
@@ -50,5 +49,20 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+  def edit_friendship
+    @friend = User.find(params[:friend_id])
+    if friend?(@friend)
+      Usership.find_by_user_id_and_friend_id(current_user.id, @friend.id).destroy
+    else
+      Usership.create(:user=>current_user,:friend_id=>@friend.id)
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+  private
+  def friend?(friend)
+    current_user.userships.find_by_friend_id(friend).present?
   end
 end

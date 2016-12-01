@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       get :edit_collection
       get :edit_like
       get :edit_subscribe
+      get :edit_friendship
     end
   end
 

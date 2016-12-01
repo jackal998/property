@@ -1,7 +1,7 @@
 <% if current_user.admin? %>
   <% obj.comments.collect{|comment| comment.user}.uniq.each do |obj_comment_user| %>
     <span class="label label-success">
-      <%= user_name(obj_comment_user) %>
+      <%= link_to user_name(obj_comment_user), user_path(obj_comment_user), :class => "btn-link", :style => "color: white;" %> 
     </span>
   <% end %>
   <span class="label label-info">
@@ -10,7 +10,7 @@
 <% else %>
   <% obj.public_comments.collect{|comment| comment.user}.uniq.each do |obj_comment_user| %>
     <span class="label label-success">
-      <%= user_name(obj_comment_user) %>
+      <%= link_to user_name(obj_comment_user), user_path(obj_comment_user), :class => "btn-link", :style => "color: white;" %> 
     </span>
   <% end %>
   <span class="label label-info">

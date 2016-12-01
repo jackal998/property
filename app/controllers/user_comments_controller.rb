@@ -8,7 +8,7 @@ class UserCommentsController < ApplicationController
       @comment.update(:ispublic => params[:ispublic]) if params[:ispublic]
     else
       @comment = current_user.comments.new(comment_params)
-      @comment.ispublic = !params[:ispublic].nil?
+      @comment.ispublic = params[:ispublic].present?
       @comment.obj = @obj
       @comment.title = "Re: #{@comment.obj.name}" if @comment.title == "" || @comment.title.nil?
       @comment.save

@@ -1,0 +1,6 @@
+<% if current_user.userships.find_by_friend_id(friend).present? %>
+  <%= link_to "request sent", edit_friendship_users_path(:friend_id => friend), :class => "btn btn-default active" , :remote => true %>
+<% else %>
+  <%= link_to "send request", edit_friendship_users_path(:friend_id => friend), :class => "btn btn-default" , :remote => true %>
+<% end %>
+

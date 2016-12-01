@@ -1,6 +1,9 @@
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">
+    <div id="friend_request" class="pull-right">
+      <%= render :partial => "friend_request", :locals => {:friend => @user} %>
+    </div>
     <h1><%= user_name(@user) %></h1>
   </div>
 
