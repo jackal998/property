@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  helper_method :friend?
+  helper_method :friend?, :friend_of_him?
 
   def show
     @user = User.find(params[:id])
@@ -74,5 +74,8 @@ class UsersController < ApplicationController
   end
   def friend?(friend)
     current_user.userships.find_by_friend_id(friend).present?
+  end
+  def friend_of_him?(friend)
+    friend.userships.find_by_friend_id(current_user.id)
   end
 end
