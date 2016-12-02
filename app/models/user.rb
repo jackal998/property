@@ -59,4 +59,9 @@ class User < ApplicationRecord
   def see?(target)
     self.admin? || target.ispublic
   end
+  def have_new_friend?
+    added_me_arr = Usership.where(:friend_id => self.id).pluck(:user_id)
+    my_friends_arr = self.userships.pluck(:friend_id)
+    (added_me_arr&my_friends_arr) != added_me_arr
+  end
 end

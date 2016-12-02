@@ -64,7 +64,7 @@
 			<tr>
 				<td>
           <div class="pull-right">
-            <%= render :partial =>"comments_users", :locals => {:obj => obj } %>
+            <%= render :partial =>"comments_users", :locals => {:obj => obj } if current_user %>
             <span class="badge"><%= obj.views_count %></span> 
           </div>
           <%= link_to index_name(obj), obj_path(obj), :class => "text-left btn-link col-md-4", data: { turbolinks: false } %>  

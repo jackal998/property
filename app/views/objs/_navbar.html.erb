@@ -1,14 +1,10 @@
+<% friend_link_class = "" %>
+
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= link_to "Dopamine", objs_path, :class => "navbar-brand" %>
+      <%= link_to "Dopamine", objs_path, :class => "navbar-brand", data: { turbolinks: false } %>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -21,7 +17,7 @@
       <div class="nav navbar-form  navbar-left">
         <div class="fb-like btn" data-href="http://localhost:3000/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
       </div>
-      <div class="nav navbar-form  navbar-left">
+      <div class="nav navbar-form navbar-left" style="padding-left: 0;padding-right: 0;">
         <div class="form-group">
           <%= form_tag objs_path, :method => :get do %>
             <%= text_field_tag "keyword", nil,:class => "form-control" %>
@@ -31,6 +27,8 @@
       </div>
       <ul class="nav navbar-nav navbar-right">        
         <% if current_user %>
+          <% friend_link_class = "glyphicon glyphicon-envelope" if current_user.have_new_friend? %>
+          <li><%= link_to "Friends", edit_registration_path(:user), :class => friend_link_class %></li>
           <li><%= link_to "Now you see me", admin_users_path if current_user.admin? %></li>
           <li><%= link_to "Edit profile", edit_registration_path(:user) %></li>
           <li><%= link_to "Log out", destroy_user_session_path, :method => "delete" %></li>
@@ -42,11 +40,8 @@
         <li>
           <img src=<%= avatar_url %> alt="avatar" style="margin: 8px 12px; width: 32px;">
         </li>
-        <li class="dropdown">
-          <a href=<%= current_user ? user_path(current_user) : "#" %> class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <%= user_name(current_user) %> 
-          </a>
-        </li>
+        <li><%= link_to user_name(current_user), current_user ? user_path(current_user) : "#" %></li>
+
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

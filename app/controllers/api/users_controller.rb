@@ -6,7 +6,6 @@ class Api::UsersController < Api::BaseController
   #rescue_from (class)=> Ac_R_::R_N_F.. , with def somthing(e)=> e.message...do_something... => render json:....
 
   def index
-  
     @users = User.all
     # response.headers['Content-Typea'] = 'abcdefg'
     # render json: { users: @users }
@@ -19,7 +18,6 @@ class Api::UsersController < Api::BaseController
   end
 
   def create
-    byebug
     @user = User.new(params.require(:user).permit(:email, :password))
     if @user.save
       render json: { user: @user }
