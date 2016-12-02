@@ -28,7 +28,7 @@
       <ul class="nav navbar-nav navbar-right">        
         <% if current_user %>
           <% friend_link_class = "glyphicon glyphicon-envelope" if current_user.have_new_friend? %>
-          <li><%= link_to "Friends", edit_registration_path(:user), :class => friend_link_class %></li>
+          <li><%= link_to "Friends", show_friends_users_path, :class => friend_link_class %></li>
           <li><%= link_to "Now you see me", admin_users_path if current_user.admin? %></li>
           <li><%= link_to "Edit profile", edit_registration_path(:user) %></li>
           <li><%= link_to "Log out", destroy_user_session_path, :method => "delete" %></li>

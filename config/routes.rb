@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       get :edit_like
       get :edit_subscribe
       get :edit_friendship
+      get :show_friends
     end
   end
 

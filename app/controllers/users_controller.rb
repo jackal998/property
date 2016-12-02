@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  helper_method :friend?
+
   def show
     @user = User.find(params[:id])
 
@@ -59,9 +61,17 @@ class UsersController < ApplicationController
     end
     respond_to do |format|
       format.js
+      format.html { redirect_to show_friends_users_path }
     end
   end
-  private
+  def show_friends
+    @user = current_user
+    my_friends_arr = @user.userships.pluck(:friend_id)
+    added_me_arr = Usership.where(:friend_id => @user.id).pluck(:user_id)
+    requests_arr = added_me_arr - (added_me_arr&my_friends_arr) if (added_me_arr&my_friends_arr) != added_me_arr
+    @my_friends = User.where(:id => my_friends_arr)
+    @friend_requests = User.where(:id => requests_arr)
+  end
   def friend?(friend)
     current_user.userships.find_by_friend_id(friend).present?
   end

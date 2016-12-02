@@ -1,12 +1,9 @@
-<% if current_user.userships.find_by_friend_id(friend).present? %>
+<% if friend?(friend) %>
   <% if friend.userships.find_by_friend_id(current_user).present? %>
-    <%= link_to  edit_friendship_users_path(:friend_id => friend), :class => "btn btn-default active" , :remote => true do %>
-      <%= content_tag(:span, "Friend",:class => "glyphicon glyphicon-ok") %>
-    <% end %>
+    <%= content_tag(:span, " Friend",:class => "btn btn-default glyphicon glyphicon-ok") %>
   <% else %>
-    <%= link_to "request sent", edit_friendship_users_path(:friend_id => friend), :class => "btn btn-default active" , :remote => true %>
+    <%= link_to "request sent", edit_friendship_users_path(:friend_id => friend), :class => "btn btn-default active", :remote => true %>
   <% end %>
-
 <% else %>
   <%= link_to "send request", edit_friendship_users_path(:friend_id => friend), :class => "btn btn-default" , :remote => true %>
 <% end %>

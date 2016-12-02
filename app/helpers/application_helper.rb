@@ -6,8 +6,8 @@ module ApplicationHelper
         return user.fb_name
       end
       if user.nickname
-        if user.nickname.length > 10 
-          return user.nickname[0..10] + "..."
+        if user.nickname.length > 14 
+          return user.nickname[0..14] + "..."
         else
           return user.nickname
         end

@@ -1,0 +1,43 @@
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+    <h1>Requests List</h1>
+  </div>
+  <% if @friend_requests.present? %>
+    <div class="panel-body">
+      <% @friend_requests.each do |requestfriend| %>
+      <div class="col-md-3">
+        <div class="input-group">
+          <span class="input-group-btn">
+            <%= link_to "confirm request", edit_friendship_users_path(:friend_id => requestfriend.id), :class => "btn btn-default" %>
+          </span>
+          <span class="form-control text-center" style="margin-left: -1px;">
+            <%= link_to user_name(requestfriend), user_path(requestfriend), :class => "btn-link" %>
+          </span>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- Table -->
+  <table class="table table-hover">
+    <th>
+      <td>email</td>
+      <td>sign_in_count</td>
+      <td>last_sign_in_at</td>
+      <td>created_at</td>
+    </th>
+    <% @my_friends.each do |myfriend| %>
+      <tr>
+        <td>
+          <%= link_to user_name(myfriend), user_path(myfriend), :class => "btn btn-default" %>  
+        </td>
+        <td><%= content_tag(:p, myfriend.email, :style => "margin: 0;line-height:3rem;") %></td>
+        <td><%= content_tag(:p, myfriend.sign_in_count, :style => "margin: 0;line-height:3rem;") %></td>
+        <td><%= content_tag(:p, myfriend.last_sign_in_at, :style => "margin: 0;line-height:3rem;") %></td>
+        <td><%= content_tag(:p, myfriend.created_at, :style => "margin: 0;line-height:3rem;") %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

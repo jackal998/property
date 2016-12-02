@@ -2,7 +2,7 @@
   <!-- Default panel contents -->
   <div class="panel-heading">
     <div id="friend_request" class="pull-right">
-      <%= render :partial => "friend_request", :locals => {:friend => @user} %>
+      <%= render :partial => "friend_request", :locals => {:friend => @user} unless current_user == @user %>
     </div>
     <h1><%= user_name(@user) %></h1>
   </div>
