@@ -67,7 +67,7 @@ class ObjsController < ApplicationController
 		@comment = @comments.where(:user => current_user).find_by_ispublic(false)
 		@comment = Comment.new unless @comment
 	end
-
+ 
 	def editor
 		@obj = Obj.find(params[:obj])
 	end
@@ -75,6 +75,7 @@ class ObjsController < ApplicationController
 	def create
 		@obj = Obj.new(obj_params)
 		@obj.user = current_user
+		@obj.schedule_public = date_array(params.to_unsafe_h[:obj]) if params[:obj][:ispublic] != "0"
 
 		if @obj.save
 			flash[:notice] ="新增成功"
@@ -136,4 +137,7 @@ class ObjsController < ApplicationController
     raw_data = JSON.parse(RestClient.get(url))
     return raw_data
   end
+  def date_array(params_date_hash)
+  	%w(1 2 3 4 5).map { |e| params_date_hash["schedule_public(#{e}i)"].to_i }
+	end
 end

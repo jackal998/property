@@ -1,3 +1,7 @@
+<% content_for :head_js do %>
+  <%= javascript_include_tag :form_template %>
+<% end %>
+
 <div class="panel panel-success">
 <!-- Default panel contents -->
 	<div class="panel-heading">
@@ -10,7 +14,7 @@
 	<div class="panel-body">
 		<!-- Table -->
 		<div class="col-md-12 ">
-			<%= form_for @obj, :url => url , :method => method do |o| %>
+			<%= form_for @obj, :url => url, :method => method, :remote => true, :data => { :turbolinks => false } do |o| %>
 			
 				<ul class="pager">
 					<% Category.all.each do |c| %>
@@ -154,9 +158,9 @@
 					</dt>
 					<dd>
 						<p class="label label-danger col-md-7"><%= @obj.errors[:ispublic][0] unless @obj.errors[:ispublic].empty? %></p>
-						<div class="checkbox  col-md-3">
+						<div id="ispublic_check" class="checkbox  col-md-3">
 							<label>
-								<%= o.check_box :ispublic %> Select to post
+								<%= o.check_box :ispublic, {checked: false} %> Select to post
 							</label>
 						</div>
 						<div class="col-md-2 text-right">
@@ -184,7 +188,18 @@
 						</div>
 					</dd>
 				</dl>
-
+				<dl id="ispublic_schedule" class="dl-horizontal hidden">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4><%= o.label :schedule_public, "Schedule：" %></h4>
+						</label>
+					</dt>
+					<dd>
+						<label class="control-label" style="line-height: 3rem;">
+							<%= o.datetime_select :schedule_public, :minute_step => 15, :default => Time.now %>
+						</label>
+					</dd>
+				</dl>
 				<%= o.submit :class => "btn btn-success col-md-2"%>
 			<% end %>
 		</div>

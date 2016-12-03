@@ -93,11 +93,13 @@
 	</table>
 </div>
 
-<% if @obj.new_record? %>
-  <%= render :partial =>"form_template" ,:locals => {:url => objs_path(:page=>params[:page]), :method => "post" } %>
-<% else %>
-  <%= render :partial =>"form_template" ,:locals => {:url => obj_path(@obj,:page=>params[:page]), :method => "patch"}  %>
-<% end %>
+<div id="form_template">
+  <% if @obj.new_record? %>
+    <%= render :partial =>"form_template" ,:locals => {:url => objs_path(:page=>params[:page]), :method => "post" } %>
+  <% else %>
+    <%= render :partial =>"form_template" ,:locals => {:url => obj_path(@obj,:page=>params[:page]), :method => "patch"}  %>
+  <% end %>
+</div>
 
 <%= paginate @objs %>
 
