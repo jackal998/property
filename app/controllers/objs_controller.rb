@@ -75,16 +75,19 @@ class ObjsController < ApplicationController
 	def create
 		@obj = Obj.new(obj_params)
 		@obj.user = current_user
-		@obj.schedule_public = date_array(params.to_unsafe_h[:obj]) if params[:obj][:ispublic] != "0"
-
+		if params[:schedule_now]['{:checked=>false}'] == "1"
+			@obj.schedule_public = date_array(params.to_unsafe_h[:obj])
+		elsif params[:obj][:ispublic] == "1"
+			@obj.schedule_public = Time.now.strftime("%F %T")
+		end
 		if @obj.save
-			flash[:notice] ="新增成功"
-			redirect_to objs_path(:page=>params[:page])
+			@obj = Obj.new
+			@success = true
 		else
 			@objs = Obj.page(params[:page]).per(10)
 			@categories = Category.all
-			render :index
 		end
+		render :form_template
 	end
 
 	def edit
@@ -138,6 +141,8 @@ class ObjsController < ApplicationController
     return raw_data
   end
   def date_array(params_date_hash)
-  	%w(1 2 3 4 5).map { |e| params_date_hash["schedule_public(#{e}i)"].to_i }
+  	schedule_day = %w(1 2 3).map { |e| params_date_hash["schedule_public(#{e}i)"].to_i }.join('-')
+  	schedule_time = %w(4 5).map { |e| params_date_hash["schedule_public(#{e}i)"].to_i }.join(':')
+  	schedule_day + " " + schedule_time + ":00"
 	end
 end

@@ -15,7 +15,6 @@
 		<!-- Table -->
 		<div class="col-md-12 ">
 			<%= form_for @obj, :url => url, :method => method, :remote => true, :data => { :turbolinks => false } do |o| %>
-			
 				<ul class="pager">
 					<% Category.all.each do |c| %>
 						<li>
@@ -195,13 +194,22 @@
 						</label>
 					</dt>
 					<dd>
-						<label class="control-label" style="line-height: 3rem;">
-							<%= o.datetime_select :schedule_public, :minute_step => 15, :default => Time.now %>
-						</label>
+						<div id="schedule_now" class="checkbox col-md-2">
+							<label>
+								<%= check_box :schedule_now, :checked => false %> Set Schedule
+							</label>
+						</div>
+						<div id="schedule_time" class="hidden" style="display: inline-block;line-height: 3rem;">
+							<label class="control-label">
+								<%= o.datetime_select :schedule_public, :default => Time.now %>
+							</label>
+						</div>
 					</dd>
 				</dl>
 				<%= o.submit :class => "btn btn-success col-md-2"%>
 			<% end %>
+				<p class="col-md-2"></p>
+				<h4><p class="label label-success col-md-2"><%= "Create Success" if @success %></p></h4>
 		</div>
 	</div>
 </div>
