@@ -56,6 +56,8 @@ group :development, :test do
   gem 'byebug', platform: :mri
   # （rails裡面用來寫測試的）測試框架
   gem 'rspec-rails'
+  # 測試用的排程gem
+  gem 'whenever', :require => false
 end
 
 group :development do

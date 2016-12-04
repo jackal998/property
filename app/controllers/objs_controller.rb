@@ -12,12 +12,9 @@ class ObjsController < ApplicationController
 
 		@categories = Category.all
 		@user_likeship_arr = current_user.user_likeships.pluck(:obj_id) if current_user
+		@objs = Obj.where(schedule_public: '1900-01-01 00:00:00')
 		
-		if params[:keyword]
-			@objs = Obj.where([ "name like ?", "%#{params[:keyword]}%" ])
-		else
-			@objs = Obj.all
-		end
+		@objs = @objs.where([ "name like ?", "%#{params[:keyword]}%" ]) if params[:keyword]
 
 		if current_user && current_user.admin?
 			@objs = @objs.includes(:user).includes(:comments => :user)
@@ -75,12 +72,9 @@ class ObjsController < ApplicationController
 	def create
 		@obj = Obj.new(obj_params)
 		@obj.user = current_user
-		if params[:schedule_now]['{:checked=>false}'] == "1"
-			@obj.schedule_public = date_array(params.to_unsafe_h[:obj])
-		elsif params[:obj][:ispublic] == "1"
-			@obj.schedule_public = Time.now.strftime("%F %T")
-		end
+		@obj.schedule_public = Time.now
 		if @obj.save
+			set_default_schedule
 			@obj = Obj.new
 			@success = true
 		else
@@ -98,8 +92,8 @@ class ObjsController < ApplicationController
 		if params[:del]
 			@obj.image = nil
 		end
-		
 		if @obj.update(obj_params)
+			set_default_schedule
 			flash[:notice] ="更新成功"
 			redirect_to objs_path(:page=>params[:page])
 		else
@@ -143,6 +137,16 @@ class ObjsController < ApplicationController
   def date_array(params_date_hash)
   	schedule_day = %w(1 2 3).map { |e| params_date_hash["schedule_public(#{e}i)"].to_i }.join('-')
   	schedule_time = %w(4 5).map { |e| params_date_hash["schedule_public(#{e}i)"].to_i }.join(':')
-  	schedule_day + " " + schedule_time + ":00"
+  	set_datetime = schedule_day + " " + schedule_time + ":00"
+	end
+	def set_default_schedule
+		if params[:schedule_now]['{:checked=>false}'] == "1"
+			set_datetime = date_array(params.to_unsafe_h[:obj])
+			if Time.now + 3600 * 8 > set_datetime
+				@obj.update(schedule_public: '1900-01-01 00:00:00')
+			else
+				@obj.update(schedule_public: set_datetime)
+			end
+		end
 	end
 end

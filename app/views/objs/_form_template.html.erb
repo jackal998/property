@@ -201,7 +201,7 @@
 						</div>
 						<div id="schedule_time" class="hidden" style="display: inline-block;line-height: 3rem;">
 							<label class="control-label">
-								<%= o.datetime_select :schedule_public, :default => Time.now %>
+								<%= o.datetime_select :schedule_public, selected: Time.now, :start_year => Time.now.year, :end_year => Time.now.year + 2 %>
 							</label>
 						</div>
 					</dd>
