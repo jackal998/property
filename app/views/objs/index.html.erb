@@ -78,7 +78,7 @@
           </td>
           <% if current_user.access?(obj) %>
             <td class="text-center">
-              <%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default" %>
+              <%= link_to "Edit", edit_obj_path(obj,:page=>params[:page]),  :class => "btn btn-default", data: { turbolinks: false } %>
             </td>
             <td class="text-center">
               <%= link_to "Delete", obj_path(obj,:page=>params[:page]),:method => :delete, :class => "btn btn-danger"%>
@@ -100,6 +100,6 @@
     <%= render :partial =>"form_template" ,:locals => {:url => obj_path(@obj,:page=>params[:page]), :method => "patch"}  %>
   <% end %>
 </div>
-
-<%= paginate @objs %>
-
+<div data-turbolinks="false">
+  <%= paginate @objs %>
+</div>

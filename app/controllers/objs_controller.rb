@@ -74,12 +74,9 @@ class ObjsController < ApplicationController
 		@obj.user = current_user
 		@obj.schedule_public = Time.now
 		if @obj.save
-			set_default_schedule
+			set_schedule
 			@obj = Obj.new
 			@success = true
-		else
-			@objs = Obj.page(params[:page]).per(10)
-			@categories = Category.all
 		end
 		render :form_template
 	end
@@ -93,13 +90,11 @@ class ObjsController < ApplicationController
 			@obj.image = nil
 		end
 		if @obj.update(obj_params)
-			set_default_schedule
+			set_schedule
 			flash[:notice] ="更新成功"
 			redirect_to objs_path(:page=>params[:page])
 		else
-			@objs = Obj.page(params[:page]).per(10)
-			@categories = Category.all
-			render :index
+			render :form_template
 		end
 	end
 
@@ -139,7 +134,7 @@ class ObjsController < ApplicationController
   	schedule_time = %w(4 5).map { |e| params_date_hash["schedule_public(#{e}i)"].to_i }.join(':')
   	set_datetime = schedule_day + " " + schedule_time + ":00"
 	end
-	def set_default_schedule
+	def set_schedule
 		if params[:schedule_now]['{:checked=>false}'] == "1"
 			set_datetime = date_array(params.to_unsafe_h[:obj])
 			if Time.now + 3600 * 8 > set_datetime
