@@ -93,13 +93,17 @@
 	</table>
 </div>
 
-<div id="form_template">
-  <% if @obj.new_record? %>
+<% if @obj.new_record? %>
+  <div id="form_template" class="hidden">
     <%= render :partial =>"form_template" ,:locals => {:url => objs_path(:page=>params[:page]), :method => "post" } %>
-  <% else %>
-    <%= render :partial =>"form_template" ,:locals => {:url => obj_path(@obj,:page=>params[:page]), :method => "patch"}  %>
-  <% end %>
-</div>
+  </div>
+  <div id="new_obj_btn" class="pull-right btn btn-primary">
+    New an Obj
+  </div>
+<% else %>
+  <%= render :partial =>"form_template" ,:locals => {:url => obj_path(@obj,:page=>params[:page]), :method => "patch"}  %>
+<% end %>
+
 <div data-turbolinks="false">
   <%= paginate @objs %>
 </div>
