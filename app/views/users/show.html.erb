@@ -1,0 +1,96 @@
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+    <div id="friend_request" class="pull-right">
+      <%= render :partial => "friend_request", :locals => {:friend => @user} unless current_user == @user %>
+    </div>
+    <h1><%= user_name(@user) %></h1>
+  </div>
+
+  <!-- Table -->
+  <table class="table table-bordered table-striped">
+    <tr>
+      <th></th>
+      <th>內容</th>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">objs</td>
+      <td>
+        <% @user_objs.each do |obj| %>
+          <ul class="pager">
+            <li class="previous">
+              <%= link_to obj_link(obj), data: { turbolinks: false } do %>
+                <% if obj.ispublic %>
+                  <%= obj.name %>
+                  <span aria-hidden="true">&rarr;</span>
+                <% else %>
+                  <%= "(Draft...) " + obj.name %>
+                <% end %>
+              <% end %>
+            </li>
+          </ul>
+          <% obj.comments.each do |obj_comment| %>
+            <div class="panel panel-primary">
+              <div class="panel-heading"><%= obj_comment.title %></div>
+              <div class="panel-body"><%= obj_comment.paragraph %></div>
+            </div>
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">comments</td>
+      <td>
+        <% @user_comments.each do |comment| %>
+          <ul class="pager">
+            <li class="previous">
+              <%= link_to obj_path(comment.obj) do %>
+                <span aria-hidden="true">&larr;</span>
+                <%= comment.obj[:name] %>
+              <% end %>
+            </li>
+          </ul>
+          <div class="panel panel-default">
+            <div class="panel-heading"><%= comment.title %></div>
+            <div class="panel-body"><%= comment.paragraph %></div>
+          </div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">nickname</td>
+      <td class="col-md-10 text-left"><%= @user.nickname %></td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">email</td>
+      <td class="col-md-10 text-left"><%= @user.email %></td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">collection</td>
+      <td>
+        <% @user_collection_objs.each do |collection_obj| %>
+          <%= link_to obj_path(collection_obj) do %>
+            <span aria-hidden="true">&larr;</span>
+            <%= collection_obj.name %>
+          <% end %>
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <%= user_name(collection_obj.user) %>
+            </div>
+            <div class="panel-body"><%= collection_obj.description %></div>
+          </div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">liked</td>
+      <td>-
+        <% @user_like_objs.each do |like_obj| %>
+          <%= like_obj.name %> -
+        <% end %>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<%= link_to "Index", objs_path, :class => "btn btn-default" %>

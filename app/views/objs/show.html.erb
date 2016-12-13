@@ -1,0 +1,103 @@
+<% content_for :head_css do %>
+  <%= stylesheet_link_tag :objs %>
+<% end %>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+    <div id="collection_heart" class="pull-right">
+      <%= render :partial => "/users/collection" %>  
+    </div>
+    <div id="subscribe_buttun" class="pull-right">
+      <%= render :partial => "/users/subscribe" %>
+    </div>
+    <h1><%= @obj.name %></h1>
+  </div>
+  <div id="show-panel-body" class="panel-body">
+    <div class="pull-left  col-md-3">
+      <span class="glyphicon glyphicon-star"></span>
+      <% @obj_user_likeships.each do |uls| %>
+        <%= uls.user.email %>
+      <% end %>
+    </div>
+    <div id="tags" class="col-md-6">
+      <%= render :partial => "/tags/tags" %>
+    </div>
+    <div id="new_tag" class="pull-right col-md-3">
+      <%= render :partial => "/tags/new_tag" %>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <table class="table table-bordered table-striped">
+  	<tr>
+      <th>Post by &rarr; <br><%= @obj.user[:nickname] %></th>
+      <th>
+        <a href=<%= @obj.image.url %>>
+          <%= image_tag @obj.image.url(:medium) %>
+        </a>
+        <%= "這是預設圖片，請上傳一張圖片吧！" if @obj.image_updated_at.nil? %>
+      </th>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">categories</td>
+      <td class="col-md-10 text-left">
+        <% @obj.categories.each do |c| %>
+          <span class="label label-default"><%= c.name %></span>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">created</td>
+      <td class="col-md-10 text-left"><%= @obj.created_at %></td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">name</td>
+      <td class="col-md-10 text-left"><%= @obj.name %></td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">serial</td>
+      <td class="col-md-10 text-left"><%= @obj.serial %></td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">datebought</td>
+      <td class="col-md-10 text-left"><%= @obj.datebought %></td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">dateretire</td>
+      <td class="col-md-10 text-left"><%= @obj.dateretire %></td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">snumber1</td>
+      <td class="col-md-10 text-left"><%= @obj.snumber1 %></td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">snumber2</td>
+      <td class="col-md-10 text-left"><%= @obj.snumber2 %></td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">description</td>
+      <td class="col-md-10 text-left"><%= @obj.description %></td>
+    </tr>
+    <tr>
+      <td class="text-capitalize align-right col-md-2">custodian</td>
+      <td class="col-md-10 text-left"><%= @obj.custodian %></td>
+    </tr>
+    <% if current_user.admin? %>
+      <tr>
+        <td class="text-capitalize align-right col-md-2">ispublic</td>
+        <td class="col-md-10 text-left"><%= @obj.ispublic %></td>
+      </tr>      
+    <% end %>
+	</table>
+</div>
+
+<% @comments.each do |comment| %>
+  <% if current_user.see?(comment) %>
+    <%= render :partial => "comments", :locals => {:comment => comment} %>
+  <% end %>
+<% end %>
+<div id="form_comment">
+  <%= render :partial => "form_comment" %>
+</div>
+<%= link_to "Index", objs_path, :class => "btn btn-default" %>

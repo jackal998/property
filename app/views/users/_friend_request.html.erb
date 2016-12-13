@@ -1,0 +1,9 @@
+<% if friend?(friend) %>
+  <% if friend.userships.find_by_friend_id(current_user).present? %>
+    <%= content_tag(:span, " Friend",:class => "btn btn-default glyphicon glyphicon-ok") %>
+  <% else %>
+    <%= link_to "request sent", edit_friendship_users_path(:friend_id => friend), :class => "btn btn-default active", :remote => true %>
+  <% end %>
+<% else %>
+  <%= link_to "send request", edit_friendship_users_path(:friend_id => friend), :class => "btn btn-default" , :remote => true %>
+<% end %>

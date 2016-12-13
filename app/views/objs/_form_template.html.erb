@@ -1,0 +1,221 @@
+<% content_for :head_js do %>
+  <%= javascript_include_tag :form_template %>
+<% end %>
+
+<div class="panel panel-success">
+<!-- Default panel contents -->
+	<div class="panel-heading">
+		<% if @obj.id %>
+			<h1><%= @obj.name %></h1>
+		<% else %>
+			<h1>Add one more</h1>
+		<% end %>
+	</div>
+	<div class="panel-body">
+		<!-- Table -->
+		<div class="col-md-12 ">
+			<%= form_for @obj, :url => url, :method => method, :remote => true, :data => { :turbolinks => false } do |o| %>
+				<ul class="pager">
+					<% Category.all.each do |c| %>
+						<li>
+							<div class="col-md-3">
+						    <div class="input-group">
+						      <span class="input-group-addon">
+						  			<%= check_box_tag "obj[category_ids][]", c.id, @obj.categories.map(&:id).include?(c.id) %>
+						  		</span>
+						  		<div class="form-control">
+						  			<%= c.name %>
+						  		</div>
+						  	</div>
+							</div>
+						</li>
+					<% end %>
+					<%= hidden_field_tag 'obj[category_ids][]','' %>
+				</ul>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4><%= o.label :name, "name：" %></h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:name][0] unless @obj.errors[:name].empty? %></p>
+						<%= o.text_field :name, :class => "form-control", :placeholder=>"there MUST be a name"%>
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4>
+								<%= o.label :serial, "serial：" %>
+							</h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:serial][0] unless @obj.errors[:serial].empty? %></p>
+						<%= o.text_field :serial, :class => "form-control", :placeholder=>"Serial number ( MUST be unique )"%>
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4>
+								<%= o.label :datebought, "datebought：" %>		
+							</h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:datebought][0] unless @obj.errors[:datebought].empty? %></p>
+						<%= o.text_field :datebought, :class => "form-control", :placeholder=>"yyyy-mm-dd"%>
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4>
+								<%= o.label :dateretire, "dateretire：" %>
+							</h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:dateretire][0] unless @obj.errors[:dateretire].empty? %></p>
+						<%= o.text_field :dateretire, :class => "form-control", :placeholder=>"yyyy-mm-dd"%>
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4>
+								<%= o.label :value, "value：" %>
+							</h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:value][0] unless @obj.errors[:value].empty? %></p>
+						<%= o.text_field :value, :class => "form-control", :placeholder=>"price ( number only ! )"%>
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4><%= o.label :snumber1, "snumber1：" %></h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:snumber1][0] unless @obj.errors[:snumber1].empty? %></p>
+						<%= o.text_field :snumber1, :class => "form-control", :placeholder=>"S/N# number"%>
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4><%= o.label :snumber2, "snumber2：" %></h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:snumber2][0] unless @obj.errors[:snumber2].empty? %></p>
+						<%= o.text_field :snumber2, :class => "form-control", :placeholder=>"S/N# number"%>
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4><%= o.label :description, "description：" %></h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:description][0] unless @obj.errors[:description].empty? %></p>
+						<%= o.text_area :description ,:class => "form-control", :placeholder => "please give some description"%>
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4><%= o.label :custodian, "custodian：" %></h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:custodian][0] unless @obj.errors[:custodian].empty? %></p>
+						<%= o.text_field :custodian, :class => "form-control", :placeholder=>"custodian"%>
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4><%= o.label :ispublic, "Public：" %></h4>
+						</label>
+					</dt>
+					<dd>
+						<p class="label label-danger col-md-7"><%= @obj.errors[:ispublic][0] unless @obj.errors[:ispublic].empty? %></p>
+						<div id="ispublic_check" class="checkbox  col-md-2">
+							<label>
+								<%= o.check_box :ispublic, {checked: false} %> Select to post
+							</label>
+						</div>
+						<div id="select_access_authority" class="col-md-2 hidden" style="display: inline-block;line-height: 3rem;">
+							<label>
+								<%= o.select(:access_authority, [['only me', 1], ['friends only', 2], ['read only', 3], ['open to everyone', 4]]) %>
+							</label>
+						</div>
+						<div class="col-md-2 text-right">
+							<label class="text-capitalize">
+								<h4 style="font-weight: bold;">image:</h4>
+							</label>
+						</div>
+						<div class="col-md-6">
+							<% o_file_field_margin = "margin: 10px 0;" %>
+							<% if o.object.image.exists? %>
+								<% o_file_field_margin = "margin: 0;" %>
+				        <a href=<%= o.object.image.url %>>
+				          <%= image_tag o.object.image.url(:medium) %>
+				        </a>
+				        <div class="chechbox">
+				        	<label>
+				        		<%= check_box_tag :del %> Delete this image 
+				        	</label>
+				        </div>
+				        <p>or update another one.</p>
+							<% end %>
+							<label>
+								<%= o.file_field :image, :style=>o_file_field_margin %>
+							</label>							
+						</div>
+					</dd>
+				</dl>
+				
+				<dl id="ispublic_schedule" class="dl-horizontal hidden">
+					<dt>
+						<label class="text-capitalize text-right control-label">
+							<h4><%= o.label :schedule_public, "Schedule：" %></h4>
+						</label>
+					</dt>
+					<dd>
+						<div id="schedule_now" class="checkbox col-md-2">
+							<label>
+								<%= check_box :schedule_now, :checked => false %> Set Schedule
+							</label>
+						</div>
+						<div id="schedule_time" class="hidden" style="display: inline-block;line-height: 3rem;">
+							<label class="control-label">
+								<%= o.datetime_select :schedule_public, selected: Time.now, :start_year => Time.now.year, :end_year => Time.now.year + 2 %>
+							</label>
+						</div>
+					</dd>
+				</dl>
+				<%= o.submit :class => "btn btn-success col-md-2"%>
+			<% end %>
+				<p class="col-md-2"></p>
+				<h4><p class="label label-success col-md-2"><%= "Create Success" if @success %></p></h4>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,9 @@
+<% if @comment.ispublic %>
+  var postcomment = "<%= j render(:partial=>'/objs/comments', :locals => {:comment => @comment}) %>"
+  var newcomment = "<%= j render(:partial=>'/objs/form_comment', :locals => {:@comment => Comment.new}) %>"
+  $('#form_comment').before(postcomment);
+  $('#form_comment').html(newcomment);
+<% else %>
+  var updatecomment = "<%= j render(:partial=>'/objs/form_comment') %>"
+  $('#form_comment').html(updatecomment);
+<% end %>

@@ -1,0 +1,51 @@
+<% friend_link_class = "" %>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <%= link_to "Dopamine", objs_path, :class => "navbar-brand", data: { turbolinks: false } %>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active">
+          <%= link_to "about", about_objs_path %>
+        </li>
+      </ul>
+      <div class="nav navbar-form  navbar-left">
+        <div class="fb-like btn" data-href="http://localhost:3000/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+      </div>
+      <div class="nav navbar-form navbar-left" style="padding-left: 0;padding-right: 0;">
+        <div class="form-group">
+          <%= form_tag objs_path, :method => :get do %>
+            <%= text_field_tag "keyword", nil,:class => "form-control" %>
+            <%= submit_tag "Search", name: nil, :class => "btn btn-default" %>
+          <% end %>
+        </div>
+      </div>
+      <ul class="nav navbar-nav navbar-right">        
+        <% if current_user %>
+          <% friend_link_class = "glyphicon glyphicon-envelope" if current_user.have_new_friend? %>
+          <li>
+            <%= link_to "Friends", show_friends_users_path, 
+            :class => friend_link_class, data: { turbolinks: false } %>
+          </li>
+          <li><%= link_to "Now you see me", admin_users_path if current_user.admin? %></li>
+          <li><%= link_to "Edit profile", edit_registration_path(:user) %></li>
+          <li><%= link_to "Log out", destroy_user_session_path, :method => "delete" %></li>
+        <% else %>
+          <li><%= link_to "Sign up", new_registration_path(:user) %></li>
+          <li><%= link_to "Sign in", new_session_path(:user) %></li>
+          <li><%= link_to "FB Sign in", user_facebook_omniauth_authorize_path %></li>
+        <% end %>
+        <li>
+          <img src=<%= avatar_url %> alt="avatar" style="margin: 8px 12px; width: 32px;">
+        </li>
+        <li><%= link_to user_name(current_user), current_user ? user_path(current_user) : "#" %></li>
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
