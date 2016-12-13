@@ -1,8 +1,0 @@
-var content = "<%=j render(:partial => 'form_template', :locals => {:url => objs_path(:page => params[:page]), :method => 'post' }) %>"
-$('#form_template').html(content);
-$('#ispublic_check').on('change', function(){
-  $('#ispublic_schedule').toggleClass('hidden');
-});
-$('#schedule_now').on('change', function(){
-  $('#schedule_time').toggleClass('hidden');
-});
