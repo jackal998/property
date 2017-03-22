@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.minute do
-  rake "schedule_public:set_publish"
-end
+# every 1.minute do
+#   rake "schedule_public:set_publish"
+# end
